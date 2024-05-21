@@ -72,3 +72,78 @@ _REGEX = r'09(\d{9})$'
 phone_validator = RegexValidator(_REGEX, "شماره وارد شده صحیح نمیباشد")
 
 
+class VolunteerRegisterForm(forms.Form) :
+
+    # def __init__(self, *args, **kwargs) :
+    #     self.helper = FormHelper(self)
+    #     self.helper.form_action = reverse_lazy("home")
+    #     self.helper.add_input(Submit('ثبت', 'ثبت'))
+
+
+    first_name = forms.CharField(max_length=100, label='نام', required=True, error_messages=messages)
+    last_name = forms.CharField(max_length=100, label='نام خانوادگی', required=True, error_messages=messages)
+    birth = forms.DateField(
+        label='تاریخ تولد', 
+        required=True, 
+        error_messages=messages,
+        widget = forms.DateInput(
+            attrs ={'type' : 'date',
+                    'max' : datetime.now().date()}
+        ))
+    nc = forms.NumberInput()
+    gender = forms.ChoiceField(
+        choices=GENDER_CHOICES, 
+        label='جنسیت', 
+        required=True, 
+        error_messages=messages,
+        widget=forms.RadioSelect()
+        )
+    marital_status = forms.ChoiceField(
+        choices= MARITAL_CHOICES, 
+        label='وضعیت تاهل', 
+        required=True, 
+        error_messages=messages,
+        widget = forms.RadioSelect()
+        )
+    phone = forms.CharField(max_length=14, validators=[phone_validator], label='شماره تماس', required=True, error_messages=messages)
+
+    email = forms.EmailField(
+        error_messages=messages,
+        required=True,
+        label='ایمیل')
+    
+    major = forms.CharField(max_length=100, label='رشته تحصیلی', required=True, error_messages=messages)
+    education = forms.ChoiceField(choices=EDU_CHOICES, label='میزان تحصیلات', required=True, error_messages=messages)
+    city = forms.CharField(max_length=100, label='شهر محل سکونت', required=True, error_messages=messages)
+    abilities = forms.ChoiceField(
+        error_messages=messages,
+        required=True,
+        choices=ABILITIES_CHOICES, 
+        label='در چه زمینه ای میتوانید کمک کنید؟',
+        widget=forms.CheckboxSelectMultiple()
+        )
+    
+    specialist_info = forms.CharField(
+        widget=forms.widgets.Textarea(
+            attrs={
+                "placeholder": "در صورتی که پزشک متخصص هستید، نوع تخصص خود را وارد کنید",
+                "class": "textarea is-success is-medium",
+            }))
+
+    profile_pic = forms.ImageField(
+        error_messages=messages,
+        required=True,
+        label= "عکس پرسنلی",
+        widget=forms.ClearableFileInput(attrs={
+            'class' : 'form-control'
+        }))
+    
+    experience = forms.ChoiceField(choices=EXP_CHOICES, label='سابقه کار جهادی', required=True, error_messages=messages)
+    experience_info = forms.CharField(
+        widget=forms.widgets.Textarea(
+            attrs={
+                "placeholder": "در صورتی که سابقه کار جهادی دارید، توضیح دهید",
+                "class": "textarea is-success is-medium",
+            }))
+    
+
