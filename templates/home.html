@@ -179,13 +179,28 @@
                                 </div> -->
                                 <div class="u-align-center u-form-group u-form-submit u-form-group-4">
                                     <a href="#" class="u-active-custom-color-1 u-border-2 u-border-custom-color-1 u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-custom-font u-hover-custom-color-2 u-radius u-text-hover-black u-text-white u-btn-1">ارسال</a>
-                                    <input type="submit" value="submit" class="u-form-control-hidden" wfd-invisible="true">
+                                    <input type="submit" value="ارسال پیام" class="u-form-control-hidden" wfd-invisible="true">
                                 </div>
                                 <div class="u-form-send-message u-form-send-success" wfd-invisible="true">پیام شما با موفقیت ارسال شد</div>
                                 <div class="u-form-send-error u-form-send-message" wfd-invisible="true"> ناموفق </div>
                                 <input type="hidden" value="" name="recaptchaResponse" wfd-invisible="true">
                                 <input type="hidden" name="formServices" value="80a4d85a-d6d2-a7b7-c7ed-87fc493df658">
                             </form>
+                        {% if form.errors %}
+                            لطفا خطاهای زیر را اصلاح کنید
+                            <br>
+                            {% for field in form %}
+                                {% if field.errors %}
+                                    {% for error in field.errors %}
+                                        {{field.label}} : {{error}}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if form.non_field_errors %}
+                                {{form.non_field_errors}}
+                            {% endif %}
+                        {% endif %}
                         </div>
                 </div>
             </div>
