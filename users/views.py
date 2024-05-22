@@ -32,3 +32,6 @@ def volunteer_register(request):
             return redirect('users:volunteer')
     form = VolunteerRegisterForm()
     return render(request, "users/volunteer.html", {"form": form})
+
+def about_us(request) :
+    return render (request, 'about-us.html')
