@@ -132,6 +132,7 @@ class VolunteerRegisterForm(forms.Form) :
 
     profile_pic = forms.ImageField(
         error_messages=messages,
+        upload_to = 'images/',
         required=True,
         label= "عکس پرسنلی",
         widget=forms.ClearableFileInput(attrs={

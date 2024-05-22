@@ -24,7 +24,7 @@ def home(request) :
 
 def volunteer_register(request):
     if request.method == "POST":
-        form = VolunteerRegisterForm(request.POST or None)
+        form = VolunteerRegisterForm(request.POST or None, request.FILES)
         if form.is_valid():
             data = form.save(commit=False)
             data.user = request.user
