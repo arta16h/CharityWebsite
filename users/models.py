@@ -64,12 +64,12 @@ class Volunteer(models.Model) :
     birth = models.DateField(required=True)
     nc = models.IntegerField(max_length=10)
     gender = models.CharField(
-        max_length=10
+        max_length=10,
         choices=GENDER_CHOICES, 
         required=True, 
         )
     marital_status = models.CharField(
-        max_length=10
+        max_length=10,
         choices= MARITAL_CHOICES, 
         required=True,
         )
