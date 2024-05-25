@@ -93,21 +93,23 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                {{form.phone}}
+                                <input type="tel" name="phone" class="form-control" id="phonefield" placeholder="شماره موبایل">
                             </div>
 
                             <div class="input-group mb-2" style="font-family: Byekan">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                {{form.password1}}
+                                <input type="password" name="password1" class="form-control form-control-sm" 
+                                        id="passwordfield" placeholder="رمز عبور">
                             </div>
 
                             <div class="input-group mb-2" style="font-family: Byekan">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                {{form.password2}}
+                                <input type="password" name="password2" class="form-control form-control-sm" 
+                                        id="passwordfield" placeholder="تکرار رمز عبور">
                             </div>
 
                             <div class="d-flex justify-content-center mt-3 login_container">
@@ -127,15 +129,5 @@
                 </div>
             </div>
         </div>
-        <script>
-            var form_fields = document.getElementsByTagName('input')
-            form_fields[1].placeholder='شماره موبایل';
-            form_fields[2].placeholder='رمز عبور';
-            form_fields[3].placeholder='تکرار رمز عبور';
-
-            for (var field in form_fields){	
-                form_fields[field].className += ' form-control'
-            }
-        </script>
     </body>
 </html>
