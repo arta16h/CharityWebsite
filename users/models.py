@@ -60,29 +60,20 @@ _REGEX = r'09(\d{9})$'
 phone_validator = RegexValidator(_REGEX)
 
 class Volunteer(models.Model) :
-    first_name = models.CharField(max_length=100, required=True)
-    last_name = models.CharField(max_length=100, required=True)
-    birth = models.DateField(required=True)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    birth = models.DateField()
     nc = models.IntegerField(max_length=10)
-    gender = models.CharField(
-        max_length=10,
-        choices=GENDER_CHOICES, 
-        required=True, 
-        )
-    marital_status = models.CharField(
-        max_length=10,
-        choices= MARITAL_CHOICES, 
-        required=True,
-        )
-    
-    phone = models.CharField(max_length=14, validators=[phone_validator], required=True)
-    email = models.EmailField(required=True)    
-    major = models.CharField(max_length=100, required=True)
-    education = models.CharField(max_length=25, choices=EDU_CHOICES, required=True)
-    city = models.CharField(max_length=100, required=True)
-    abilities = models.CharField(max_length=50, required=True, choices=ABILITIES_CHOICES, )    
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    marital_status = models.CharField(max_length=10, choices= MARITAL_CHOICES)
+    phone = models.CharField(max_length=14, validators=[phone_validator], unique=True)
+    email = models.EmailField(unique=True)    
+    major = models.CharField(max_length=100)
+    education = models.CharField(max_length=25, choices=EDU_CHOICES)
+    city = models.CharField(max_length=100)
+    abilities = models.CharField(max_length=50, choices=ABILITIES_CHOICES)    
     specialist_info = models.TextField()
-    profile_pic = models.ImageField(required=True, upload_to=make_image_path(first_name, last_name))   
-    experience = models.CharField(max_length=10, choices=EXP_CHOICES, required=True)
+    profile_pic = models.ImageField(upload_to=make_image_path(first_name, last_name))   
+    experience = models.CharField(max_length=10, choices=EXP_CHOICES)
     experience_info = models.TextField()
 
