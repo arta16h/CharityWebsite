@@ -63,7 +63,7 @@ class Volunteer(models.Model) :
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     birth = models.DateField()
-    nc = models.IntegerField(max_length=10)
+    nc = models.IntegerField()
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     marital_status = models.CharField(max_length=10, choices= MARITAL_CHOICES)
     phone = models.CharField(max_length=14, validators=[phone_validator], unique=True)
