@@ -48,5 +48,5 @@ class PhoneValidationView(View) :
         phone = data['phone']
 
         if User.objects.filter(phone=phone).exists :
-            return JsonResponse({'PhoneError'} : {'این شماره تماس قبلا استفاده شده'}, status=409)
-        return JsonResponse({'username_valid'} : True)
+            return JsonResponse({'PhoneError' : 'این شماره تماس قبلا استفاده شده'}, status=409)
+        return JsonResponse({'username_valid' : True})
