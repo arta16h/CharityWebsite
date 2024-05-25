@@ -82,7 +82,7 @@ class Volunteer(models.Model) :
     city = models.CharField(max_length=100, required=True)
     abilities = models.CharField(max_length=50, required=True, choices=ABILITIES_CHOICES, )    
     specialist_info = models.TextField()
-    profile_pic = models.ImageField(required=True, upload_to=make_image_path(first_name))   
+    profile_pic = models.ImageField(required=True, upload_to=make_image_path(first_name, last_name))   
     experience = models.CharField(max_length=10, choices=EXP_CHOICES, required=True)
     experience_info = models.TextField()
 
