@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.views import View
 
+
+import json
 from Charity.settings import mail
 from .forms import ContactUsForm, VolunteerRegisterForm
 # Create your views here.
@@ -35,3 +40,13 @@ def volunteer_register(request):
 
 def about_us(request) :
     return render (request, 'about-us.html')
+
+
+class PhoneValidationView(View) :
+    def post(self, request) :
+        data = json.loads(request.body)
+        phone = data['phone']
+
+        if User.objects.filter(phone=phone).exists :
+            return JsonResponse({'PhoneError'} : {'این شماره تماس قبلا استفاده شده'}, status=409)
+        return JsonResponse({'username_valid'} : True)
