@@ -36,6 +36,7 @@ def volunteer_register(request):
             data = form.save(commit=False)
             data.user = request.user
             data.save()
+            messages.success(request, 'به جمع داوطلبین خادمین سیده زینب خوش آمدید')
             return redirect('users:volunteer')
     form = VolunteerRegisterForm()
     return render(request, "users/volunteer.html", {"form": form})
@@ -89,4 +90,5 @@ class RegistrationView(View) :
             else:
                 messages.error(request, "رمز عبور نمیتواند خالی باشد" , context)
             user.save()
+            messages.success(request, 'حساب کاربری با موفقیت ساخته شد')
             return user
