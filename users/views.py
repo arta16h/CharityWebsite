@@ -123,6 +123,6 @@ class LogoutView(View) :
         return redirect('login')
     
 
-@login_required
+@login_required(login_url='users/login')
 def dashboard(request) :
     return render(request, 'users/dashboard.html')
