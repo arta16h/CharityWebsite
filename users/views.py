@@ -109,5 +109,7 @@ class LoginView(View) :
                 auth.login(request, user)
                 messages.success(request, 'خوش اومدی')
         
-        messages.error(request, 'شماره تلفن یا رمز عبور اشتباه است')
+            messages.error(request, 'شماره موبایل یا رمز عبور اشتباه است')
+            return render(request, 'users/login.html')
+        messages.error(request, 'لطفا شماره موبایل و رمز عبور را وارد کنید')
         return render(request, 'users/login.html')
