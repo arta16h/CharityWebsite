@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import JsonResponse
+from django.contrib import messages
 from django.views import View
 
 
@@ -55,3 +56,37 @@ class PhoneValidationView(View) :
         if User.objects.filter(phone=phone).exists :
             return JsonResponse({'PhoneError' : 'این شماره تماس قبلا استفاده شده'}, status=409)
         return JsonResponse({'username_valid' : True})
+    
+
+class RegistrationView(View) :
+    def get(self, request) :
+        return render(request, 'users/register.html')
+    
+    def post(self, request) :
+        phone = request.POST['phone']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+
+        context ={
+            'fieldValues' : request.POST
+        }
+        if User.objects.filter(phone=phone).exists() :
+            messages.error(request, 'این شماره تماس قبلا استفاده شده')
+            return render(request, 'users/register.html')
+        
+        elif password1 != password2 :
+            messages.error(request, 'رمز عبور مطابقت ندارد')
+            return render(request, 'users/register.html', context)
+        
+        elif len(password1) < 4:
+            messages.error(request, 'رمز عبور کوتاه است')
+            return render(request, 'users/register.html', context)
+        
+        else :
+            user = User.objects.create_user(phone=phone)
+            if password1 is not None:
+                user.set_password(password1)
+            else:
+                messages.error(request, "رمز عبور نمیتواند خالی باشد" , context)
+            user.save()
+            return user
