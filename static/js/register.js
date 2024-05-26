@@ -2,13 +2,15 @@ const phonefield = document.querySelector("#phonefield");
 const feedBackArea = document.querySelector(".invalid_feedback");
 const PhoneSuccessOutput = document.querySelector(".PhoneSuccessOutput");
 const ShowPasswordToggle = document.querySelector(".ShowPasswordToggle");
-const PasswordField = document.querySelector(".PasswordField");
+const PasswordField = document.querySelector("#PasswordField");
 
 const handleToggleInput = (e) => {
     if (ShowPasswordToggle.textContent === "نمایش") {
         ShowPasswordToggle.textContent = "پنهان";
+        PasswordField.setAttribute("type", "text");
     } else {
         ShowPasswordToggle.textContent = "نمایش";
+        PasswordField.setAttribute("type", "password");
     }
 };
 ShowPasswordToggle.addEventListener("click", handleToggleInput);
