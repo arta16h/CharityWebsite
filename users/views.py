@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import JsonResponse
@@ -120,3 +121,8 @@ class LogoutView(View) :
         auth.logout(request)
         messages.success(request, 'از حساب کاربری خارج شدید')
         return redirect('login')
+    
+
+@login_required
+def dashboard(request) :
+    return render(request, 'users/dashboard.html')
