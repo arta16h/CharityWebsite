@@ -89,6 +89,14 @@ class RegistrationView(View) :
                 user.set_password(password1)
             else:
                 messages.error(request, "رمز عبور نمیتواند خالی باشد" , context)
+                return render(request, 'users/register.html', context)
             user.save()
             messages.success(request, 'حساب کاربری با موفقیت ساخته شد')
             return user
+
+
+class LoginView(View) :
+    def get(self, request) :
+        return render(request, 'users.login.html')
+    
+    
