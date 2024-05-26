@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import JsonResponse
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.views import View
 
 
@@ -99,4 +99,15 @@ class LoginView(View) :
     def get(self, request) :
         return render(request, 'users.login.html')
     
-    
+    def post(self,request) :
+        phone = request.POST['phone']
+        password1 = request.POST['pasword1']
+
+        if phone and password1 :
+            user = auth.authenticate(phone=phone, password=password1)
+            if user :
+                auth.login(request, user)
+                messages.success(request, 'خوش اومدی')
+        
+        messages.error(request, 'شماره تلفن یا رمز عبور اشتباه است')
+        return render(request, 'users/login.html')
