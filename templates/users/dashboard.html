@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}داشبورد{% endblock %}
+
+{% block content %}
+{% include 'partials/_messages.html' %}
+<form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <input type="submit" value="خروج از حساب" class="text">
+</form>
+{% endblock %}
