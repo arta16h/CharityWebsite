@@ -40,7 +40,7 @@ def volunteer_register(request):
     return render(request, "users/volunteer.html", {"form": form})
 
 def about_us(request) :
-    return render (request, 'about-us.html')
+    return render (request, 'about.html')
 
 _REGEX = re.compile(r'09(\d{9})$')
 
