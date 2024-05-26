@@ -91,6 +91,7 @@
                     <div class="d-flex justify-content-center form_container">
                         <form method="POST" action="">
                             {% csrf_token %}
+                            {% include 'partials/_messages.html' %}
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -118,15 +119,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
         </div>
     </body>
 </html>
