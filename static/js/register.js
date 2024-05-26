@@ -3,7 +3,7 @@ const feedBackArea = document.querySelector(".invalid_feedback");
 const PhoneSuccessOutput = document.querySelector(".PhoneSuccessOutput");
 const ShowPasswordToggle = document.querySelector(".ShowPasswordToggle");
 const PasswordField = document.querySelector("#PasswordField");
-const LoginBtn = document.querySelector(".login_btn");
+const SubmitBtn = document.querySelector(".submit_btn");
 
 const handleToggleInput = (e) => {
     if (ShowPasswordToggle.textContent === "نمایش") {
@@ -34,12 +34,12 @@ phonefield.addEventListener('keyup', (e) => {
             console.log("data", data);
             PhoneSuccessOutput.style.display = "none";
             if (data.PhoneError){
-                LoginBtn.setAttribute("disabled", "disabled");
+                SubmitBtn.setAttribute("disabled", "disabled");
                 phonefield.classList.add("is-invalid");
                 feedBackArea.style.display="block";
                 feedBackArea.innerHTML=`<p>${data.PhoneError}</p>`
             } else {
-                LoginBtn.removeAttribute("disabled");
+                SubmitBtn.removeAttribute("disabled");
             }
         });
     }
