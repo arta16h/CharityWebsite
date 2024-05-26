@@ -113,3 +113,10 @@ class LoginView(View) :
             return render(request, 'users/login.html')
         messages.error(request, 'لطفا شماره موبایل و رمز عبور را وارد کنید')
         return render(request, 'users/login.html')
+    
+
+class LogoutView(View) :
+    def post(self, request) :
+        auth.logout(request)
+        messages.success(request, 'از حساب کاربری خارج شدید')
+        return redirect('login')
