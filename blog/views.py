@@ -1,22 +1,23 @@
 from django.shortcuts import render
 from .models import Blog
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView
 
 # Create your views here.
 
-class BlogListView(ListView) :
+class BlogListView(LoginRequiredMixin, ListView) :
     model = Blog
     template_name = 'blog/blog-list'
     context_object_name = 'blog'
     ordering = ["-created_at"]
 
 
-class BlogDetailView(DetailView) :
+class BlogDetailView(LoginRequiredMixin, DetailView) :
     model = Blog
     template_name = 'blog/blog-detail'
 
 
-class BlogCreateView(CreateView) :
+class BlogCreateView(LoginRequiredMixin, CreateView) :
     model = Blog
     fields = ['title', 'content']
     template_name = 'blog/new-blog'
