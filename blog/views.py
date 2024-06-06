@@ -18,5 +18,5 @@ class BlogDetailView(DetailView) :
 
 class BlogCreateView(CreateView) :
     model = Blog
-    fields = ['title', 'content']
+    fields = ['author', 'title', 'content']
     template_name = 'blog/new-blog'
