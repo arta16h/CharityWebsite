@@ -9,7 +9,7 @@
             <small class="text-muted">{{blog.created_at}}</small>
         </div>
         <h2><a href="{{ url 'blog-detail'}}" class="article-title">{{blog.title}}</a></h2>
-        <p class="article-content">{{blog.content}}</p>
+        <p class="article-content">{{blog.content|truncatechars:200}}</p>
     </div>
     <br>
 </article>
