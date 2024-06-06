@@ -6,3 +6,4 @@ from django.views.generic import ListView
 
 class BlogListView(ListView) :
     model = Blog
+    template_name = 'blog/blog-list'
