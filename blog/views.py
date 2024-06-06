@@ -44,6 +44,7 @@ class BlogUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView) :
 
 class BlogDeleteView(DeleteView) :
     model = Blog
+    success_url = 'blog-list'
 
     def test_func(self) -> bool | None:
         blog = self.get_object()
