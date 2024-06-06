@@ -18,5 +18,9 @@ class BlogDetailView(DetailView) :
 
 class BlogCreateView(CreateView) :
     model = Blog
-    fields = ['author', 'title', 'content']
+    fields = ['title', 'content']
     template_name = 'blog/new-blog'
+
+    def form_valid(self, form) :
+        form.instance.author = self.request.user
+        return super().form_valid(form)
