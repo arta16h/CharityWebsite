@@ -9,3 +9,7 @@ class BlogListView(ListView) :
     template_name = 'blog/blog-list'
     context_object_name = 'blog'
     ordering = ["-created_at"]
+
+
+class BlogDetailView(DetailView) :
+    model = Blog
