@@ -14,9 +14,10 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 
 
-load_dotenv()
+load_dotenv("settings.env")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -149,6 +150,7 @@ EMAIL_HOST_USER = mail
 EMAIL_HOST_PASSWORD = mail_pass
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+CONTACT_US_EMAIL = os.environ.get("CONTACT_US_EMAIL")
 
 #-------------Messages------------
 MESSAGE_TAGS = {
