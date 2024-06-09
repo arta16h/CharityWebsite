@@ -1,4 +1,18 @@
+{% load static %}
 {% block content %}
+
+<div class="container">
+    {% include 'partials/_messages.html' %}
+    {% if blog.count %}
+    <div class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="text" class="form-control" id="searchField" placeholder="جست و جو">
+            </div>
+        </div>
+    </div>
+</div>
 
 {% for blog in blogs %}
 <article class="media content-section">
