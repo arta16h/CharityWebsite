@@ -59,10 +59,10 @@ class BlogDeleteView(DeleteView) :
 def search_blog(request) :
     if request.method == 'POST' :
         search_str = json.loads(request.body).get("serachText")
-        blog = Blog.filter(title__contains=search_str, owner=request.user) | Blog.filter(
-            author__contains=search_str, owner=request.user) | Blog.filter(
-                content__contains=search_str, owner=request.user) | Blog.filter(
-                    category__contains=search_str, owner=request.user) | Blog.filter(
+        blog = Blog.objects.filter(title__contains=search_str, owner=request.user) | Blog.objects.filter(
+            author__contains=search_str, owner=request.user) | Blog.objects.filter(
+                content__contains=search_str, owner=request.user) | Blog.objects.filter(
+                    category__contains=search_str, owner=request.user) | Blog.objects.filter(
                         keywords__contains=search_str, owner=request.user)
         data = blog.values()
         return JsonResponse(list(data), safe=False)
