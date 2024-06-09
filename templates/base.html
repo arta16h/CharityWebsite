@@ -44,5 +44,22 @@
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous">
         </script>
+        <script>
+            window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const scrollPosition = window.scrollY;
+            // const navbarOpacity = scrollPosition <= 35 ? 100 : 35;
+            // navbar.style.opacity = navbarOpacity / 100;
+            const scrolledDown = scrollPosition <= 35 ? false : true;
+            if (scrolledDown == true) {
+                navbar.classList.replace('bg-white/100', 'bg-white/20');
+                navbar.classList.add('backdrop-blur-sm');
+            }
+            else {
+                navbar.classList.replace('bg-white/20', 'bg-white/100');
+                navbar.classList.remove('backdrop-blur-sm');
+            }
+        });
+        </script>
     </body>
 </html>
