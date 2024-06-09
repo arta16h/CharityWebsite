@@ -16,6 +16,7 @@
         <meta property="og:type" content="website">
         <meta data-intl-tel-input-cdn-path="intlTelInput/">
         <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         {% compress css %}
         <link rel="stylesheet" href="{% static 'src/output.css' %}">
         {% endcompress %}
@@ -39,5 +40,9 @@
             {% include 'partials/_messages.html' %}
             {% block content %}{% endblock %}
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous">
+        </script>
     </body>
 </html>
