@@ -50,3 +50,21 @@ class OtpAuthBackend(ModelBackend):
             return
 
 
+class UserAuthBackend(ModelBackend):
+    def authenticate(self, request, user_identifier=None, password=None, **kwargs):
+        password=password
+        if user_identifier is None or password is None:
+            raise AuthenticationFailed(str(_("You should provide credentials !!")))
+        try:
+            user= User.objects.get(Q(email=user_identifier) | Q(mobile_number=user_identifier))
+            if user:
+                if user.check_password(password):
+                    return user
+        except User.DoesNotExist:
+            return None
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None
