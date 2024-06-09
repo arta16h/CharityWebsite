@@ -10,7 +10,7 @@ class BlogListView(LoginRequiredMixin, ListView) :
     template_name = 'blog/blog-list'
     context_object_name = 'blog'
     ordering = ["-created_at"]
-
+    paginate_by = 7
 
 class BlogDetailView(LoginRequiredMixin, DetailView) :
     model = Blog
