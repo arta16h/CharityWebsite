@@ -61,6 +61,16 @@ EXP_CHOICES = (
 _REGEX = r'09(\d{9})$'
 phone_validator = RegexValidator(_REGEX)
 
+class Job(models.Model):
+    en_name = models.CharField(_("english name"), max_length=60)
+    fa_name = models.CharField(_("persian name"), max_length=60, null=True, blank=True)
+    description = models.CharField(_("description"), max_length=300, null=True, blank=True)
+    date_added = models.DateTimeField(_("date added"), auto_now=True)
+    date_modified = models.DateTimeField(_("date modified"), auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.fa_name or self.en_name
+
 class Volunteer(models.Model) :
 
 class User(AbstractUser):
