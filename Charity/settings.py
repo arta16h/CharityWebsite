@@ -165,6 +165,8 @@ MESSAGE_TAGS = {
     messages.ERROR : 'danger'
 }
 
+AUTH_USER_MODEL = 'users.User'
+
 COMPRESS_ROOT = BASE_DIR / 'static'
 COMPRESS_ENABLED = True
 STATICFILES_FINDERS = (
