@@ -1,0 +1,46 @@
+{% block content %}
+
+{% for blog in blogs %}
+<article class="media content-section">
+    <img class="article-img" src="{{blog.imageUrl}}" alt="">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a href="#" class="mr-2">{{blog.author}}</a>
+            <small class="text-muted">{{blog.created_at}}</small>
+        </div>
+        <h2><a href="{% url 'blog-detail' blog.id%}" class="article-title">{{blog.title}}</a></h2>
+        <p class="article-content">{{blog.content|truncatechars:200}}</p>
+    </div>
+    <br>
+</article>
+{% endfor %}
+{% if is_paginated %}
+    <div class="pagination">
+        <span class="page-links">
+            <ul class="pagination align-left float-left ml-auto">
+                {% if page_obj.has_previous %}
+                    <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}>
+                        <a class="page-link" href="?page=1">&raquo; 1</a>
+                    </li>
+                    <li>
+                        <a href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                    </li>
+                {% endif %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">بعدی</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">&laquo;</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <span class="page-current">
+                صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}.
+            </span>
+        </span>
+    </div>
+{% endif %}
+
+{% endblock content %}
