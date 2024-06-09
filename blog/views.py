@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from .models import Blog
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
+import json
 
 # Create your views here.
 
@@ -51,3 +54,15 @@ class BlogDeleteView(DeleteView) :
         if self.request.user == blog.author :
             return True
         return False
+    
+
+def search_blog(request) :
+    if request.method == 'POST' :
+        search_str = json.loads(request.body).get("serachText")
+        blog = Blog.filter(title__contains=search_str, owner=request.user) | Blog.filter(
+            author__contains=search_str, owner=request.user) | Blog.filter(
+                content__contains=search_str, owner=request.user) | Blog.filter(
+                    category__contains=search_str, owner=request.user) | Blog.filter(
+                        keywords__contains=search_str, owner=request.user)
+        data = blog.values()
+        return JsonResponse(list(data), safe=False)
