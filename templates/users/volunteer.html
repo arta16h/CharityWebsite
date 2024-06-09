@@ -2,11 +2,184 @@
 <!-- {% load crispy_forms_tags %} -->
 {% load static %}
 {% block title %}ثبت نام داوطلب{% endblock %}
-
+{% block custom_style %}
+    <style>
+        .error{
+            color: #ff2828;
+        }
+        .required{
+            color: #f8911b;
+        }
+    </style>
+{% endblock %}
 {% block content %}
-<form method="POST" enctype="multipart/form-data">
+<form action="{% url 'volunteer' %}" method='post' enctype="multipart/form-data">
     {% csrf_token %}
-    {{form}}
-    <input type="submit" value="ارسال">
+    <span class="error">
+        {{ form.non_field_errors.as_text }} 
+    </span>
+    <!-- background-image: linear-gradient(to right, #3ab5b0 0%, #3d99be 31%, #56317a 100%); -->
+    <div class="container d-flex justify-content-center align-items-center">
+        <div style="background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%); width: 700px;" class="row d-flex justify-content-between m-5 rounded border-dark flex-end px-5 " style="border: 1px solid black; width:60%">
+            <h2 class="text-center  text-zinc-100 ">فرم ثبت نام داوطلب</h2>
+            <br>
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">                          
+                            :{{ form.birth.label}}
+                        </p>
+                        <span class="error">
+                            {{ form.birth.errors.as_text }} 
+                        </span>
+                        {{ form.birth }}
+                    </div>
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0 font-weight-normal">
+                            :{{ form.first_name.label }}
+                        </p>
+                        <span class="error">
+                            {{ form.first_name.errors.as_text }} 
+                        </span>
+                        {{ form.first_name }}
+                    </div>
+                    
+
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.email.label }}
+                        </p>
+                        <span class="error">
+                            {{ form.email.errors.as_text }} 
+                        </span>
+                        {{ form.email }}
+                    </div>
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.last_name.label }}
+                        </p>
+                        <span class="error">
+                            {{ form.last_name.errors.as_text }} 
+                        </span>
+                        {{ form.last_name }}
+                    </div>
+
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">                         
+                            :{{ form.phone.label }}
+                        </p>
+                        <span class="error">
+                            {{ form.phone.errors.as_text }} 
+                        </span>
+                        {{ form.phone }}
+                    </div>
+
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.gender.label }}
+                        </p>
+                        <span class="error">
+                            {{ form.gender.errors.as_text }} 
+                        </span>
+                        {{ form.gender }}
+                    </div>
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.marital_status.label }}
+                        </p>
+                        <span class="error">
+                            {{ form.marital_status.errors.as_text }} 
+                        </span>
+                        {{ form.marital_status }}
+                    </div>
+                    <div class="col-sm-5  my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.city.label }}
+                        </p>
+                        <span class="error">
+                            {{ form.city.errors.as_text }} 
+                        </span>
+                        {{ form.city }}
+                    </div>
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.experience.label }}                         
+                        </p>
+                        <span class="error">
+                            {{ form.experience.errors.as_text }} 
+                        </span>
+                        <div style="width: 10px;">
+                            {{ form.experience }}
+                        </div>
+                    </div>
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.abilities.label }}                           
+                        </p>
+                        <span class="error">
+                            {{ form.abilities.errors.as_text }} 
+                        </span>
+                        {{ form.abilities }}
+                    </div>
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.experience_info.label }}                         
+                        </p>
+                        <span class="error">
+                                {{ form.experience_info.errors.as_text }} 
+                            </span>
+                            <span>
+                                {{ form.experience_info }}
+                            </span>
+                    </div>
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.specialist_info.label }}                           
+                        </p>
+                        <span class="error">
+                            {{ form.specialist_info.errors.as_text }} 
+                        </span>
+                        {{ form.specialist_info }}
+                    </div>
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.major.label }}
+                        </p>
+                        <span class="error">
+                            {{ form.major.errors.as_text }} 
+                        </span>
+                        {{ form.major }}
+                    </div>
+
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.nc.label }}                        
+                        </p>
+                        <span class="error">
+                            {{ form.nc.errors.as_text }} 
+                        </span>
+                        {{ form.nc }}
+                    </div>
+                    <div class="col-sm-5 my-1">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.education.label }}                        
+                        </p>
+                        <span class="error">
+                            {{ form.education.errors.as_text }} 
+                        </span>
+                        {{ form.education }}
+                    </div>
+                    <div class="col-sm-5 my-1 mts-5 mbss-0 psy-2">
+                        <p class="text-amber-200 text-end m-0">
+                            :{{ form.profile_pic.label }}                           
+                        </p>
+                        <span class="error">
+                            {{ form.profile_pic.errors.as_text }} 
+                        </span>
+                        {{ form.profile_pic }}
+                    </div>
+            <div class="col-sm-12 d-flex justify-content-center align-items-center">
+                <input class="col-sm-12 my-2 bg-success btn bg-gradient text-light" type='submit' value='ارسال'>
+            </div>
+        </div>
+    </div>
 </form>
 {% endblock %}
