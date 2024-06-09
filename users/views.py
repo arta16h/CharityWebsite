@@ -103,11 +103,11 @@ class RegistrationView(View) :
             return render(request, 'users/register.html', context)
         
         else :
-            user = User.objects.create_user(phone=phone)
+            user = User.objects.create(phone=phone)
             if password1 is not None:
                 user.set_password(password1)
             else:
-                messages.error(request, "رمز عبور نمیتواند خالی باشد" , context)
+                messages.error(request, "رمز عبور نمیتواند خالی باشد")
                 return render(request, 'users/register.html', context)
             user.save()
             messages.success(request, 'حساب کاربری با موفقیت ساخته شد')
