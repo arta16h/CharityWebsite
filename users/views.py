@@ -1,16 +1,24 @@
 from django.core.validators import RegexValidator
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.contrib import messages, auth
 from django.views import View
+from django.conf import settings
+from django.utils.translation import gettext_lazy as _
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 
 import json, re
 from Charity.settings import mail
-from .forms import ContactUsForm, VolunteerRegisterForm
+
+from .forms import ContactUsForm, VolunteerRegisterForm, RegisterForm
+from .authentication import OtpAuthBackend, UserAuthBackend
+from .models import User
 # Create your views here.
 
 def home(request) :
@@ -23,7 +31,7 @@ def home(request) :
             subject = cd['subject']
             content = cd['content']
             message = "نام:{0}\n ایمیل:{1}\n پیام:{3}".format(name, email, content)
-            send_mail(subject, message, mail, ['sevda.hayati2015@gmail.com'] ,fail_silently=False)
+            send_mail(subject, message, mail, [settings.Contact_Us_Email] ,fail_silently=False)
     else :
         form = ContactUsForm()
         context = {'form' : form}
