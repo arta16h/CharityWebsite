@@ -57,3 +57,22 @@ class ContactUsForm(forms.Form) :
     email = forms.EmailField(required=True, label='ایمیل')
     subject = forms.CharField(max_length=255, label='موضوع')
     content = forms.CharField(widget=forms.Textarea, required=True, label='پیام خود را بنویسید')
+
+
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=65)
+    password = forms.CharField(max_length=65, widget=forms.PasswordInput)
+    
+
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model=User
+        fields = ['phone','username','email','password1','password2'] 
+
+    
+    def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
