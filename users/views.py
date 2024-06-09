@@ -54,7 +54,10 @@ def volunteer_register(request):
             volunteer_form.save()
             messages.success(request, 'به جمع داوطلبین خادمین سیده زینب خوش آمدید')
             return redirect('users:volunteer')
-    form = VolunteerRegisterForm()
+    prefill_data = request.GET.copy()
+    if isinstance(request.user, User):
+        prefill_data.update({'first_name':request.user.first_name, 'last_name': request.user.last_name, 'phone':request.user.phone})
+    form = VolunteerRegisterForm(initial=prefill_data)
     return render(request, "users/volunteer.html", {"form": form})
 
 def about_us(request) :
