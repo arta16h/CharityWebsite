@@ -144,3 +144,71 @@ class LogoutView(View) :
 @login_required(login_url='users/login')
 def dashboard(request) :
     return render(request, 'users/dashboard.html')
+
+
+class OtpView(APIView):
+    def get(self, request):
+        if request.user and isinstance(request.user, User):
+            return Response(
+                data={"data":None, "message":_("user is already logged in")},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        otp_type = request.GET.get("otp_type")
+        otp_identifier = request.GET.get("otp_identifier")
+        if otp_type in ["sms", "email"]:
+            if otp_identifier:
+                send_otp_code(request, otp_type, otp_identifier)
+                message = _("code has sent to {otp_identifier}").format(otp_identifier=otp_identifier)
+                return Response(
+                    data={"data":None, "message":message},
+                    status=status.HTTP_200_OK
+                )
+            return Response(
+                data={"data":None, "message":_("otp identifier has bot provided")},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        return Response(
+            data={"data":None, "message":_("invalid otp type")},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+        
+
+    def post(self, request):
+        otp_request = request.query_params.get("otp_request")
+        if otp_request == "login":
+            return self.verify_login_otp(request)
+        if otp_request == "verify_otp":
+            return self.verify_otp(request)
+    
+    def verify_login_otp(self, request):
+        otp_code = request.POST.get("otp_code")
+        user = OtpAuthBackend().authenticate(request, otp_code=otp_code)
+        if user:
+            auth.login(request, user, backend='accounts.authentication.OtpAuthBackend')
+            del request.session["otp_code"]
+            del request.session["otp_expire_time"]
+            del request.session["otp_identifier"]
+            message =  _('You have been logged in successfully')
+            messages.success(request, message)
+            return Response(
+                    data={"data":None, "message":message},
+                    status=status.HTTP_200_OK
+            )
+        messages.error(request, _('invalid otp'))
+        return Response(
+            data={"data":None, "message":_("invalid otp type")},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    def verify_otp(self, request):
+        otp_code = request.POST.get("otp_code")
+        if OtpAuthBackend().verify_otp(request, otp_code=otp_code):
+            return Response(
+                    data={"data":None, "message":_("otp veified successfully")},
+                    status=status.HTTP_200_OK
+            )
+        messages.error(request, _('invalid otp'))
+        return Response(
+            data={"data":None, "message":_("invalid otp")},
+            status=status.HTTP_400_BAD_REQUEST
+        )
