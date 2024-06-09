@@ -42,9 +42,16 @@ def volunteer_register(request):
     if request.method == "POST":
         form = VolunteerRegisterForm(request.POST or None, request.FILES)
         if form.is_valid():
-            data = form.save(commit=False)
-            data.user = request.user
-            data.save()
+            user = request.user
+            if not isinstance(user, User):
+                clean_data = form.cleaned_data.copy()
+                clean_data.update({'username': f"{clean_data['first_name']}"})
+                user = RegisterForm(form.data)
+                user = user.save()
+
+            volunteer_form = form.save(commit=False)
+            volunteer_form.user = user
+            volunteer_form.save()
             messages.success(request, 'به جمع داوطلبین خادمین سیده زینب خوش آمدید')
             return redirect('users:volunteer')
     form = VolunteerRegisterForm()
