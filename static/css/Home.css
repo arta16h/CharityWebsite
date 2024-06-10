@@ -1,3 +1,14 @@
+#readmore{
+  padding-left: 20%;
+  padding-right: 20%;
+  background: #d63363;
+  color: #fff;
+}
+
+#readmore:hover{
+  background: #ffd654!important;
+  color: black;
+} 
  .u-section-1 {
   background-image: none;
 }
