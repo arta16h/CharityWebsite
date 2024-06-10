@@ -174,3 +174,6 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder', 
     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
 )
+
+OTP_SENDER_EMAIL = os.environ.get("OTP_SENDER_EMAIL")
+OTP_DIGIT_COUNT = int(os.environ.get("OTP_DIGIT_COUNT", 3))
