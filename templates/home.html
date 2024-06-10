@@ -157,27 +157,59 @@
         </div>
     </section>
 
-    <section class="u-clearfix u-container-align-right-lg u-custom-color-4 u-section-4" id="carousel_e377">
+    <section class="u-clearfix u-container-align-right-lg u-custom-color-4 u-section-4">
         <div class="u-clearfix u-sheet u-valign-middle-xl u-sheet-1">
             <div class="u-align-center u-container-style u-expanded-width-xs u-group u-white u-group-1">
                 <div class="u-container-layout u-valign-top-xl u-container-layout-1">
                     <h2 class="u-custom-font u-text u-text-1" style="font-family: Byekan;">با ما در تماس باشید</h2>
-                        <div class="u-align-center-sm u-align-center-xs u-align-left-xl u-align-right-lg u-align-right-md u-form u-form-1">
-                            <form method="post" class="u-clearfix u-form-spacing-28 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
+                        <div class="u-align-center-sm u-align-center-xs u-align-right-xl u-align-right-lg u-align-right-md u-form u-form-1">
+                            <form method="post" class="u-clearfix u-form-spacing-28 u-form-vertical u-inner-form" source="email" name="form">
                                 {% csrf_token %}
-                                {% block contentform %} {{form}} {% endblock %}
-                                <!-- <div class="u-form-group u-form-name u-form-group-1">
-                                    <label for="name-5a14" class="u-form-control-hidden u-label" wfd-invisible="true">Name</label>
-                                    <input type="text" placeholder="نام" id="name-5a14" name="name" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required="">
+                                {% block contentform %}
+                                <div class="container d-flex justify-content-right align-items-right">
+                                    <div style="background-color:#ffd654 ;" class="row d-flex border-dark" style="border: 1px solid black;">
+                                        <div>
+                                            <p>                          
+                                                :{{ form.name.label}}
+                                            </p>
+                                            <span class="error">
+                                                {{ form.name.errors.as_text }} 
+                                            </span>
+                                            {{ form.name }}
+                                        </div>
+
+                                        <div>
+                                            <p>                          
+                                                :{{ form.email.label}}
+                                            </p>
+                                            <span class="error">
+                                                {{ form.email.errors.as_text }} 
+                                            </span>
+                                            {{ form.email }}
+                                        </div>
+
+                                        <div>
+                                            <p>                          
+                                                :{{ form.subject.label}}
+                                            </p>
+                                            <span class="error">
+                                                {{ form.subject.errors.as_text }} 
+                                            </span>
+                                            {{ form.subject }}
+                                        </div>
+
+                                        <div>
+                                            <p>                          
+                                                :{{ form.content.label}}
+                                            </p>
+                                            <span class="error">
+                                                {{ form.content.errors.as_text }} 
+                                            </span>
+                                            {{ form.content }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="u-form-email u-form-group u-form-group-2">
-                                    <label for="email-5a14" class="u-form-control-hidden u-label" wfd-invisible="true">Email</label>
-                                    <input type="email" placeholder="ایمیل" id="email-5a14" name="email" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required="">
-                                </div>
-                                <div class="u-form-group u-form-message u-form-group-3">
-                                    <label for="message-5a14" class="u-form-control-hidden u-label" wfd-invisible="true"></label>
-                                    <textarea placeholder="پیام خود را بنویسید" rows="4" cols="50" id="message-5a14" name="message" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required=""></textarea>
-                                </div> -->
+                                {% endblock %}
                                 <div class="u-align-center u-form-group u-form-submit u-form-group-4">
                                     <a href="#" class="u-active-custom-color-1 u-border-2 u-border-custom-color-1 u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-custom-font u-hover-custom-color-2 u-radius u-text-hover-black u-text-white u-btn-1">ارسال</a>
                                     <input type="submit" value="ارسال پیام" class="u-form-control-hidden" wfd-invisible="true">
