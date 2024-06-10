@@ -14,11 +14,13 @@ from rest_framework import status
 
 
 import json, re
+from datetime import datetime, timedelta
 from Charity.settings import mail
 
 from .forms import ContactUsForm, VolunteerRegisterForm, RegisterForm
 from .authentication import OtpAuthBackend, UserAuthBackend
 from .models import User
+from .utils import generate_otp_code, send_otp_code
 # Create your views here.
 
 def home(request) :
@@ -157,7 +159,11 @@ class OtpView(APIView):
         otp_identifier = request.GET.get("otp_identifier")
         if otp_type in ["sms", "email"]:
             if otp_identifier:
-                send_otp_code(request, otp_type, otp_identifier)
+                otp_code = generate_otp_code()
+                request.session['otp_code'] = otp_code
+                request.session['otp_identifier'] = otp_identifier
+                request.session['otp_expire_time'] = datetime.now() + settings.OTP_EXPIRE_TIME
+                send_otp_code(otp_code, otp_type, otp_identifier)
                 message = _("code has sent to {otp_identifier}").format(otp_identifier=otp_identifier)
                 return Response(
                     data={"data":None, "message":message},
