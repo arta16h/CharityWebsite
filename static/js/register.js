@@ -6,11 +6,11 @@ const PasswordField = document.querySelector("#PasswordField");
 const SubmitBtn = document.querySelector(".submit_btn");
 
 const handleToggleInput = (e) => {
-    if (ShowPasswordToggle.textContent === "نمایش") {
-        ShowPasswordToggle.textContent = "پنهان";
+    if (ShowPasswordToggle.innerHTML === `<i class="fas fa-eye"></i>`) {
+        ShowPasswordToggle.innerHTML = `<i class="fas fa-eye-slash"></i>`;
         PasswordField.setAttribute("type", "text");
     } else {
-        ShowPasswordToggle.textContent = "نمایش";
+        ShowPasswordToggle.innerHTML = `<i class="fas fa-eye"></i>`;
         PasswordField.setAttribute("type", "password");
     }
 };

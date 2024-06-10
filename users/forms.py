@@ -1,11 +1,12 @@
 from django import forms
 from django.urls import reverse_lazy
 from django.core.validators import RegexValidator
-from django.contrib.auth.models import User
+from .models import User
 from django.contrib.auth.forms import UserCreationForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from datetime import datetime
+from .models import Volunteer
 
 messages ={
     'required' : 'این فیلد نمیتواند خالی باشد',
@@ -15,140 +16,63 @@ messages ={
     'invalid_choice' : 'لطفا یک گزینه معتبر را انتخاب کنید'
 }
 
-GENDER_CHOICES = (
-    (1, 'مونث'),
-    (2, 'مذکر'),
-)
+class VolunteerRegisterForm(forms.ModelForm):
+    error_css_class = "error"
+    required_css_class = "required"
+    class Meta:
+        model = Volunteer
+        fields = '__all__'
+        widgets = {
+            'gender': forms.Select(),
+            'birth': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': ''}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'profile_pic': forms.FileInput(attrs={'class': 'form-control'}),
+            'experience': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'education': forms.Select(attrs={'class': 'text-end p-1 m-1'}),
+            'experience_info': forms.Textarea(attrs={
+                'class': 'text-end p-1 m-1', 
+                "placeholder": "در صورتی که سابقه کار جهادی دارید، توضیح دهید"
+            }),
+            'specialist_info': forms.Textarea(attrs={
+                'class': 'text-end p-1 m-1', 
+                "placeholder": "در صورتی که پزشک متخصص هستید، نوع تخصص خود را وارد کنید"
+            }),
+            'abilities': forms.SelectMultiple(attrs={
+                'class': 'text-end p-1 m-1'
+            }),
+        }
+        labels = {
+            'abilities': 'در چه زمینه ای میتوانید کمک کنید؟'
+        }
+        error_messages = messages
 
-ABILITIES_CHOICES = (
-    ("piping", "لوله کشی"),
-    ("building", "بنا"),
-    ("welder", "جوشکار"),
-    ("electrician", "برقکار"),
-    ("plaster", "گچ کار"),
-    ("facilities", "تاسیسات"),
-    ("graphist", "گرافیست"),
-    ("programmer", "برنامه نویس"),
-    ("photographer", "عکاس"),
-    ("Cameraman", "فیلم بردار"),
-    ("editor", "ویرایشگر"),
-    ("content", "تولید محتوا"),
-    ("speaker", "گوینده"),
-    ("kindergarten", "مهدکودک"),
-    ("translator", "مترجم عربی"),
-    ("PA", "پزشک عمومی"),
-    ("specialist", "پزشک متخصص"),
-    ("psychologist", "روانشناس"),
-    ("consult", "مشاوره"),
-    ("dentist", "دندان پزشک"),
-    ("pharmacist", "داروساز"),
-    ("nurse", "پرستار"),
-    ("executive", "پشتیبان اجرایی"),
-    ("cook", "آشپز"),
-    ("heavy vehicle", "راننده ماشین سنگین"),
-    ("pickup truck", "راننده وانت"),
-)
+    def __init__(self, *args, **kwargs):
+        super(VolunteerRegisterForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
 
-MARITAL_CHOICES = (
-    (1, 'مجرد'),
-    (2, 'متاهل'),
-)
-
-EDU_CHOICES = (
-    (1, 'دیپلم'),
-    (2, 'کاردانی'),
-    (3, 'کارشناسی'),
-    (4, 'کارشناسی ارشد'),
-    (5, 'دکتری'),
-)
-
-EXP_CHOICES = (
-    (1, 'دارم'),
-    (2, 'ندارم'),
-)
-
-
-_REGEX = r'09(\d{9})$'
-phone_validator = RegexValidator(_REGEX, "شماره وارد شده صحیح نمیباشد")
-
-
-class VolunteerRegisterForm(forms.Form) :
-
-    # def __init__(self, *args, **kwargs) :
-    #     self.helper = FormHelper(self)
-    #     self.helper.form_action = reverse_lazy("home")
-    #     self.helper.add_input(Submit('ثبت', 'ثبت'))
-
-
-    first_name = forms.CharField(max_length=100, label='نام', required=True, error_messages=messages)
-    last_name = forms.CharField(max_length=100, label='نام خانوادگی', required=True, error_messages=messages)
-    birth = forms.DateField(
-        label='تاریخ تولد', 
-        required=True, 
-        error_messages=messages,
-        widget = forms.DateInput(
-            attrs ={'type' : 'date',
-                    'max' : datetime.now().date()}
-        ))
-    nc = forms.NumberInput()
-    gender = forms.ChoiceField(
-        choices=GENDER_CHOICES, 
-        label='جنسیت', 
-        required=True, 
-        error_messages=messages,
-        widget=forms.RadioSelect()
-        )
-    marital_status = forms.ChoiceField(
-        choices= MARITAL_CHOICES, 
-        label='وضعیت تاهل', 
-        required=True, 
-        error_messages=messages,
-        widget = forms.RadioSelect()
-        )
-    phone = forms.CharField(max_length=14, validators=[phone_validator], label='شماره تماس', required=True, error_messages=messages)
-
-    email = forms.EmailField(
-        error_messages=messages,
-        required=True,
-        label='ایمیل')
-    
-    major = forms.CharField(max_length=100, label='رشته تحصیلی', required=True, error_messages=messages)
-    education = forms.ChoiceField(choices=EDU_CHOICES, label='میزان تحصیلات', required=True, error_messages=messages)
-    city = forms.CharField(max_length=100, label='شهر محل سکونت', required=True, error_messages=messages)
-    abilities = forms.ChoiceField(
-        error_messages=messages,
-        required=True,
-        choices=ABILITIES_CHOICES, 
-        label='در چه زمینه ای میتوانید کمک کنید؟',
-        widget=forms.CheckboxSelectMultiple()
-        )
-    
-    specialist_info = forms.CharField(
-        widget=forms.widgets.Textarea(
-            attrs={
-                "placeholder": "در صورتی که پزشک متخصص هستید، نوع تخصص خود را وارد کنید",
-                "class": "textarea is-success is-medium",
-            }))
-
-    profile_pic = forms.ImageField(
-        error_messages=messages,
-        required=True,
-        label= "عکس پرسنلی",
-        widget=forms.ClearableFileInput(attrs={
-            'class' : 'form-control'
-        }))
-    
-    experience = forms.ChoiceField(choices=EXP_CHOICES, label='سابقه کار جهادی', required=True, error_messages=messages)
-    experience_info = forms.CharField(
-        widget=forms.widgets.Textarea(
-            attrs={
-                "placeholder": "در صورتی که سابقه کار جهادی دارید، توضیح دهید",
-                "class": "textarea is-success is-medium",
-            }))
-    
 
 class ContactUsForm(forms.Form) :
     name = forms.CharField(max_length=100, label='نام و نام خانوادگی')
     email = forms.EmailField(required=True, label='ایمیل')
     subject = forms.CharField(max_length=255, label='موضوع')
     content = forms.CharField(widget=forms.Textarea, required=True, label='پیام خود را بنویسید')
+
+
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=65)
+    password = forms.CharField(max_length=65, widget=forms.PasswordInput)
+    
+
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model=User
+        fields = ['phone','username','email','password1','password2'] 
+
+    
+    def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"

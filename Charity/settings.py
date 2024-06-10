@@ -14,9 +14,10 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 
 
-load_dotenv()
+load_dotenv("settings.env")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'crispy_forms',
     'django.contrib.humanize',
+    "compressor",
 ]
 
 MIDDLEWARE = [
@@ -122,11 +124,20 @@ USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGES= [
+    ("fa", _("Persian")),
+    ("en", _("English")),
+]
+
+LOCALE_PATHS = [
+BASE_DIR / "locale",
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
@@ -148,8 +159,21 @@ EMAIL_HOST_USER = mail
 EMAIL_HOST_PASSWORD = mail_pass
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+CONTACT_US_EMAIL = os.environ.get("CONTACT_US_EMAIL")
 
 #-------------Messages------------
 MESSAGE_TAGS = {
     messages.ERROR : 'danger'
 }
+
+AUTH_USER_MODEL = 'users.User'
+
+COMPRESS_ROOT = BASE_DIR / 'static'
+COMPRESS_ENABLED = True
+STATICFILES_FINDERS = (
+    'compressor.finders.CompressorFinder', 
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+)
+
+OTP_SENDER_EMAIL = os.environ.get("OTP_SENDER_EMAIL")
+OTP_DIGIT_COUNT = int(os.environ.get("OTP_DIGIT_COUNT", 3))

@@ -5,7 +5,7 @@
     local('b Yekan'),
     url('BYekan.eot?#iefix') 
     format('embedded-opentype'),
-    url('BYekan.woff')
+    url('../fonts/BYekan.ttf')
     format('woff'),
     url('BYekan.ttf')
     format('truetype'),
@@ -67,9 +67,11 @@ body, html {
     outline: 0px !important;
 }
 .ShowPasswordToggle{
+    font-size: smaller;
     cursor: pointer;
     transition: all;
 }
 .ShowPasswordToggle:hover {
-    transform: scale(1.2);
+    color: #070343;
+    /* transform: scale(1.2); */
 }
