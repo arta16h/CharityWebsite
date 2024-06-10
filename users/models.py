@@ -10,22 +10,22 @@ from .enums import *
 _REGEX = r'09(\d{9})$'
 phone_validator = RegexValidator(_REGEX)
 
-class Job(models.Model):
-    en_name = models.CharField(_("english name"), max_length=60)
-    fa_name = models.CharField(_("persian name"), max_length=60, null=True, blank=True)
-    description = models.CharField(_("description"), max_length=300, null=True, blank=True)
-    date_added = models.DateTimeField(_("date added"), auto_now=True)
-    date_modified = models.DateTimeField(_("date modified"), auto_now_add=True)
+# class Job(models.Model):
+#     en_name = models.CharField(_("english name"), max_length=60)
+#     fa_name = models.CharField(_("persian name"), max_length=60, null=True, blank=True)
+#     description = models.CharField(_("description"), max_length=300, null=True, blank=True)
+#     date_added = models.DateTimeField(_("date added"), auto_now=True)
+#     date_modified = models.DateTimeField(_("date modified"), auto_now_add=True)
 
-    def __str__(self) -> str:
-        return self.fa_name or self.en_name
+#     def __str__(self) -> str:
+#         return self.fa_name or self.en_name
 
 class Volunteer(models.Model) :
     first_name = models.CharField(verbose_name=_("first name"), max_length=100)
     last_name = models.CharField(verbose_name=_("last name"), max_length=100)
     email = models.EmailField(verbose_name=_("email"), unique=True)    
     birth = models.DateField(verbose_name=_("birth day"))
-    nc = models.IntegerField(verbose_name=_("nc"))
+    nc = models.BigIntegerField(verbose_name=_("nc"))
     major = models.CharField(verbose_name=_("major"), max_length=100)
     city = models.CharField(verbose_name=_("city"), max_length=100)
     phone = models.CharField(
@@ -36,7 +36,7 @@ class Volunteer(models.Model) :
     )
     specialist_info = models.TextField(verbose_name=_("specialist info"))
     profile_pic = models.ImageField(verbose_name=_("profile picture"), upload_to=make_image_path(first_name, last_name))   
-    abilities = models.ManyToManyField(verbose_name=_("abilities"), to=Job)
+    abilities = models.CharField(max_length= 100, choices=ABILITIES_CHOICES)
     marital_status = models.PositiveSmallIntegerField(
         verbose_name=_("marital status"),
         choices= MARITAL_CHOICES
@@ -48,9 +48,6 @@ class Volunteer(models.Model) :
     education = models.PositiveSmallIntegerField(
         verbose_name=_("education"), 
         choices=EDU_CHOICES
-    )
-    experience = models.BooleanField(
-        verbose_name=_("voulunteer exprience"),
     )
     experience_info = models.TextField(verbose_name=_("experience info"))
 

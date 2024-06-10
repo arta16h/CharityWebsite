@@ -99,7 +99,7 @@
                         </span>
                         {{ form.city }}
                     </div>
-                    <div class="col-sm-5 my-1">
+                    <!-- <div class="col-sm-5 my-1">
                         <p class="text-amber-200 text-end m-0">
                             :{{ form.experience.label }}                         
                         </p>
@@ -109,15 +109,15 @@
                         <div style="width: 10px;">
                             {{ form.experience }}
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-sm-5 my-1">
                         <p class="text-amber-200 text-end m-0">
-                            :{{ form.abilities.label }}                           
+                            :{{ form.specialist_info.label }}                           
                         </p>
                         <span class="error">
-                            {{ form.abilities.errors.as_text }} 
+                            {{ form.specialist_info.errors.as_text }} 
                         </span>
-                        {{ form.abilities }}
+                        {{ form.specialist_info }}
                     </div>
                     <div class="col-sm-5 my-1">
                         <p class="text-amber-200 text-end m-0">
@@ -132,12 +132,12 @@
                     </div>
                     <div class="col-sm-5 my-1">
                         <p class="text-amber-200 text-end m-0">
-                            :{{ form.specialist_info.label }}                           
+                            :{{ form.abilities.label }}                           
                         </p>
                         <span class="error">
-                            {{ form.specialist_info.errors.as_text }} 
+                            {{ form.abilities.errors.as_text }} 
                         </span>
-                        {{ form.specialist_info }}
+                        {{ form.abilities }}
                     </div>
                     <div class="col-sm-5 my-1">
                         <p class="text-amber-200 text-end m-0">
@@ -147,9 +147,7 @@
                             {{ form.major.errors.as_text }} 
                         </span>
                         {{ form.major }}
-                    </div>
 
-                    <div class="col-sm-5 my-1">
                         <p class="text-amber-200 text-end m-0">
                             :{{ form.nc.label }}                        
                         </p>
