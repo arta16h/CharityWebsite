@@ -152,6 +152,16 @@
   }
 }
 
+#circle-yellow{
+  background-color: #ffd654;
+  color: #fff;
+}
+
+#circle-pink{
+  background-color: #d63363;
+  color: #fff;
+}
+
 @media (max-width: 575px) {
    .u-section-1 {
     min-height: 433px;
