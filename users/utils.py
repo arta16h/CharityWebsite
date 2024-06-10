@@ -41,7 +41,7 @@ def send_email_otp(otp_code, email):
                     [email], fail_silently=False)
         return True , ""
     except BadHeaderError:
-        return _("Email Doesn't Exists ")
+        return False, _("Email Doesn't Exists ")
         
 
 
