@@ -29,3 +29,32 @@ function validatePhone(url, csrftoken) {
     });
     return { isValid, message};
 }
+
+function verifyOTP(url, otp_code, csrftoken) {
+    let data = { 'otp_code': otp_code };
+    let isValid = false;
+    let message = "";
+    let fullUrl = url + "?" + "otp_request=verify_otp";
+    alert("fullUrl: " + fullUrl)
+    $.ajax({
+        type: "POST",
+        url: fullUrl,
+        data: data,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        },
+        dataType: "json",
+        async: false,
+        success: function(response) {
+            isValid = true;
+            message = response['message'];
+        },
+        error: function(response) {
+            isValid = false;
+            message = response.responseJSON['message'];
+        }
+    });
+    return { isValid, message};
+}
+
+// CSRF token for Django
