@@ -182,3 +182,6 @@ STATICFILES_FINDERS = (
 
 OTP_SENDER_EMAIL = os.environ.get("OTP_SENDER_EMAIL")
 OTP_DIGIT_COUNT = int(os.environ.get("OTP_DIGIT_COUNT", 3))
+OTP_EXPIRE_TIME = int(os.environ.get("OTP_EXPIRE_TIME", 60))
+
+KAVENEGAR_API_KEY = os.environ.get("KAVENEGAR_API_KEY")
