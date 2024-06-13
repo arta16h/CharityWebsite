@@ -1,12 +1,15 @@
 from django import forms
 from django.urls import reverse_lazy
 from django.core.validators import RegexValidator
-from .models import User
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.forms import UserCreationForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from datetime import datetime
+from .models import User
 from .models import Volunteer
+
+from typing import Any
 
 messages ={
     'required' : 'این فیلد نمیتواند خالی باشد',
@@ -59,11 +62,9 @@ class ContactUsForm(forms.Form) :
     content = forms.CharField(widget=forms.Textarea, required=True, label='پیام خود را بنویسید')
 
 
-
-
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=65)
-    password = forms.CharField(max_length=65, widget=forms.PasswordInput)
+    phone = forms.CharField(max_length=65, required=True)
+    password = forms.CharField(max_length=65, required=True, widget=forms.PasswordInput)
     
 
 class RegisterForm(UserCreationForm):
@@ -76,3 +77,8 @@ class RegisterForm(UserCreationForm):
         super(RegisterForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
+
+class NoPasswordRegisterForm(forms.ModelForm):
+    class Meta:
+        model=User
+        fields=['phone', 'first_name', 'last_name', 'email', 'city']
