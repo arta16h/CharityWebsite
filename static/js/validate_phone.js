@@ -1,6 +1,7 @@
 
 
 
+
 function validatePhone(url, csrftoken) {
     let data = { 'phone': document.getElementById('phone').value };
     let isValid = false;
@@ -58,3 +59,34 @@ function verifyOTP(url, otp_code, csrftoken) {
 }
 
 // CSRF token for Django
+
+// Function to handle the AJAX request
+
+function sendOTP(url, csrftoken) {
+    let data = {
+        'otp_identifier': document.getElementById('phone').value,
+        'otp_type': 'sms'
+    };
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            },
+            dataType: "json",
+            success: function(response) {
+                resolve({ message: response.message });
+            },
+            error: function(response) {
+                reject({ message: response.responseJSON.message });
+            }
+        });
+    });
+}
+
+
+
+
