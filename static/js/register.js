@@ -14,7 +14,7 @@ const handleToggleInput = (e) => {
         PasswordField.setAttribute("type", "password");
     }
 };
-ShowPasswordToggle.addEventListener("click", handleToggleInput);
+// ShowPasswordToggle.addEventListener("click", handleToggleInput);
 
 phonefield.addEventListener('keyup', (e) => {
     const PhoneVal = e.target.value;
