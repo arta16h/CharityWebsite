@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.core.mail import BadHeaderError
 
-from kavenegar import KavenegarAPI
+from kavenegar import KavenegarAPI, APIException
 import random
 
 def generate_otp_code():
@@ -18,14 +18,17 @@ def generate_otp_code():
 
 def send_sms_otp(otp_code, mobile_number):
     # kavenegar== 1.1.2
-    api = KavenegarAPI(settings.KAVENEGAR_API_KEY)
-    params = {
-        'receptor': mobile_number,
-        'template': 'Verification',
-        'token': otp_code,
-        'type': 'sms',
-    }
-    api.verify_lookup(params)
+    try:
+        api = KavenegarAPI(settings.KAVENEGAR_API_KEY)
+        params = {
+            'receptor': mobile_number,
+            'template': 'Verification',
+            'token': otp_code,
+            'type': 'sms',
+        }
+        api.verify_lookup(params)
+    except APIException as e:
+        print(e)
 
 
 def send_email_otp(otp_code, email):
