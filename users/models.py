@@ -68,3 +68,8 @@ class User(AbstractUser):
         unique=True
     )
     volunteer_info = models.OneToOneField(Volunteer, on_delete=models.SET_NULL, null=True, blank=True)
+
+    USERNAME_FIELD = "phone"
+
+    def __str__(self) -> str:
+        return self.phone or self.username
