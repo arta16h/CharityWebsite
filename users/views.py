@@ -50,9 +50,8 @@ def volunteer_register(request):
             user = request.user
             if not isinstance(user, User):
                 clean_data = form.cleaned_data.copy()
-                clean_data.update({'username': f"{clean_data['first_name']}"})
-                user = RegisterForm(form.data)
-                user = user.save()
+                register_form = NoPasswordRegisterForm(clean_data)
+                user = register_form.save()
 
             volunteer_form = form.save(commit=False)
             volunteer_form.user = user
