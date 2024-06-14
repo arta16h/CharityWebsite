@@ -17,7 +17,7 @@ import json, re
 from datetime import datetime, timedelta
 from Charity.settings import mail
 
-from .forms import ContactUsForm, VolunteerRegisterForm, RegisterForm
+from .forms import ContactUsForm, VolunteerRegisterForm, RegisterForm, NoPasswordRegisterForm, LoginForm
 from .authentication import OtpAuthBackend, UserAuthBackend
 from .models import User
 from .utils import generate_otp_code, send_otp_code
@@ -69,17 +69,17 @@ def about_us(request) :
 
 _REGEX = re.compile(r'09(\d{9})$')
 
-class PhoneValidationView(View) :
+class PhoneValidationView(APIView) :
     def post(self, request) :
-        data = json.loads(request.body)
+        data = request.POST
         phone = data['phone']
 
         if not re.fullmatch(_REGEX, phone) :
-            return JsonResponse({'PhoneValidationError' : 'شماره وارد شده صحیح نمیباشد'}, status=400)
+            return JsonResponse({'message' : 'شماره وارد شده صحیح نمیباشد'}, status=400)
         
-        if User.objects.filter(phone=phone).exists :
-            return JsonResponse({'PhoneError' : 'این شماره تماس قبلا استفاده شده'}, status=409)
-        return JsonResponse({'username_valid' : True})
+        if User.objects.filter(phone=phone).exists() :
+            return JsonResponse({'message' : 'این شماره تماس قبلا استفاده شده'}, status=409)
+        return JsonResponse({'message' : True})
     
 
 class RegistrationView(View) :
