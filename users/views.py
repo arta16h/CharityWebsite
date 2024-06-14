@@ -84,6 +84,9 @@ class PhoneValidationView(APIView) :
 
 class RegistrationView(View) :
     def get(self, request) :
+        if isinstance(request.user, User):
+            messages.error(request, _('to create new account log out first'))
+            return redirect("home")     
         return render(request, 'users/register.html')
     
     def post(self, request) :
@@ -94,7 +97,10 @@ class RegistrationView(View) :
         context ={
             'fieldValues' : request.POST
         }
-        if User.objects.filter(phone=phone).exists() :
+        if isinstance(request.user, User):
+            messages.error(request, _('to create new account log out first'))
+            return redirect("home")
+        elif User.objects.filter(phone=phone).exists() :
             messages.error(request, 'این شماره تماس قبلا استفاده شده')
             return render(request, 'users/register.html')
         
@@ -115,7 +121,8 @@ class RegistrationView(View) :
                 return render(request, 'users/register.html', context)
             user.save()
             messages.success(request, 'حساب کاربری با موفقیت ساخته شد')
-            return user
+            auth.login(request, user, backend='users.authentication.UserAuthBackend')
+            return redirect('dashboard')
 
 
 class LoginView(View) :
