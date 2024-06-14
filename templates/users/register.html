@@ -160,5 +160,24 @@
                 }
             };
         </script>
+        
+        <script>
+            document.getElementById('send-otp-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                otp_code = document.getElementById('otp').value
+                const verifyResult = verifyOTP(url="{% url 'verify_otp' %}", otp_code, csrftoken);
+                if (!verifyResult.isValid) {
+                    document.getElementById('otp-modal').classList.add('hide-modal');
+                    $('#send-otp-message').prepend(`
+                        <div class="alert alert-msg alert-danger" role="alert">${verifyResult.message}</div>`
+                    );
+                    $('.alert-msg').fadeOut(10000);
+                    return;
+                }
+                document.getElementById('create-account-form').submit();
+            });
+        </script>
+        
+        
     </body>
 </html>
