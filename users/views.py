@@ -42,6 +42,9 @@ def home(request) :
 
 def volunteer_register(request):
     if request.method == "POST":
+        if isinstance(request.user, User) and request.user.volunteer_info:
+            messages.info(request, _("you has registered as volunteer"))
+            return redirect('home')
         form = VolunteerRegisterForm(request.POST or None, request.FILES)
         if form.is_valid():
             user = request.user
