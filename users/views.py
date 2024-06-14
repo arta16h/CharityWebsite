@@ -163,22 +163,24 @@ def dashboard(request) :
     return render(request, 'users/dashboard.html')
 
 
-class OtpView(APIView):
-    def get(self, request):
+class SendOtpView(APIView):
+    
+    def post(self, request):
         if request.user and isinstance(request.user, User):
             return Response(
                 data={"data":None, "message":_("user is already logged in")},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        otp_type = request.GET.get("otp_type")
-        otp_identifier = request.GET.get("otp_identifier")
+        otp_type = request.POST.get("otp_type")
+        otp_identifier = request.POST.get("otp_identifier")
         if otp_type in ["sms", "email"]:
             if otp_identifier:
                 otp_code = generate_otp_code()
+                print(f"{otp_code=}")
                 request.session['otp_code'] = otp_code
                 request.session['otp_identifier'] = otp_identifier
-                request.session['otp_expire_time'] = datetime.now() + settings.OTP_EXPIRE_TIME
-                send_otp_code(otp_code, otp_type, otp_identifier)
+                request.session['otp_expire_time'] = str(datetime.now() + timedelta(seconds=int(settings.OTP_EXPIRE_TIME)))
+                # send_otp_code(otp_code, otp_type, otp_identifier)
                 message = _("code has sent to {otp_identifier}").format(otp_identifier=otp_identifier)
                 return Response(
                     data={"data":None, "message":message},
