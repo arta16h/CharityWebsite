@@ -194,7 +194,8 @@ class SendOtpView(APIView):
             data={"data":None, "message":_("invalid otp type")},
             status=status.HTTP_400_BAD_REQUEST
         )
-        
+
+class VerifyOtpView(APIView):
 
     def post(self, request):
         otp_request = request.query_params.get("otp_request")
@@ -202,16 +203,21 @@ class SendOtpView(APIView):
             return self.verify_login_otp(request)
         if otp_request == "verify_otp":
             return self.verify_otp(request)
+        else:
+            return Response(
+                data={"data": None, "message":_("invalid otp request type")},
+                status=status.HTTP_400_BAD_REQUEST
+            )
     
     def verify_login_otp(self, request):
         otp_code = request.POST.get("otp_code")
         user = OtpAuthBackend().authenticate(request, otp_code=otp_code)
         if user:
-            auth.login(request, user, backend='accounts.authentication.OtpAuthBackend')
+            auth.login(request, user, backend='users.authentication.OtpAuthBackend')
             del request.session["otp_code"]
             del request.session["otp_expire_time"]
             del request.session["otp_identifier"]
-            message =  _('You have been logged in successfully')
+            message =  _('You have logged in successfully')
             messages.success(request, message)
             return Response(
                     data={"data":None, "message":message},
