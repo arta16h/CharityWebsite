@@ -30,7 +30,6 @@ class VolunteerRegisterForm(forms.ModelForm):
             'birth': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': ''}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'profile_pic': forms.FileInput(attrs={'class': 'form-control'}),
-            'experience': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'education': forms.Select(attrs={'class': 'text-end p-1 m-1'}),
             'experience_info': forms.Textarea(attrs={
                 'class': 'text-end p-1 m-1', 
@@ -45,7 +44,19 @@ class VolunteerRegisterForm(forms.ModelForm):
             }),
         }
         labels = {
-            'abilities': 'در چه زمینه ای میتوانید کمک کنید؟'
+            'abilities': 'در چه زمینه ای میتوانید کمک کنید؟',
+            'gender' : 'جنسیت',
+            'birth' : 'تاریخ تولد',
+            'email' : 'ایمیل',
+            'profile_pic' : 'عکس پرسنلی',
+            'education' : 'تحصیلات',
+            'experience_info' : 'سابقه کار جهادی',
+            'specialist_info' : 'تخصص',
+            'nc' : 'کدملی',
+            'major' : 'رشته تحصیلی',
+            'marital_status' : 'وضعیت تاهل',
+            'phone' : 'شماره تماس',
+            'city' : 'شهر محل سکونت'
         }
         error_messages = messages
 

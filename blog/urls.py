@@ -8,5 +8,5 @@ urlpatterns =[
     path('blog/new/', BlogCreateView.as_view(), name='new-blog'),
     path('blog/<int:pk>/update/', BlogUpdateView.as_view(), name='blog-update'),
     path('blog/<int:pk>/delete/', BlogDeleteView.as_view(), name='blog-delete'),
-    path('/blog/search-blog', csrf_exempt(search_blog), name='search_blog'),
+    path('blog/search-blog', csrf_exempt(search_blog), name='search_blog'),
 ]

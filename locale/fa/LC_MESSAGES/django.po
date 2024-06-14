@@ -123,7 +123,7 @@ msgstr "تاریخ تولد"
 
 #: .\users\models.py:26
 msgid "nc"
-msgstr ""
+msgstr "کد ملی"
 
 #: .\users\models.py:27
 msgid "major"
