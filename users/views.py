@@ -127,17 +127,23 @@ class RegistrationView(View) :
 
 class LoginView(View) :
     def get(self, request) :
-        return render(request, 'users.login.html')
+        return render(request, 'users/login.html')
     
     def post(self,request) :
-        phone = request.POST['phone']
-        password1 = request.POST['pasword1']
+        login_form = LoginForm(request.POST)
 
-        if phone and password1 :
-            user = auth.authenticate(phone=phone, password=password1)
+        if login_form.is_valid() :
+            login_data = login_form.cleaned_data
+            user = auth.authenticate(
+                request, 
+                user_identifier=login_data["phone"],
+                password=login_data["password"],
+                backend="users.authentication.UserAuthBackend"
+            )
             if user :
-                auth.login(request, user)
+                auth.login(request, user, backend="users.authentication.UserAuthBackend")
                 messages.success(request, 'خوش اومدی')
+                return redirect('dashboard')
         
             messages.error(request, 'شماره موبایل یا رمز عبور اشتباه است')
             return render(request, 'users/login.html')
