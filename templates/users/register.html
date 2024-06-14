@@ -101,6 +101,64 @@
                 </div>
             </div>
         </div> 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
         <script src="{% static 'js/register.js' %}"></script>
+        <script src="{% static 'js/validate_phone.js' %}"></script>
+        <script src="{% static 'js/otp_timer.js' %}"></script>
+        <script src="{% static 'js/otp_modal_js.js' %}"></script>
+        <script>
+            let csrftoken = '{{ csrftoken }}'
+            function validateCreateAccount() {
+                document.getElementById('otp-modal').classList.remove('hide-modal');
+                const result = validatePhone(url="{% url 'validate_phone' %}", csrftoken);
+                let password1 = document.getElementById('PassworField').value
+                let password2 = document.getElementById('PassworField2').value
+                // return;
+                if (!result.isValid) {
+                    document.getElementById('otp-modal').classList.add('hide-modal');
+                    $('#create-account-form').prepend(`
+                        <div class="alert alert-msg alert-danger" role="alert">${result.message}</div>`
+                    );
+                    $('.alert-msg').fadeOut(10000);
+                    return;
+                }
+                if (password1 === "") {
+                    document.getElementById('otp-modal').classList.add('hide-modal');
+                    $('#create-account-form').prepend(`
+                        <div class="alert alert-msg alert-danger" role="alert">گذرواژه نباید خالی باشد</div>`
+                    );
+                    $('.alert-msg').fadeOut(10000);
+                    return;
+                }
+                if ( password1 !== password2) {
+                    document.getElementById('otp-modal').classList.add('hide-modal');
+                    $('#create-account-form').prepend(`
+                        <div class="alert alert-msg alert-danger" role="alert">رمز عبور با تکرار رمز عبور مطابقت ندارد</div>`
+                    );
+                    $('.alert-msg').fadeOut(10000);
+                    return;
+                }
+                sendOTP(url="{% url 'send_otp' %}", csrftoken)
+                    .then(result => {
+                        // const message  = result;
+                        $('#send-otp-message').prepend(`
+                            <div class="alert alert-msg alert-success" role="alert">${result.message}</div>`
+                        );
+                        $('.alert-success').fadeOut(3000);
+                    })
+                    .catch(error => {
+                        // const message = error;
+                        $('#send-otp-message').prepend(`
+                            <div class="alert alert-msg alert-danger" role="alert">${error.message}</div>`
+                        );
+                        $('.alert-msg').fadeOut(10000);
+                    });
+                if (!timerOn) {
+                    timerOn = true;
+                    timer(60);
+                }
+            };
+        </script>
     </body>
 </html>
