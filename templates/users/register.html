@@ -132,15 +132,14 @@
         <script src="{% static 'js/register.js' %}"></script>
         <script src="{% static 'js/validate_phone.js' %}"></script>
         <script src="{% static 'js/otp_timer.js' %}"></script>
-        <script src="{% static 'js/otp_modal_js.js' %}"></script>
         <script>
             let csrftoken = '{{ csrftoken }}'
             function validateCreateAccount() {
                 document.getElementById('otp-modal').classList.remove('hide-modal');
-                const result = validatePhone(url="{% url 'validate_phone' %}", csrftoken);
+                let phone = document.getElementById('phone').value
+                const result = validatePhone(url="{% url 'validate_phone' %}", phone=phone, validate_for="register",  csrftoken);
                 let password1 = document.getElementById('PassworField').value
                 let password2 = document.getElementById('PassworField2').value
-                // return;
                 if (!result.isValid) {
                     document.getElementById('otp-modal').classList.add('hide-modal');
                     $('#create-account-form').prepend(`
@@ -165,7 +164,7 @@
                     $('.alert-msg').fadeOut(10000);
                     return;
                 }
-                sendOTP(url="{% url 'send_otp' %}", csrftoken)
+                sendOTP(url="{% url 'send_otp' %}", otp_identifier=phone, otp_type="sms", csrftoken)
                     .then(result => {
                         // const message  = result;
                         $('#send-otp-message').prepend(`
@@ -182,7 +181,8 @@
                     });
                 if (!timerOn) {
                     timerOn = true;
-                    timer(60);
+                    let showCountDownDIV = document.getElementById('timer')
+                    timer(60, showCountDownDIV);
                 }
             };
         </script>
@@ -191,7 +191,7 @@
             document.getElementById('send-otp-form').addEventListener('submit', function (e) {
                 e.preventDefault();
                 otp_code = document.getElementById('otp').value
-                const verifyResult = verifyOTP(url="{% url 'verify_otp' %}", otp_code, csrftoken);
+                const verifyResult = verifyOTP(url="{% url 'verify_otp' %}", otp_code, "verify_otp", csrftoken);
                 if (!verifyResult.isValid) {
                     document.getElementById('otp-modal').classList.add('hide-modal');
                     $('#send-otp-message').prepend(`
