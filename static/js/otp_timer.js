@@ -1,16 +1,16 @@
 let timerOn = false;
-function timer(remaining) {
+function timer(remaining, showCountDiv) {
     var m = Math.floor(remaining / 60);
     var s = remaining % 60;
     
     m = m < 10 ? '0' + m : m;
     s = s < 10 ? '0' + s : s;
-    document.getElementById('timer').innerHTML = m + ':' + s;
+    showCountDiv.innerHTML = m + ':' + s;
     remaining -= 1;
     
     if(remaining >= 0 && timerOn) {
         setTimeout(function() {
-            timer(remaining);
+            timer(remaining, showCountDiv);
         }, 1000);
         return;
     }
@@ -21,5 +21,4 @@ function timer(remaining) {
     }
     timerOn = false
     // Do timeout stuff here
-    alert('Timeout for otp');
 }

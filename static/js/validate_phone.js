@@ -2,8 +2,8 @@
 
 
 
-function validatePhone(url, csrftoken) {
-    let data = { 'phone': document.getElementById('phone').value };
+function validatePhone(url, phone, validate_for, csrftoken) {
+    let data = { 'phone': phone, 'validate_for': validate_for };
     let isValid = false;
     let message = "";
     $.ajax({
@@ -31,12 +31,12 @@ function validatePhone(url, csrftoken) {
     return { isValid, message};
 }
 
-function verifyOTP(url, otp_code, csrftoken) {
+
+function verifyOTP(url, otp_code, otp_request, csrftoken) {
     let data = { 'otp_code': otp_code };
     let isValid = false;
     let message = "";
-    let fullUrl = url + "?" + "otp_request=verify_otp";
-    alert("fullUrl: " + fullUrl)
+    let fullUrl = url + "?" + "otp_request=" + otp_request;
     $.ajax({
         type: "POST",
         url: fullUrl,
@@ -62,10 +62,10 @@ function verifyOTP(url, otp_code, csrftoken) {
 
 // Function to handle the AJAX request
 
-function sendOTP(url, csrftoken) {
+function sendOTP(url, otp_identifier, otp_type, csrftoken) {
     let data = {
-        'otp_identifier': document.getElementById('phone').value,
-        'otp_type': 'sms'
+        'otp_identifier': otp_identifier,
+        'otp_type': otp_type
     };
 
     return new Promise((resolve, reject) => {
