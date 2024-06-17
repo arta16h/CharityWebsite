@@ -24,10 +24,10 @@ class OtpAuthBackend(ModelBackend):
             if self.verify_otp(request, otp_code) and user.exists():
                 return user.get()
             return None
-            raise AuthenticationFailed(_("Register First"))
+            # raise AuthenticationFailed(_("Register First"))
         except User.DoesNotExist:
             return None
-            raise AuthenticationFailed(_("Phone Number Does Not Exist"))
+            # raise AuthenticationFailed(_("Phone Number Does Not Exist"))
         
     def verify_otp(self, request: HttpRequest, otp_code):
         otp_expire_time = request.session.get("otp_expire_time")
@@ -59,7 +59,7 @@ class UserAuthBackend(ModelBackend):
         password=password
         if user_identifier is None or password is None:
             return None
-            raise AuthenticationFailed(str(_("You should provide credentials !!")))
+            # raise AuthenticationFailed(str(_("You should provide credentials !!")))
         try:
             user= User.objects.get(Q(email=user_identifier) | Q(phone=user_identifier))
             if user:

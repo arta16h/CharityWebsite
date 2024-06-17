@@ -32,6 +32,31 @@ function validatePhone(url, phone, validate_for, csrftoken) {
 }
 
 
+function validateEmail(url, email, vaidate_for, csrftoken) {
+    let data = { 'email': email, 'validate_for': vaidate_for };
+    let isValid = false;
+    let message = "";
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        },
+        dataType: "json",
+        async: false,
+        success: function(response) {
+            isValid = true;
+            message = response['message'];
+        },
+        error: function(response) {
+            isValid = false;
+            message = response.responseJSON['message'];
+        }
+    });
+    return { isValid, message};
+}
+
 function verifyOTP(url, otp_code, otp_request, csrftoken) {
     let data = { 'otp_code': otp_code };
     let isValid = false;
