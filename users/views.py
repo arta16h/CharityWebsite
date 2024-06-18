@@ -73,14 +73,37 @@ class PhoneValidationView(APIView) :
     def post(self, request) :
         data = request.POST
         phone = data['phone']
-
-        if not re.fullmatch(_REGEX, phone) :
+        validate_for = data['validate_for']
+        if not re.fullmatch(re.compile(r'09(\d{9})$'), phone) :
             return JsonResponse({'message' : 'شماره وارد شده صحیح نمیباشد'}, status=400)
-        
-        if User.objects.filter(phone=phone).exists() :
-            return JsonResponse({'message' : 'این شماره تماس قبلا استفاده شده'}, status=409)
+        if User.objects.filter(phone=phone).exists():
+            if validate_for == 'register':
+                return JsonResponse({'message' : 'این شماره تماس قبلا استفاده شده'}, status=409)
+            elif validate_for == 'login':
+                return JsonResponse({'message': _('Phone validated successfully')}, status=200)
+        if validate_for == 'login':
+            return JsonResponse({"message": _("user not found")}, status=400)
         return JsonResponse({'message' : True})
     
+
+class EmailValidationView(APIView) :
+    def post(self, request) :
+        data = request.POST
+        email = data['email']
+        validate_for = data['validate_for']
+
+        if not re.fullmatch(re.compile(r'^[^@]+@[^@]+\.[^@]+$'), email) :
+            return JsonResponse({'message' : 'ایمیل وارد شده صحیح نمیباشد'}, status=400)
+        
+        if User.objects.filter(email=email).exists() :
+            if validate_for == 'register':
+                return JsonResponse({'message' : 'این ایمیل قبلا استفاده شده'}, status=409)
+            elif validate_for == 'login':
+                return JsonResponse({'message': _('ایمیل با موفقیت ارزیابی شد')}, status=200)
+        if validate_for == 'login':
+            return JsonResponse({"message": _("کاربر یافت نشد")}, status=400)
+        return JsonResponse({'message' : True})
+
 
 class RegistrationView(View) :
     def get(self, request) :
