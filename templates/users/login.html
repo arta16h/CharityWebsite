@@ -11,3 +11,29 @@
         <link rel="stylesheet" href="{% static 'src/output.css' %}">
         {% endcompress %}
         <link rel="stylesheet" href="{% static 'css/login.css' %}">
+        <script>
+            function showEmailForm(){
+                document.getElementById('select-send-type-section').classList.add('hide-modal')
+                document.getElementById('email-otp-form').classList.remove('hide-modal')
+                }
+            function showSMSForm(){
+                document.getElementById('select-send-type-section').classList.add('hide-modal')
+                document.getElementById('sms-otp-form').classList.remove('hide-modal')
+            }
+            function backToSendSection(){
+                document.getElementById('select-send-type-section').classList.remove('hide-modal')
+                document.getElementById('email-otp-form').classList.add('hide-modal')
+                document.getElementById('sms-otp-form').classList.add('hide-modal')
+            }
+        const verifyResult = verifyOTP(url="{% url 'verify_otp' %}", otp_code=otp_code, otp_request="login", csrftoken="{{ csrftoken }}");
+        if (!verifyResult.isValid) {
+            // document.getElementById('otp-modal').classList.add('hide-modal');
+            $('#send-otp-message').prepend(`
+                <div class="alert alert-msg alert-danger" role="alert">${verifyResult.message}</div>`
+            );
+            $('.alert-msg').fadeOut(10000);
+            return;
+        }
+        window.location.href="{% url 'home' %}";
+    });
+</script>
