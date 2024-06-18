@@ -67,7 +67,6 @@ def volunteer_register(request):
 def about_us(request) :
     return render (request, 'about.html')
 
-_REGEX = re.compile(r'09(\d{9})$')
 
 class PhoneValidationView(APIView) :
     def post(self, request) :
