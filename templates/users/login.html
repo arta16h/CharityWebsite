@@ -1,7 +1,5 @@
 {% load static %}
 {% load compress %}
-{% load static %}
-{% load compress %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -177,7 +175,7 @@
                     </div>
                 </div>
             </div>
-        </div>  
+        </div> 
         <!-- otp modal -->
         <div id="otp-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative p-4 w-full max-w-md max-h-full">
@@ -214,6 +212,65 @@
                 </div>
             </div>
         </div> 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+        <script src="{% static 'js/validate_phone.js' %}"></script>
+        <script src="{% static 'js/otp_timer.js' %}"></script>
+        <script>
+            function setTimer(seconds){
+                if (!timerOn) {
+                    timerOn = true;
+                    let showCountDownDIV = document.getElementById('timer')
+                    timer(seconds, showCountDownDIV);
+                }
+            }
+            function validateOtpIdentifier(otp_type) {
+                let csrftoken = '{{ csrftoken }}'
+                let otpIdentifier = ''
+                document.getElementById('otp-modal').classList.add('hide-modal');
+                if (otp_type === "sms"){
+                    otpIdentifier = document.getElementById('phone').value
+                    const result = validatePhone(url="{% url 'validate_phone' %}", otpIdentifier, "login", csrftoken);
+                    if (!result.isValid) {
+                        document.getElementById('otp-modal').classList.add('hide-modal');
+                        $('#sms-otp-form').prepend(`
+                            <div class="alert alert-msg alert-danger" role="alert">${result.message}</div>`
+                        );
+                        $('.alert-msg').fadeOut(10000);
+                        return;
+                    }
+                }
+            if (otp_type === "email"){
+                otpIdentifier = document.getElementById('email').value
+                const result = validateEmail(url="{% url 'validate_email' %}", otpIdentifier, "login", csrftoken);
+                if (!result.isValid) {
+                    document.getElementById('otp-modal').classList.add('hide-modal');
+                    $('#email-otp-form').prepend(`
+                        <div class="alert alert-msg alert-danger" role="alert">${result.message}</div>`
+                    );
+                    $('.alert-msg').fadeOut(10000);
+                    return;
+                }
+            }
+            document.getElementById('otp-modal').classList.remove('hide-modal');
+            if (!timerOn) {
+                sendOTP(url="{% url 'send_otp' %}", otp_identifier=otpIdentifier, otp_type=otp_type, csrftoken)
+                .then(result => {
+                    $('#send-otp-message').prepend(`
+                        <div class="aslert alsert-msg alert-susccess" role="alert">${result.message}</div>`
+                    );
+                    // $('.alert-success').fadeOut(3000);
+                })
+                .catch(error => {
+                    $('#send-otp-message').prepend(`
+                        <div class="alert alert-msg alert-danger" role="alert">${error.message}</div>`
+                    );
+                    // $('.alert-msg').fadeOut(10000);
+                });
+                }
+                setTimer(120);
+            };
+        </script>
         <script>
             function showEmailForm(){
                 document.getElementById('select-send-type-section').classList.add('hide-modal')
@@ -228,15 +285,22 @@
                 document.getElementById('email-otp-form').classList.add('hide-modal')
                 document.getElementById('sms-otp-form').classList.add('hide-modal')
             }
-        const verifyResult = verifyOTP(url="{% url 'verify_otp' %}", otp_code=otp_code, otp_request="login", csrftoken="{{ csrftoken }}");
-        if (!verifyResult.isValid) {
-            // document.getElementById('otp-modal').classList.add('hide-modal');
-            $('#send-otp-message').prepend(`
-                <div class="alert alert-msg alert-danger" role="alert">${verifyResult.message}</div>`
-            );
-            $('.alert-msg').fadeOut(10000);
-            return;
-        }
-        window.location.href="{% url 'home' %}";
-    });
-</script>
+        </script>
+            <script>
+                document.getElementById('send-otp-form').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    otp_code = document.getElementById('otp').value
+                    const verifyResult = verifyOTP(url="{% url 'verify_otp' %}", otp_code=otp_code, otp_request="login", csrftoken="{{ csrftoken }}");
+                    if (!verifyResult.isValid) {
+                        // document.getElementById('otp-modal').classList.add('hide-modal');
+                        $('#send-otp-message').prepend(`
+                            <div class="alert alert-msg alert-danger" role="alert">${verifyResult.message}</div>`
+                        );
+                        $('.alert-msg').fadeOut(10000);
+                        return;
+                    }
+                    window.location.href="{% url 'home' %}";
+                });
+            </script>
+    </body>
+</html>
