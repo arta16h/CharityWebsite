@@ -94,6 +94,46 @@
                                     </div>
                                 </div> 
                             </form>
+                            <form class="maxs-w-xs mx-sauto hide-modal" id="email-otp-form">
+                                <div class="row">
+                                    <span class="" onclick="backToSendSection()">
+                                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                        <svg style="height: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                            <path d="M512 256A256 256 0 1 0 0 256a256 256 0 1 0 512 0zM231 127c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-71 71L376 232c13.3 0 24 10.7 24 24s-10.7 24-24 24l-182.1 0 71 71c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L119 273c-9.4-9.4-9.4-24.6 0-33.9L231 127z"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-10">
+                                        <div class="relative mb-6">
+                                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                                                    <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+                                                    <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                                                </svg>
+                                            </div>
+                                            <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="sample@gmail.com">
+                                        </div>
+                                        <button id="send-email-button"
+                                            data-modal-target="otp-modal"
+                                            data-modal-toggle="otp-modal"
+                                            class="
+                                                text-white inline-flex w-full justify-center bg-blue-700
+                                                hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
+                                                font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 
+                                                dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                            onclick="validateOtpIdentifier(otp_type='email')"
+                                            type="button">
+                                                ارسال
+                                        </button> 
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
         <!-- otp modal -->
         <div id="otp-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative p-4 w-full max-w-md max-h-full">
