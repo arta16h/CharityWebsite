@@ -177,7 +177,7 @@ class LoginView(View) :
     
 
 class LogoutView(View) :
-    def post(self, request) :
+    def get(self, request) :
         auth.logout(request)
         messages.success(request, 'از حساب کاربری خارج شدید')
         return redirect('login')
