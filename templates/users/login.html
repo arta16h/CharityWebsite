@@ -7,10 +7,20 @@
     <head>
         <title>ورود به حساب</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
         {% compress css %}
         <link rel="stylesheet" href="{% static 'src/output.css' %}">
         {% endcompress %}
         <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    </head>
+    <body>
+        <div class="container h-100">
+            <div class="d-flex justify-content-center h-100">
+                <div class="user_card bg-gradient-to-b">
+                    <div class="d-flex justify-content-center" style="font-family: Byekan">
+                        <h3 id="form-title">ورود به حساب</h3>
+                    </div>
                     <div class="d-flex justify-content-center form_container">
                         <form method="POST" action="">
                             {% csrf_token %}
@@ -32,6 +42,24 @@
                                 </div>
                         </form>
                     </div>
+                    <div class="mt-4">
+                        <div class="d-flex justify-content-center links" style="font-family: Byekan;">
+                            <a href="{% url 'register' %}" class="ml-2" style="text-decoration: none; color: #fff">حساب کاربری ندارید؟</a>
+                        </div>
+                        <!-- <div class="d-flex justify-content-center links" style="font-family: Byekan;">
+                            <a href=""   data-modal-target="otp-modal"
+                            data-modal-toggle="otp-modal" class="ml-2 text-xs text-red-500" style="text-decoration: none; color: #fff">ورود با کد یکبار مصرف</a>
+                        </div> -->
+                        <button  class="bg-transparent d-flex justify-content-center align-items-center align-self-center w-100 links" style="font-family: Byekan;"  data-modal-target="select-modal" data-modal-toggle="select-modal" type="button">
+                            <p class="ml-2 text-xs" style="text-decoration: none; color: #fff">
+                                ورود با کد یکبار مصرف
+                            </p>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <script>
             function showEmailForm(){
                 document.getElementById('select-send-type-section').classList.add('hide-modal')
