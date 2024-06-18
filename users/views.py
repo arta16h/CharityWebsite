@@ -48,7 +48,7 @@ def volunteer_register(request):
         form = VolunteerRegisterForm(request.POST or None, request.FILES)
         if form.is_valid():
             user = request.user
-            if not isinstance(user, User):
+            if not user.is_authenticated:
                 clean_data = form.cleaned_data.copy()
                 register_form = NoPasswordRegisterForm(clean_data)
                 user = register_form.save()
@@ -59,7 +59,7 @@ def volunteer_register(request):
             messages.success(request, 'به جمع داوطلبین خادمین سیده زینب خوش آمدید')
             return redirect('users:volunteer')
     prefill_data = {key: value for key , value in request.GET.items() if value}
-    if isinstance(request.user, User):
+    if request.user.is_authenticated:
         prefill_data.update({'first_name':request.user.first_name, 'last_name': request.user.last_name, 'phone':request.user.phone})
     form = VolunteerRegisterForm(initial=prefill_data)
     return render(request, "users/volunteer.html", {"form": form})
@@ -150,6 +150,8 @@ class RegistrationView(View) :
 
 class LoginView(View) :
     def get(self, request) :
+        if request.user.is_authenticated:
+            return redirect('home')
         return render(request, 'users/login.html')
     
     def post(self,request) :
@@ -189,7 +191,7 @@ def dashboard(request) :
 class SendOtpView(APIView):
     
     def post(self, request):
-        if request.user and isinstance(request.user, User):
+        if request.user and request.user.is_authenticated:
             return Response(
                 data={"data":None, "message":_("user is already logged in")},
                 status=status.HTTP_400_BAD_REQUEST
