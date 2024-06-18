@@ -238,7 +238,7 @@ class VerifyOtpView(APIView):
         otp_code = request.POST.get("otp_code")
         user = OtpAuthBackend().authenticate(request, otp_code=otp_code)
         if user:
-            auth.login(request, user, backend='users.authentication.OtpAuthBackend')
+            auth.login(request, user, backend="users.authentication.UserAuthBackend")
             del request.session["otp_code"]
             del request.session["otp_expire_time"]
             del request.session["otp_identifier"]
