@@ -204,7 +204,7 @@ class SendOtpView(APIView):
                 request.session['otp_code'] = otp_code
                 request.session['otp_identifier'] = otp_identifier
                 request.session['otp_expire_time'] = str(datetime.now() + timedelta(seconds=int(settings.OTP_EXPIRE_TIME)))
-                # send_otp_code(otp_code, otp_type, otp_identifier)
+                send_otp_code(otp_code, otp_type, otp_identifier)
                 message = _("code has sent to {otp_identifier}").format(otp_identifier=otp_identifier)
                 return Response(
                     data={"data":None, "message":message},
