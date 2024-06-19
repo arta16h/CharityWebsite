@@ -160,6 +160,7 @@ EMAIL_HOST_PASSWORD = mail_pass
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 CONTACT_US_EMAIL = os.environ.get("CONTACT_US_EMAIL")
+OTP_SENDER_EMAI = os.environ.get('OTP_SENDER_EMAI')
 
 #-------------Messages------------
 MESSAGE_TAGS = {

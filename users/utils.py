@@ -33,15 +33,24 @@ def send_sms_otp(otp_code, mobile_number):
 
 def send_email_otp(otp_code, email):
     subject = _("Otp code: {otp_code}").format(otp_code=otp_code)
-    email_template_name = "pages/authentication/email.txt"
-    c = {
+    email_template_name = "email/otp_template.html"
+    context = {
         "email": email,
-        'token': otp_code,
+        'otp_code': otp_code,
+        # 'protocol': "http",   
+        # 'domain': request.get_host(),
     }
-    content = render_to_string(email_template_name, c)
+    html = render_to_string(email_template_name, context)
+    text = render_to_string('email/otp_message.txt', context)
     try:
-        send_mail(subject, content, settings.OTP_SENDER_EMAI,
-                    [email], fail_silently=False)
+        send_mail(
+            subject=subject, 
+            message=text,
+            html_message=html, 
+            from_email=settings.OTP_SENDER_EMAI,
+            recipient_list=[email], 
+            fail_silently=False
+        )
         return True , ""
     except BadHeaderError:
         return False, _("Email Doesn't Exists ")
