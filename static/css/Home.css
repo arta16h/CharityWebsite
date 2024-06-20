@@ -1027,7 +1027,7 @@
 }
 
 .footer-distributed .footer-center {
-  width: 35%;
+  width: 40%;
 }
 
 .footer-distributed .footer-left {
@@ -1069,7 +1069,12 @@
   width: 30%;
 }
 
+.footer-distributed .footer-left {
+  width: 25%;
+}
+
 .footer-distributed .footer-company-about {
+  text-align: right;
   line-height: 20px;
   color: #fff;
   font-size: 13px;
