@@ -1,9 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.validators import RegexValidator
-from .helper import make_image_path
+from utils.file_path_creator import make_image_path
 from django.utils.translation import gettext_lazy as _
 from .enums import *
+from .manager import UserManager
 # Create your models here.
 
 
@@ -53,7 +54,7 @@ class Volunteer(models.Model) :
 
 
 
-class User(AbstractUser):
+class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(verbose_name=_("first name"), max_length=100, null=True, blank=True)
     last_name = models.CharField(verbose_name=_("last name"), max_length=100, null=True, blank=True)
     email = models.EmailField(verbose_name=_("email"), unique=True, null=True, blank=True)    
@@ -64,4 +65,16 @@ class User(AbstractUser):
         validators=[phone_validator], 
         unique=True
     )
+    username = models.CharField(_("username"), max_length=50, null=True, blank=True)
     volunteer_info = models.OneToOneField(Volunteer, on_delete=models.SET_NULL, null=True, blank=True)
+
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
+    USERNAME_FIELD = "phone"
+
+    objects = UserManager()
+
+    def __str__(self) -> str:
+        return str(self.phone) or str(self.username)

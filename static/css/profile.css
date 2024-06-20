@@ -1,0 +1,9 @@
+/* In the name of GOD */
+
+.user_image{
+    width: 250px !important;
+    height: 250px !important;
+    border-radius: 50%;
+    position: relative !important;
+    left: 52% !important;
+}

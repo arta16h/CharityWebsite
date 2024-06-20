@@ -10,7 +10,6 @@ from rest_framework.exceptions import AuthenticationFailed, ParseError
 
 from .models import User
 
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from datetime import datetime
@@ -20,27 +19,32 @@ class OtpAuthBackend(ModelBackend):
 
     def authenticate(self, request: HttpRequest, otp_code=None, **kwargs):
         try:
-            otp_identifier = request.session.get('otp-identifier')
+            otp_identifier = request.session.get('otp_identifier')  
             user = User.objects.filter(Q(phone=otp_identifier) | Q(email=otp_identifier))
             if self.verify_otp(request, otp_code) and user.exists():
                 return user.get()
-            raise AuthenticationFailed(_("Register First"))
+            return None
+            # raise AuthenticationFailed(_("Register First"))
         except User.DoesNotExist:
-            raise AuthenticationFailed(_("Phone Number Does Not Exist"))
+            return None
+            # raise AuthenticationFailed(_("Phone Number Does Not Exist"))
         
     def verify_otp(self, request: HttpRequest, otp_code):
         otp_expire_time = request.session.get("otp_expire_time")
         if otp_expire_time:
             otp_expire_time = datetime.fromisoformat(otp_expire_time)
-            if otp_expire_time > timezone.now():
-                if otp_code and request.session.get("otp_code") == otp_code:
+            if otp_expire_time > datetime.now():
+                if otp_code and int(request.session.get("otp_code", 0)) == int(otp_code):
                     return True
                 else:
-                    raise AuthenticationFailed(_("Invalid OTP"))
+                    return None
+                    # raise AuthenticationFailed(_("Invalid OTP"))
             else:
-                raise AuthenticationFailed(_("OTP has been expired"))
+                return None
+                # raise AuthenticationFailed(_("OTP has been expired"))
         else:
-            raise AuthenticationFailed(_("OTP has been expired"))
+            return None
+            # raise AuthenticationFailed(_("OTP has been expired"))
 
 
     def get_user(self, user_id):
@@ -54,9 +58,10 @@ class UserAuthBackend(ModelBackend):
     def authenticate(self, request, user_identifier=None, password=None, **kwargs):
         password=password
         if user_identifier is None or password is None:
-            raise AuthenticationFailed(str(_("You should provide credentials !!")))
+            return None
+            # raise AuthenticationFailed(str(_("You should provide credentials !!")))
         try:
-            user= User.objects.get(Q(email=user_identifier) | Q(mobile_number=user_identifier))
+            user= User.objects.get(Q(email=user_identifier) | Q(phone=user_identifier))
             if user:
                 if user.check_password(password):
                     return user

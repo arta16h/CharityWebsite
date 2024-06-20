@@ -1,4 +1,5 @@
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html> 
     <head>
@@ -7,6 +8,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'css/register.css' %}">
+        {% compress css %}
+        <link rel="stylesheet" href="{% static 'src/output.css' %}">
+        {% endcompress %}
+        <style>
+            .hide-modal{
+                display: none;
+            }
+        </style>
     </head>
     <body>
         <div class="container h-100">
@@ -18,14 +27,14 @@
                     </div>
                     
                     <div class="d-flex justify-content-center form_container">
-                        <form method="POST" action="{% url 'register' %}">
+                        <form id="create-account-form" method="POST" action="{% url 'register' %}">
                             {% csrf_token %}
                             {% include 'partials/_messages.html' %}
                             <div class="input-group mb-3" style="font-family: Byekan">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="tel" name="phone" class="form-control" id="phonefield" 
+                                <input type="tel" id="phone" name="phone" class="form-control"
                                         placeholder="شماره موبایل"  value="{{fieldValues.phone}}">
                             </div>
                             <div class="invalid_feedback" style="display: none;"></div>
@@ -34,23 +43,40 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                <input type="password" name="password1" class="form-control form-control-sm" 
-                                        id="PasswordField" placeholder="رمز عبور"/>
+                                <input id="PassworField"  type="password" name="password1" class="form-control form-control-sm" 
+                                        placeholder="رمز عبور" value=""/>
                                 <!-- <span class=" float-left z-30 fix  bg-white  ShowPasswordToggle">
                                     <i class=" fas fa-eye"></i>
                                 </span> -->
-                            </div>
-                                    
-                                    <div class="input-group mb-2" style="font-family: Byekan">
+                            </div>    
+                            <div class="input-group mb-2" style="font-family: Byekan">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                <input type="password" name="password2" class="form-control form-control-sm" 
-                                        id="passwordfield" placeholder="تکرار رمز عبور"/>
+                                <input id="PassworField2" type="password" name="password2" class="form-control form-control-sm" 
+                                    placeholder="تکرار رمز عبور" value="" required="true"/>
                             </div>
 
                             <div class="d-flex justify-content-center mt-3 login_container">
-                                <input class="btn submit_btn" type="submit" value="ساخت حساب" style="font-family: Byekan"/>
+                                <!-- <input class="btn submit_btn" type="submit" value="ساخت حساب" style="font-family: Byekan"/> -->
+                                <button id="create-account-button"
+                                        data-modal-target="otp-modal"
+                                        data-modal-toggle="otp-modal"
+                                        class="
+                                            block text-whites btn
+                                            bg-amber-400 submit_btn
+                                            hover:bg-amber-800 focus:ring-4 
+                                            focus:outline-none focus:ring-blue-300 
+                                            font-medium rounded-lg text-sm 
+                                            px-5 py-2.5 text-center
+                                            dark:bg-blue-600 dark:hover:bg-blue-700 
+                                            dark:focus:ring-blue-800
+                                            "
+                                        onclick="validateCreateAccount()"
+                                        type="button">
+                                    ساخت حساب
+                                </button>    
+                                <!-- <input class="btn submit_btn" type="button" value="ساخت حساب" style="font-family: Byekan"/> -->
                             </div>
                         </form>
                     </div>
@@ -66,6 +92,118 @@
                 </div>
             </div>
         </div>
+        <!-- otp modal -->
+        <div id="otp-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <!-- otp Modal content -->
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <!-- otp Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 id="send-otp-message" class="text-lg font-semibold text-gray-900 dark:text-white">
+                            کد یکبار مصرف به موبایل شما ارسال شد
+                        </h3>
+                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="otp-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- otp Modal body -->
+                    <form id="send-otp-form" class="p-4 md:p-5 justify-items-center text-justify justify-content-center">
+                        <div class="grid gap-4 mb-4 grid-cols-3">
+                            <div class="col-span-1 flex justify-center self-end">
+                                <button type="submit" class="rounded-full w-12 h-12 flex items-center justify-center bg-transparent ring-1 ring-emerald-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <i class="text-emerald-400 fas fa-thin fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            <div class="col-span-2">
+                                <label for="otp" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white text-end ">کد تایید</label>
+                                <input type="number" name="otp" id="otp" class="text-end bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="کد را وارد کنید" required="true">
+                            </div>
+                        </div>
+                        <div class="text-end"><span id="timer"></span>   : زمان باقی مانده</div>
+                    </form>
+                </div>
+            </div>
+        </div> 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
         <script src="{% static 'js/register.js' %}"></script>
+        <script src="{% static 'js/validate_phone.js' %}"></script>
+        <script src="{% static 'js/otp_timer.js' %}"></script>
+        <script>
+            let csrftoken = '{{ csrftoken }}'
+            function validateCreateAccount() {
+                document.getElementById('otp-modal').classList.remove('hide-modal');
+                let phone = document.getElementById('phone').value
+                const result = validatePhone(url="{% url 'validate_phone' %}", phone=phone, validate_for="register",  csrftoken);
+                let password1 = document.getElementById('PassworField').value
+                let password2 = document.getElementById('PassworField2').value
+                if (!result.isValid) {
+                    document.getElementById('otp-modal').classList.add('hide-modal');
+                    $('#create-account-form').prepend(`
+                        <div class="alert alert-msg alert-danger" role="alert">${result.message}</div>`
+                    );
+                    $('.alert-msg').fadeOut(10000);
+                    return;
+                }
+                if (password1 === "") {
+                    document.getElementById('otp-modal').classList.add('hide-modal');
+                    $('#create-account-form').prepend(`
+                        <div class="alert alert-msg alert-danger" role="alert">گذرواژه نباید خالی باشد</div>`
+                    );
+                    $('.alert-msg').fadeOut(10000);
+                    return;
+                }
+                if ( password1 !== password2) {
+                    document.getElementById('otp-modal').classList.add('hide-modal');
+                    $('#create-account-form').prepend(`
+                        <div class="alert alert-msg alert-danger" role="alert">رمز عبور با تکرار رمز عبور مطابقت ندارد</div>`
+                    );
+                    $('.alert-msg').fadeOut(10000);
+                    return;
+                }
+                sendOTP(url="{% url 'send_otp' %}", otp_identifier=phone, otp_type="sms", csrftoken)
+                    .then(result => {
+                        // const message  = result;
+                        $('#send-otp-message').prepend(`
+                            <div class="alert alert-msg alert-success" role="alert">${result.message}</div>`
+                        );
+                        $('.alert-success').fadeOut(3000);
+                    })
+                    .catch(error => {
+                        // const message = error;
+                        $('#send-otp-message').prepend(`
+                            <div class="alert alert-msg alert-danger" role="alert">${error.message}</div>`
+                        );
+                        $('.alert-msg').fadeOut(10000);
+                    });
+                if (!timerOn) {
+                    timerOn = true;
+                    let showCountDownDIV = document.getElementById('timer')
+                    timer(60, showCountDownDIV);
+                }
+            };
+        </script>
+        
+        <script>
+            document.getElementById('send-otp-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                otp_code = document.getElementById('otp').value
+                const verifyResult = verifyOTP(url="{% url 'verify_otp' %}", otp_code, "verify_otp", csrftoken);
+                if (!verifyResult.isValid) {
+                    document.getElementById('otp-modal').classList.add('hide-modal');
+                    $('#send-otp-message').prepend(`
+                        <div class="alert alert-msg alert-danger" role="alert">${verifyResult.message}</div>`
+                    );
+                    $('.alert-msg').fadeOut(10000);
+                    return;
+                }
+                document.getElementById('create-account-form').submit();
+            });
+        </script>
+        
+        
     </body>
 </html>

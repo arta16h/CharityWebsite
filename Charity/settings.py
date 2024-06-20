@@ -160,6 +160,7 @@ EMAIL_HOST_PASSWORD = mail_pass
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 CONTACT_US_EMAIL = os.environ.get("CONTACT_US_EMAIL")
+OTP_SENDER_EMAI = os.environ.get('OTP_SENDER_EMAI')
 
 #-------------Messages------------
 MESSAGE_TAGS = {
@@ -167,6 +168,11 @@ MESSAGE_TAGS = {
 }
 
 AUTH_USER_MODEL = 'users.User'
+AUTHENTICATION_BACKENDS =  [
+    'django.contrib.auth.backends.ModelBackend',
+    # 'users.authentication.OtpAuthBackend',
+    'users.authentication.UserAuthBackend',
+]
 
 COMPRESS_ROOT = BASE_DIR / 'static'
 COMPRESS_ENABLED = True
@@ -177,3 +183,6 @@ STATICFILES_FINDERS = (
 
 OTP_SENDER_EMAIL = os.environ.get("OTP_SENDER_EMAIL")
 OTP_DIGIT_COUNT = int(os.environ.get("OTP_DIGIT_COUNT", 3))
+OTP_EXPIRE_TIME = int(os.environ.get("OTP_EXPIRE_TIME", 60))
+
+KAVENEGAR_API_KEY = os.environ.get("KAVENEGAR_API_KEY")
