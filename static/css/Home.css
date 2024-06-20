@@ -1026,8 +1026,12 @@
   color: inherit;
 }
 
-.footer-distributed .footer-center {
+.footer-distributed .footer-right {
   width: 35%;
+}
+
+.footer-distributed .footer-center {
+  text-align: left;
 }
 
 .footer-distributed .footer-center i {
@@ -1060,7 +1064,8 @@
   text-decoration: none;
 }
 
-.footer-distributed .footer-right{
+.footer-distributed .footer-left{
+  padding-right: 5%;
   width: 30%;
 }
 
@@ -1073,9 +1078,9 @@
 }
 
 .footer-distributed .footer-company-name {
-  color: #fff;
-  font-size: large;
-  font-weight: bold;
+  color: #ffd654;
+  font-size: 22px;
+  font-weight: normal;
 }
 
 .footer-distributed .footer-icons {
