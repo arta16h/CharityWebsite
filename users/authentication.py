@@ -19,7 +19,7 @@ class OtpAuthBackend(ModelBackend):
 
     def authenticate(self, request: HttpRequest, otp_code=None, **kwargs):
         try:
-            otp_identifier = request.session.get('otp-identifier')
+            otp_identifier = request.session.get('otp_identifier')  
             user = User.objects.filter(Q(phone=otp_identifier) | Q(email=otp_identifier))
             if self.verify_otp(request, otp_code) and user.exists():
                 return user.get()
