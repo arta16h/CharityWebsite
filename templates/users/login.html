@@ -256,13 +256,13 @@
             if (!timerOn) {
                 sendOTP(url="{% url 'send_otp' %}", otp_identifier=otpIdentifier, otp_type=otp_type, csrftoken)
                 .then(result => {
-                    $('#send-otp-message').prepend(`
+                    $('#send-otp-message').html(`
                         <div class="aslert alsert-msg alert-susccess" role="alert">${result.message}</div>`
                     );
                     // $('.alert-success').fadeOut(3000);
                 })
                 .catch(error => {
-                    $('#send-otp-message').prepend(`
+                    $('#send-otp-message').html(`
                         <div class="alert alert-msg alert-danger" role="alert">${error.message}</div>`
                     );
                     // $('.alert-msg').fadeOut(10000);
