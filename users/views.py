@@ -20,7 +20,7 @@ from Charity.settings import mail
 from .forms import ContactUsForm, VolunteerRegisterForm, RegisterForm, NoPasswordRegisterForm, LoginForm
 from .authentication import OtpAuthBackend, UserAuthBackend
 from .models import User
-from .utils import generate_otp_code, send_otp_code
+from utils.otp_tools import generate_otp_code, send_otp_code
 # Create your views here.
 
 def home(request) :
@@ -249,7 +249,7 @@ class VerifyOtpView(APIView):
             )
         messages.error(request, _('invalid otp'))
         return Response(
-            data={"data":None, "message":_("invalid otp type")},
+            data={"data":None, "message":_("invalid otp")},
             status=status.HTTP_400_BAD_REQUEST
         )
     

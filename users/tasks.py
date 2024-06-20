@@ -1,7 +1,7 @@
 # In the name of GOD
 
 from celery.app import shared_task
-from .utils import send_otp_code, send_email_otp, send_sms_otp
+from utils.otp_tools import send_otp_code, send_email_otp, send_sms_otp
 
 @shared_task()
 def async_send_sms_otp(otp_code, mobile_number):
