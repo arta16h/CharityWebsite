@@ -1,25 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.validators import RegexValidator
+from django.core.mail import send_mail
 from utils.file_path_creator import make_image_path
 from django.utils.translation import gettext_lazy as _
 from .enums import *
 from .manager import UserManager
 # Create your models here.
 
-
-_REGEX = r'09(\d{9})$'
-phone_validator = RegexValidator(_REGEX)
-
-# class Job(models.Model):
-#     en_name = models.CharField(_("english name"), max_length=60)
-#     fa_name = models.CharField(_("persian name"), max_length=60, null=True, blank=True)
-#     description = models.CharField(_("description"), max_length=300, null=True, blank=True)
-#     date_added = models.DateTimeField(_("date added"), auto_now=True)
-#     date_modified = models.DateTimeField(_("date modified"), auto_now_add=True)
-
-#     def __str__(self) -> str:
-#         return self.fa_name or self.en_name
 
 class Volunteer(models.Model) :
     first_name = models.CharField(verbose_name=_("first name"), max_length=100)
@@ -32,7 +20,7 @@ class Volunteer(models.Model) :
     phone = models.CharField(
         verbose_name=_("phone"),
         max_length=14, 
-        validators=[phone_validator], 
+        validators=[RegexValidator(r'09(\d{9})$')], 
         unique=True
     )
     specialist_info = models.TextField(verbose_name=_("specialist info"))
@@ -62,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(
         verbose_name=_("phone"),
         max_length=14, 
-        validators=[phone_validator], 
+        validators=[RegexValidator(r'09(\d{9})$')], 
         unique=True
     )
     username = models.CharField(_("username"), max_length=50, null=True, blank=True)
@@ -78,3 +66,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self) -> str:
         return str(self.phone) or str(self.username)
+    
+    
+    def get_full_name(self):
+        """
+        Return the first_name plus the last_name, with a space in between.
+        """
+        full_name = "%s %s" % (self.first_name, self.last_name)
+        return full_name.strip()
+
+    def get_short_name(self):
+        """Return the short name for the user."""
+        return self.first_name
+
+    def email_user(self, subject, message, from_email=None, **kwargs):
+        """Send an email to this user."""
+        if self.email:
+            send_mail(subject, message, from_email, [self.email], **kwargs)
