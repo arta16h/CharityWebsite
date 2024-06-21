@@ -67,6 +67,8 @@ def volunteer_register(request):
 def about_us(request) :
     return render (request, 'about.html')
 
+def contact_us(request) :
+    return render (request, 'contact.html')
 
 class PhoneValidationView(APIView) :
     def post(self, request) :
