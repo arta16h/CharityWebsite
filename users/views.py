@@ -267,3 +267,10 @@ class VerifyOtpView(APIView):
             data={"data":None, "message":_("invalid otp")},
             status=status.HTTP_400_BAD_REQUEST
         )
+    
+def donate(request):
+    if request.method == 'POST':
+        # Process the form data and handle the donation logic
+        messages.success(request, 'Thank you for your donation!')
+        return redirect('donate')
+    return render(request, 'donate.html')
