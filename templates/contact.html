@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--================ Header Area =================-->
+{% block title %}ارتباط با ما{% endblock %}
+{% block headername %}ارتباط با ما{% endblock %}
+{% block nestname %}ارتباط با ما{% endblock %}
+<!--================ End Header Area =================-->
+
+
+<!--================ About-us Area =================-->
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/contact.css'%}">
+{% endblock %}
+
+{% block content %}
+{% include 'partials/_messages.html' %}
+
+<div class="contact-container">
+    <form action="https://api.web3forms.com/submit" method="POST" class="contact-left">
+        <div class="contact-left-title">
+            <h2>پیشنهاد و انتقاد</h2>
+            <hr>
+        </div>
+        <input type="hidden" name="access_key" value="7d342cd8-f902-4ce8-83d4-7d822a5c5d6a">
+
+        <input type="text" name="name" placeholder="نام و نام خانوادگی" class="contact-inputs" required>
+        <input type="text" name="subject" placeholder="موضوع" class="contact-inputs">
+        <input type="email" name="email" placeholder="آدرس ایمیل" class="contact-inputs" required>
+        <textarea name="message" placeholder="پیام خود را بنویسید" class="contact-inputs" required></textarea>
+        <button type="submit">ارسال <img src="{% static 'image/arrow_icon.png' %}" alt="arrow icon"></button>
+    </form>
+    
+    <div class="contact-right">
+        <img src="{% static 'image/letter.png' %}" alt="">
+    </div>
+</div>
+
+{% endblock %}
