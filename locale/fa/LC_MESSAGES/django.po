@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-06 21:58+0330\n"
+"POT-Creation-Date: 2024-06-21 15:15+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,154 +17,198 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\Charity\settings.py:126
+#: .\Charity\settings.py:128
 msgid "Persian"
 msgstr "فارسی"
 
-#: .\Charity\settings.py:127
+#: .\Charity\settings.py:129
 msgid "English"
 msgstr "انگلیسی"
 
-#: .\users\authentication.py:25
-msgid "Token should be provided"
-msgstr ""
-
-#: .\users\authentication.py:31
-msgid "Token prefix doesn't match"
-msgstr ""
-
-#: .\users\authentication.py:38
-msgid "User identifier not found in JWT"
-msgstr ""
-
-#: .\users\authentication.py:41
-msgid "Token expired"
-msgstr ""
-
-#: .\users\authentication.py:48
-msgid "User not found"
-msgstr ""
-
-#: .\users\authentication.py:57
-msgid "You should provide credentials !!"
-msgstr ""
-
 #: .\users\enums.py:18
-msgid "female"
-msgstr "زن"
+msgid "مونث"
+msgstr ""
 
 #: .\users\enums.py:19
-msgid "male"
-msgstr "مرد"
+msgid "مذکر"
+msgstr ""
 
 #: .\users\enums.py:23
-msgid "single"
-msgstr "مجرد"
+msgid "مجرد"
+msgstr ""
 
 #: .\users\enums.py:24
-msgid "maried"
-msgstr "متاهل"
+msgid "متاهل"
+msgstr ""
 
-#: .\users\enums.py:28
-msgid "diploma"
-msgstr "دیپلم"
-
-#: .\users\enums.py:29
-msgid "associate degree"
-msgstr "کاردانی"
-
-#: .\users\enums.py:30
-msgid "Bsc"
-msgstr "کارشناسی"
-
-#: .\users\enums.py:31
-msgid "Msc"
-msgstr "کارشناسی ارشد"
-
-#: .\users\enums.py:32
-msgid "Phd"
-msgstr "دکترا"
-
-#: .\users\models.py:14
-msgid "english name"
-msgstr "نام انگلیسی"
-
-#: .\users\models.py:15
-msgid "persian name"
-msgstr "نام فارسی"
-
-#: .\users\models.py:16
-msgid "description"
-msgstr "توضیحات"
-
-#: .\users\models.py:17
-msgid "date added"
-msgstr "تاریخ اضافه شدن"
-
-#: .\users\models.py:18
-msgid "date modified"
-msgstr "تاریخ  آخرین تغییر"
-
-#: .\users\models.py:22
+#: .\users\models.py:25 .\users\models.py:58
 msgid "first name"
 msgstr "نام"
 
-#: .\users\models.py:23
+#: .\users\models.py:26 .\users\models.py:59
 msgid "last name"
 msgstr "نام خانوادگی"
 
-#: .\users\models.py:24
+#: .\users\models.py:27 .\users\models.py:60
 msgid "email"
 msgstr "ایمیل"
 
-#: .\users\models.py:25
+#: .\users\models.py:28
 msgid "birth day"
 msgstr "تاریخ تولد"
 
-#: .\users\models.py:26
+#: .\users\models.py:29
 msgid "nc"
 msgstr "کد ملی"
 
-#: .\users\models.py:27
+#: .\users\models.py:30
 msgid "major"
 msgstr "شغل"
 
-#: .\users\models.py:28
+#: .\users\models.py:31 .\users\models.py:61
 msgid "city"
 msgstr "شهر"
 
-#: .\users\models.py:30
+#: .\users\models.py:33 .\users\models.py:63
 msgid "phone"
 msgstr "شماره تماس"
 
-#: .\users\models.py:35
+#: .\users\models.py:38
 msgid "specialist info"
 msgstr "جزئیات تخصص"
 
-#: .\users\models.py:36
+#: .\users\models.py:39
 msgid "profile picture"
 msgstr "تصویر پروفایل"
 
-#: .\users\models.py:37
-msgid "abilities"
-msgstr "توانایی ها"
-
-#: .\users\models.py:39
+#: .\users\models.py:42
 msgid "marital status"
 msgstr "وضعیت تاهل"
 
-#: .\users\models.py:44
+#: .\users\models.py:46
 msgid "gender"
 msgstr "جنسیت"
 
-#: .\users\models.py:49
+#: .\users\models.py:50
 msgid "education"
 msgstr "تحصیلات"
 
-#: .\users\models.py:54
-msgid "voulunteer exprience"
-msgstr "سابقه داوطلبی"
-
-#: .\users\models.py:57
+#: .\users\models.py:53
 msgid "experience info"
 msgstr "جزئیات سابقه"
+
+#: .\users\models.py:68
+#, fuzzy
+#| msgid "persian name"
+msgid "username"
+msgstr "نام فارسی"
+
+#: .\users\views.py:46
+msgid "you has registered as volunteer"
+msgstr "شما به عنوان داوطلب ثبت نام شدید"
+
+#: .\users\views.py:84
+msgid "Phone validated successfully"
+msgstr "شماره تماس با موفقیت اعتبار سنجی شد"
+
+#: .\users\views.py:86
+msgid "user not found"
+msgstr "کاربر یافت نشد"
+
+#: .\users\views.py:103
+msgid "ایمیل با موفقیت ارزیابی شد"
+msgstr "ایمیل با موفقیت لرزیابی شد"
+
+#: .\users\views.py:105
+msgid "کاربر یافت نشد"
+msgstr "کاربر یافت نشد"
+
+#: .\users\views.py:112 .\users\views.py:125
+msgid "to create new account log out first"
+msgstr "برای ساختن حساب جدید لطفا خارج شوید"
+
+#: .\users\views.py:197
+msgid "user is already logged in"
+msgstr "کاربر در حال حاضر به حساب کاربری خود وارد شده است"
+
+#: .\users\views.py:210
+msgid "code has sent to {otp_identifier}"
+msgstr "کد یکبارمصرف به {otp_identifier} ارسال شده است"
+
+#: .\users\views.py:216
+msgid "otp identifier has bot provided"
+msgstr ""
+
+#: .\users\views.py:220
+msgid "invalid otp type"
+msgstr "روش ارسال کد نادرست است"
+
+#: .\users\views.py:234
+msgid "invalid otp request type"
+msgstr "درخواست ارسال کد نادرست است"
+
+#: .\users\views.py:246
+msgid "You have logged in successfully"
+msgstr "با موفقیت وارد شدید"
+
+#: .\users\views.py:252 .\users\views.py:254 .\users\views.py:265
+#: .\users\views.py:267
+msgid "invalid otp"
+msgstr "کد نادرست است"
+
+#: .\users\views.py:262
+msgid "otp veified successfully"
+msgstr "کد با موفقیت اعتبارسنجی شد"
+
+#: .\utils\otp_tools.py:35
+msgid "Otp code: {otp_code}"
+msgstr "کد یکبار مصرف: {otp_code}"
+
+#: .\utils\otp_tools.py:56
+msgid "Email Doesn't Exists "
+msgstr "این ایمیل ثبت نشده است"
+
+#~ msgid "female"
+#~ msgstr "زن"
+
+#~ msgid "male"
+#~ msgstr "مرد"
+
+#~ msgid "single"
+#~ msgstr "مجرد"
+
+#~ msgid "maried"
+#~ msgstr "متاهل"
+
+#~ msgid "diploma"
+#~ msgstr "دیپلم"
+
+#~ msgid "associate degree"
+#~ msgstr "کاردانی"
+
+#~ msgid "Bsc"
+#~ msgstr "کارشناسی"
+
+#~ msgid "Msc"
+#~ msgstr "کارشناسی ارشد"
+
+#~ msgid "Phd"
+#~ msgstr "دکترا"
+
+#~ msgid "english name"
+#~ msgstr "نام انگلیسی"
+
+#~ msgid "description"
+#~ msgstr "توضیحات"
+
+#~ msgid "date added"
+#~ msgstr "تاریخ اضافه شدن"
+
+#~ msgid "date modified"
+#~ msgstr "تاریخ  آخرین تغییر"
+
+#~ msgid "abilities"
+#~ msgstr "توانایی ها"
+
+#~ msgid "voulunteer exprience"
+#~ msgstr "سابقه داوطلبی"
