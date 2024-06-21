@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-    home, volunteer_register, about_us, dashboard,
+    home, volunteer_register, about_us, dashboard, contact_us,
     RegistrationView, LoginView, LogoutView, SendOtpView,
     VerifyOtpView, PhoneValidationView, EmailValidationView,
 )
@@ -8,6 +8,7 @@ from .views import (
 urlpatterns = [
     path("home/", home, name="home"),
     path("about/", about_us, name='about'),
+    path("contact/", contact_us, name='contact'),
     path("dashboard/", dashboard, name="dashboard"),
     path("volunteer/", volunteer_register, name="volunteer"),
     path("login/", LoginView.as_view(), name='login'),
