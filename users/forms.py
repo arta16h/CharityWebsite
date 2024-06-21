@@ -66,11 +66,11 @@ class VolunteerRegisterForm(forms.ModelForm):
             visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
 
 
-class ContactUsForm(forms.Form) :
-    name = forms.CharField(max_length=100, label='نام و نام خانوادگی')
-    email = forms.EmailField(required=True, label='ایمیل')
-    subject = forms.CharField(max_length=255, label='موضوع')
-    content = forms.CharField(widget=forms.Textarea, required=True, label='پیام خود را بنویسید')
+# class ContactUsForm(forms.Form) :
+#     name = forms.CharField(max_length=100, label='نام و نام خانوادگی')
+#     email = forms.EmailField(required=True, label='ایمیل')
+#     subject = forms.CharField(max_length=255, label='موضوع')
+#     content = forms.CharField(widget=forms.Textarea, required=True, label='پیام خود را بنویسید')
 
 
 class LoginForm(forms.Form):
