@@ -41,10 +41,10 @@ def home(request) :
 
 
 def volunteer_register(request):
+    if request.user.is_authenticated and request.user.volunteer_info:
+        messages.info(request, _("you has already registered as volunteer"))
+        return redirect('dashboard')
     if request.method == "POST":
-        if isinstance(request.user, User) and request.user.volunteer_info:
-            messages.info(request, _("you has registered as volunteer"))
-            return redirect('home')
         form = VolunteerRegisterForm(request.POST or None, request.FILES)
         if form.is_valid():
             user = request.user
@@ -53,11 +53,12 @@ def volunteer_register(request):
                 register_form = NoPasswordRegisterForm(clean_data)
                 user = register_form.save()
 
-            volunteer_form = form.save(commit=False)
-            volunteer_form.user = user
-            volunteer_form.save()
+            volunteer_form = form.save()
+            user.volunteer_info = volunteer_form
+            user.save()
             messages.success(request, 'به جمع داوطلبین خادمین سیده زینب خوش آمدید')
-            return redirect('users:volunteer')
+            return redirect('dashboard')
+        return render(request, "users/volunteer.html", {"form": form})
     prefill_data = {key: value for key , value in request.GET.items() if value}
     if request.user.is_authenticated:
         prefill_data.update({'first_name':request.user.first_name, 'last_name': request.user.last_name, 'phone':request.user.phone})
