@@ -24,7 +24,7 @@ class Volunteer(models.Model) :
         unique=True
     )
     specialist_info = models.TextField(verbose_name=_("specialist info"))
-    profile_pic = models.ImageField(verbose_name=_("profile picture"), upload_to=make_image_path(first_name, last_name))   
+    profile_pic = models.ImageField(verbose_name=_("profile picture"), upload_to=make_image_path)   
     abilities = models.CharField(max_length= 100, choices=ABILITIES_CHOICES)
     marital_status = models.PositiveSmallIntegerField(
         verbose_name=_("marital status"),
