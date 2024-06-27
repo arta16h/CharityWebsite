@@ -39,7 +39,7 @@ class VolunteerRegisterForm(forms.ModelForm):
                 'class': 'text-end p-1 m-1', 
                 "placeholder": "در صورتی که پزشک متخصص هستید، نوع تخصص خود را وارد کنید"
             }),
-            'abilities': forms.SelectMultiple(attrs={
+            'abilities': forms.Select(attrs={
                 'class': 'text-end p-1 m-1'
             }),
         }
