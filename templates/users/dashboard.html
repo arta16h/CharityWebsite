@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block content %}
-{% include 'partials/_messages.html' %}
     <div class="container d-flex justify-content-center align-items-center w-90">
         <div class="row d-flex justify-content-center text-center1 m-5 rounded border-dark" style="border: 1px solid black; width:fit-content">
             <!-- <br> -->
@@ -15,6 +14,8 @@
                 <div class="row d-flex justify-content-center justify-content-lg-start  align-items-center">
                         {% if request.user.image %}
                         <img class="user_image rounded-full w-56 h-56"  src="{{request.user.image.url}}" alt="profile photo">
+                        {% elif request.user.volunteer_info %}
+                        <img class="user_image rounded-full w-56 h-56"  src="{{request.user.volunteer_info.profile_pic.url}}" alt="profile photo">
                         {% else %}
                         <img class="user_image rounded-full w-56 h-56"  src="{% static 'image/no_image.jpg' %}" alt="profile photo">
                         {% endif %}
