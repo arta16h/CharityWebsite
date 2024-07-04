@@ -17,7 +17,7 @@ import json, re
 from datetime import datetime, timedelta
 from Charity.settings import mail
 
-from .forms import VolunteerRegisterForm, RegisterForm, NoPasswordRegisterForm, LoginForm
+from .forms import VolunteerRegisterForm, RegisterForm, NoPasswordRegisterForm, LoginForm, CustomUserChangeForm
 from .authentication import OtpAuthBackend, UserAuthBackend
 from .models import User
 from utils.otp_tools import generate_otp_code, send_otp_code
@@ -187,7 +187,9 @@ class LogoutView(View) :
 
 @login_required(login_url='login')
 def dashboard(request) :
-    return render(request, 'users/dashboard.html')
+    user_update_form = CustomUserChangeForm(instance=request.user)
+    context = {"profile_update_form": user_update_form}
+    return render(request, 'users/dashboard.html', context=context)
 
 
 class SendOtpView(APIView):

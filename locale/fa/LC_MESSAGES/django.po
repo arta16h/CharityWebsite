@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-21 15:15+0330\n"
+"POT-Creation-Date: 2024-07-01 20:36+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,122 +41,128 @@ msgstr ""
 msgid "متاهل"
 msgstr ""
 
-#: .\users\models.py:25 .\users\models.py:58
+#: .\users\models.py:13 .\users\models.py:46
 msgid "first name"
 msgstr "نام"
 
-#: .\users\models.py:26 .\users\models.py:59
+#: .\users\models.py:14 .\users\models.py:47
 msgid "last name"
 msgstr "نام خانوادگی"
 
-#: .\users\models.py:27 .\users\models.py:60
+#: .\users\models.py:15 .\users\models.py:48
 msgid "email"
 msgstr "ایمیل"
 
-#: .\users\models.py:28
+#: .\users\models.py:16
 msgid "birth day"
 msgstr "تاریخ تولد"
 
-#: .\users\models.py:29
+#: .\users\models.py:17
 msgid "nc"
 msgstr "کد ملی"
 
-#: .\users\models.py:30
+#: .\users\models.py:18
 msgid "major"
 msgstr "شغل"
 
-#: .\users\models.py:31 .\users\models.py:61
+#: .\users\models.py:19 .\users\models.py:49
 msgid "city"
 msgstr "شهر"
 
-#: .\users\models.py:33 .\users\models.py:63
+#: .\users\models.py:21 .\users\models.py:51
 msgid "phone"
 msgstr "شماره تماس"
 
-#: .\users\models.py:38
+#: .\users\models.py:26
 msgid "specialist info"
 msgstr "جزئیات تخصص"
 
-#: .\users\models.py:39
+#: .\users\models.py:27
 msgid "profile picture"
 msgstr "تصویر پروفایل"
 
-#: .\users\models.py:42
+#: .\users\models.py:30
 msgid "marital status"
 msgstr "وضعیت تاهل"
 
-#: .\users\models.py:46
+#: .\users\models.py:34
 msgid "gender"
 msgstr "جنسیت"
 
-#: .\users\models.py:50
+#: .\users\models.py:38
 msgid "education"
 msgstr "تحصیلات"
 
-#: .\users\models.py:53
+#: .\users\models.py:41
 msgid "experience info"
 msgstr "جزئیات سابقه"
 
-#: .\users\models.py:68
+#: .\users\models.py:56
 #, fuzzy
 #| msgid "persian name"
 msgid "username"
 msgstr "نام فارسی"
 
-#: .\users\views.py:46
-msgid "you has registered as volunteer"
+#: .\users\models.py:57
+msgid "image"
+msgstr "عکس"
+
+#: .\users\views.py:45
+#, fuzzy
+#| msgid "you has registered as volunteer"
+msgid "you has already registered as volunteer"
 msgstr "شما به عنوان داوطلب ثبت نام شدید"
 
-#: .\users\views.py:84
+#: .\users\views.py:85
 msgid "Phone validated successfully"
 msgstr "شماره تماس با موفقیت اعتبار سنجی شد"
 
-#: .\users\views.py:86
+#: .\users\views.py:87
 msgid "user not found"
 msgstr "کاربر یافت نشد"
 
-#: .\users\views.py:103
+#: .\users\views.py:104
 msgid "ایمیل با موفقیت ارزیابی شد"
 msgstr "ایمیل با موفقیت لرزیابی شد"
 
-#: .\users\views.py:105
+#: .\users\views.py:106
 msgid "کاربر یافت نشد"
 msgstr "کاربر یافت نشد"
 
-#: .\users\views.py:112 .\users\views.py:125
+#: .\users\views.py:113 .\users\views.py:126
 msgid "to create new account log out first"
 msgstr "برای ساختن حساب جدید لطفا خارج شوید"
 
-#: .\users\views.py:197
+#: .\users\views.py:200
 msgid "user is already logged in"
 msgstr "کاربر در حال حاضر به حساب کاربری خود وارد شده است"
 
-#: .\users\views.py:210
+#: .\users\views.py:213
 msgid "code has sent to {otp_identifier}"
 msgstr "کد یکبارمصرف به {otp_identifier} ارسال شده است"
 
-#: .\users\views.py:216
+#: .\users\views.py:219
 msgid "otp identifier has bot provided"
-msgstr ""
+msgstr "کد یکبارمصرف ارائه نشده است"
 
-#: .\users\views.py:220
+#: .\users\views.py:223
 msgid "invalid otp type"
 msgstr "روش ارسال کد نادرست است"
 
-#: .\users\views.py:234
+#: .\users\views.py:237
 msgid "invalid otp request type"
 msgstr "درخواست ارسال کد نادرست است"
 
-#: .\users\views.py:246
+#: .\users\views.py:249
 msgid "You have logged in successfully"
 msgstr "با موفقیت وارد شدید"
 
-#: .\users\views.py:252 .\users\views.py:254 .\users\views.py:265
-#: .\users\views.py:267
+#: .\users\views.py:255 .\users\views.py:257 .\users\views.py:268
+#: .\users\views.py:270
 msgid "invalid otp"
 msgstr "کد نادرست است"
 
-#: .\users\views.py:262
+#: .\users\views.py:265
 msgid "otp veified successfully"
 msgstr "کد با موفقیت اعتبارسنجی شد"
 
@@ -170,9 +176,6 @@ msgstr "این ایمیل ثبت نشده است"
 
 #~ msgid "female"
 #~ msgstr "زن"
-
-#~ msgid "male"
-#~ msgstr "مرد"
 
 #~ msgid "single"
 #~ msgstr "مجرد"

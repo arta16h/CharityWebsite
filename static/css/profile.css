@@ -7,3 +7,72 @@
     position: relative !important;
     left: 52% !important;
 }
+.form-control {
+    border: none;
+    font-family: cursive;
+    text-align: end;
+    display: inline;
+}
+form .profile_update {
+    display: none;
+}
+.form-control:hover{
+    background-color: rgba(126, 126, 126, 0.5);
+}
+.temp > span {
+    background-color: white;
+    font-size: 21px;
+    right: 2%;
+    position: absolute;
+    top: -100%;
+}
+.temp {
+margin-top: 20px;
+padding: 20px;
+position: relative;
+}
+
+
+.profile-container {
+    position: relative;
+}
+
+.profile-image-wrapper {
+    position: relative;
+    user-select: none;
+    /* width: 150px;
+    height: 150px; */
+}
+
+.profile-image {
+    /* width: 100%; */
+    /* height: 100%; */
+    border-radius: 50%;
+    /* object-fit: cover; */
+}
+
+.overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor:pointer;
+}
+
+.overlay .edit-icon {
+    width: 50px;
+    height: 50px;
+    fill: white;
+}
+
+.profile-image-wrapper:hover .overlay ,
+.overlay-content-wrapper:hover .overlay {
+    opacity: 1;
+}
+
+.file-input {
+    display: none;
+}

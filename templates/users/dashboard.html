@@ -7,57 +7,127 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container d-flex justify-content-center align-items-center w-90">
-        <div class="row d-flex justify-content-center text-center1 m-5 rounded border-dark" style="border: 1px solid black; width:fit-content">
+
+    <div class="container d-flex justify-content-center align-items-center w-90 max-w-[80rem]">
+        <div class="row d-flex justify-content-center text-center1 m-5 rounded border-dark relative" style="border: 1px solid black; width:fit-content">
             <!-- <br> -->
-            <div class='col-sm-5 py-2'>
-                <div class="row d-flex justify-content-center justify-content-lg-start  align-items-center">
+            <form id="profile_update">
+            </form>
+            <div class='col-sm-5 py-22'>
+                <div class="profile-image-wrapper row d-flex justify-content-center justify-content-lg-sstart  align-items-center">
                         {% if request.user.image %}
-                        <img class="user_image rounded-full w-56 h-56"  src="{{request.user.image.url}}" alt="profile photo">
+                        <img class="profile-image rounded-full w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 max-w-[20rem] max-h-[20rem] my-5 px-0"  src="{{request.user.image.url}}" alt="profile photo">
                         {% elif request.user.volunteer_info %}
-                        <img class="user_image rounded-full w-56 h-56"  src="{{request.user.volunteer_info.profile_pic.url}}" alt="profile photo">
+                        <img class="profile-image rounded-full w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 max-w-[20rem] max-h-[20rem] my-5 px-0"  src="{{request.user.volunteer_info.profile_pic.url}}" alt="profile photo">
                         {% else %}
-                        <img class="user_image rounded-full w-56 h-56"  src="{% static 'image/no_image.jpg' %}" alt="profile photo">
+                        <img class="profile-image rounded-full w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 max-w-[20rem] max-h-[20rem] my-5 px-0"  src="{% static 'image/no_image.jpg' %}" alt="profile photo">
                         {% endif %}
+                        <div class="overlay rounded-full w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 max-w-[20rem] max-h-[20rem] my-5">
+                            <svg class="w-[42px] h-[42px] text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M5 8a4 4 0 1 1 7.796 1.263l-2.533 2.534A4 4 0 0 1 5 8Zm4.06 5H7a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h2.172a2.999 2.999 0 0 1-.114-1.588l.674-3.372a3 3 0 0 1 .82-1.533L9.06 13Zm9.032-5a2.907 2.907 0 0 0-2.056.852L9.967 14.92a1 1 0 0 0-.273.51l-.675 3.373a1 1 0 0 0 1.177 1.177l3.372-.675a1 1 0 0 0 .511-.273l6.07-6.07a2.91 2.91 0 0 0-.944-4.742A2.907 2.907 0 0 0 18.092 8Z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <input name="image" form="profile_update" type="file" id="file-input" class="file-input form-control d-none" accept="image/*">
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="row justify-content-end">
-                    <div class="row flex-row-reverse h-fit rounded-md ">
+            <div class="col-sm-12 col-md-6 d-fslex">
+                <div class="row justify-content-end align-middle h-full">
+                    <div class="row flex-row-reverse mx-10 mx-md-0 h-fit rounded-md align-items-center">
                         <div class="col-5 h-fit  w-max">
-                            <p class="text-end"  style="font-family: cursive;">:نام</p>
+                            <p class="text-end w-max"  style="font-family: cursive;">:نام</p>
                         </div>
-                        <div class="col-5 h-fit w-max" style="border-radius: 5px 0 0px 5px;">
-                            <p class="text-end"  style="font-family: cursive;">{{ request.user.first_name }}</p>
+                        <div class="col-7 my-1 h-fit overlay-content-wrapper">
+                            <span class="error">
+                                {{ profile_update_form.first_name.errors.as_text }} 
+                            </span>
+                            {{ profile_update_form.first_name }}
                         </div>
                     </div>
-                    <div class="row flex-row-reverse h-fit rounded-md ">
+                    <div class="row flex-row-reverse mx-10 mx-md-0 h-fit rounded-md align-items-center justify-content-betweenr ">
                         <div class="col-5 h-fit w-max ">
                             <p class="text-end w-max"  style="font-family: cursive;">:نام خانوادگی</p>
                         </div>
-                        <div class="col-5 w-max h-fit" style="border-radius: 5px 0 0px 5px;">
-                            <p class="text-end"  style="font-family: cursive;">{{ request.user.last_name }}</p>
+                        <div class="col-7 my-1 h-fit">
+                            <span class="error">
+                                {{ profile_update_form.last_name.errors.as_text }} 
+                            </span>
+                            {{ profile_update_form.last_name }}
                         </div>
                     </div>
-                    <div class="row flex-row-reverse w-max h-fit rounded-md ">
+                    <div class="row flex-row-reverse mx-10 mx-md-0 w-max h-fit rounded-md align-items-center">
                         <div class="col-5 h-fit w-max">
                             <p class="text-end"  style="font-family: cursive;">:شماره تماس </p>
                         </div>
-                        <div class="col-5 h-fit w-max" style="border-radius: 5px 0 0px 5px;">
-                            <p class="text-end w-max"  style="font-family: cursive;">{{ request.user.phone }}</p>
+                        <div class="col-sm-7 my-1  h-fit">
+                            <span class="error">
+                                {{ profile_update_form.phone.errors.as_text }} 
+                            </span>
+                            {{ profile_update_form.phone }}
                         </div>
                     </div>
-                    <div class="row flex-row-reverse w-max h-fit rounded-md ">
+                    <div class="row flex-row-reverse mx-10 mx-md-0 w-max h-fit rounded-md align-items-center">
                         <div class="col-5 h-fit w-max ">
                             <p class="text-end w-max"  style="font-family: cursive;">:ایمیل </p>
                         </div>
-                        <div class="col-5 h-fit w-max" style="border-radius: 5px 0 0px 5px;">
-                            <p class="text-end w-max"  style="font-family: cursive;">{{ request.user.email }}</p>
+                        <div class="col-sm-7 my-1 w-fit  h-fit">
+                            <span class="error">
+                                {{ profile_update_form.email.errors.as_text }} 
+                            </span>
+                            {{ profile_update_form.email }}
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- <div class=" relative left-0 bottom-0 bg-amber-200 w-44"> -->
+                <div  id="profile_update_submit" class="d-none w-10 h-10  bg-lime-500 rounded-full bg-gradient text-center absolute bottom-2 left-2">
+                    <div class="d-flex  align-items-center justify-content-center h-full w-full">
+                        <svg class="w-6 h-6 text-white dark:text-white text-center align-middle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 1 0-18c1.052 0 2.062.18 3 .512M7 9.577l3.923 3.923 8.5-8.5M17 14v6m-3-3h6"/>
+                        </svg>                      
+                        <input  class="button absolute w-full h-full btn-outline-success" form="profile_update" type="submit" value="">
+                    </div>
+                </div>
+            <!-- </div> -->
         </div>
     </div>
-</form>
+
+    <div class="container d-flex justify-content-center align-items-center w-90 max-w-[80rem]">
+        <div class="row bg-sslate-400 w-100 max-w-[80rem] d-flex justify-content-center text-center1 m-5 rounded border-dark" style="border: 1px solid black; width:fit-content">
+            <div class="temp w-100">
+                <span class="float-end d-flex text-end">
+                    <svg class="w-[36px] h-[36px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>                      
+                </span>
+                <span> فعالیت ها</span>
+            </div>
+        <!-- <div>
+            activities
+        </div> -->
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+<script>
+    function showSubmitButton(){
+        document.getElementById("profile_update_submit").classList.remove("d-none")
+    }
+    document.querySelectorAll("input.form-control").forEach(el => {
+        el.addEventListener("change", showSubmitButton)
+    })
+    document.querySelector('.profile-image-wrapper').addEventListener('click', function() {
+    document.getElementById('file-input').click();
+});
+
+document.getElementById('file-input').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.querySelector('.profile-image').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+</script>
 {% endblock %}

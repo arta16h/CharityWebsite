@@ -54,6 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         unique=True
     )
     username = models.CharField(_("username"), max_length=50, null=True, blank=True)
+    image = models.ImageField(verbose_name=_("image"), upload_to="users/images", null=True, blank=True)   
     volunteer_info = models.OneToOneField(Volunteer, on_delete=models.SET_NULL, null=True, blank=True)
 
     is_active = models.BooleanField(default=True)

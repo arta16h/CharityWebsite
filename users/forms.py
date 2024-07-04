@@ -2,7 +2,7 @@ from django import forms
 from django.urls import reverse_lazy
 from django.core.validators import RegexValidator
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from datetime import datetime
@@ -93,3 +93,19 @@ class NoPasswordRegisterForm(forms.ModelForm):
     class Meta:
         model=User
         fields=['phone', 'first_name', 'last_name', 'email', 'city']
+
+class CustomUserChangeForm(UserChangeForm):
+
+    def __init__(self, *args, **kwargs):
+        super(CustomUserChangeForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
+            visible.field.widget.attrs['form'] = "profile_update_form"
+
+    class Meta:
+        model=User
+        fields=['first_name', 'last_name','phone', 'email', 'city', 'image']
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),            
+        }
