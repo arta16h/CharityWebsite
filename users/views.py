@@ -187,7 +187,20 @@ class LogoutView(View) :
 
 @login_required(login_url='login')
 def dashboard(request) :
+    print(request.FILES)
     user_update_form = CustomUserChangeForm(instance=request.user)
+    if request.method == "POST":
+        print(f"{request.POST=}")
+        user_update_form = CustomUserChangeForm(
+            request.POST, 
+            request.FILES, 
+            instance=request.user,
+        )
+        if user_update_form.is_valid():
+            print("here")
+            user_update_form.save()
+            return redirect("dashboard")
+        
     context = {"profile_update_form": user_update_form}
     return render(request, 'users/dashboard.html', context=context)
 

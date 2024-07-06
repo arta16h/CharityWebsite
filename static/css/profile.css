@@ -18,7 +18,15 @@ form .profile_update {
 }
 .form-control:hover{
     background-color: rgba(126, 126, 126, 0.5);
+    width: fit-content !important;
 }
+
+.overlay-content-wrapper{
+    width: fit-content !important;
+}
+/* *{
+    overflow: hidden !important;
+} */
 .temp > span {
     background-color: white;
     font-size: 21px;

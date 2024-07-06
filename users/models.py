@@ -51,7 +51,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name=_("phone"),
         max_length=14, 
         validators=[RegexValidator(r'09(\d{9})$')], 
-        unique=True
+        unique=True,
+        blank=True
     )
     username = models.CharField(_("username"), max_length=50, null=True, blank=True)
     image = models.ImageField(verbose_name=_("image"), upload_to="users/images", null=True, blank=True)   

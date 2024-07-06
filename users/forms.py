@@ -94,13 +94,14 @@ class NoPasswordRegisterForm(forms.ModelForm):
         model=User
         fields=['phone', 'first_name', 'last_name', 'email', 'city']
 
-class CustomUserChangeForm(UserChangeForm):
+class CustomUserChangeForm(forms.ModelForm):
+    phone = forms.CharField(required=False)
 
     def __init__(self, *args, **kwargs):
         super(CustomUserChangeForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
-            visible.field.widget.attrs['form'] = "profile_update_form"
+            visible.field.widget.attrs['form'] = "profile_update"
 
     class Meta:
         model=User
