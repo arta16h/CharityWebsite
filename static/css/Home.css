@@ -1053,12 +1053,6 @@
   margin: 0;
 }
 
-.footer-distributed .footer-left p span {
-  display: block;
-  font-weight: normal;
-  line-height: 2;
-}
-
 .footer-distributed .footer-left p a {
   color: #ffd654;
   text-decoration: none;
