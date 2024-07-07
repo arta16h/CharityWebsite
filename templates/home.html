@@ -89,7 +89,7 @@
                             </div>
                             <h5 class="u-align-right u-custom-font u-text u-text-12">پرداخت آنلاین</h5>
                             <p class="u-text u-text-13">Sample text.</p>
-                            <a href="#" class="u-active-none u-border-2 u-border-palette-4-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-text-body-color u-btn-4">بیشتر بخوانید</a>
+                            <a href="{% url 'donate' %}" class="u-active-none u-border-2 u-border-palette-4-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-text-body-color u-btn-4">بیشتر بخوانید</a>
                         </div>
                     </div>
                 </div>
@@ -355,7 +355,7 @@
         <div class="footer-left">
             <div>
                 <i class="fa fa-map-marker"></i>
-                <p><span>تهران</span>ایران</p>
+                <p>تهران-ایران</p>
             </div>
             <div>
                 <i class="fa fa-phone"></i>
@@ -363,18 +363,18 @@
             </div>
             <div>
                 <i class="fa fa-envelope"></i>
-                <p><a href="">abc@gmail.com</a></p>
+                <p><a href="{% url 'contact' %}">sayyidahzaynab313@gmail.com</a></p>
             </div>
         </div>
         <div class="footer-center">
             <p class="footer-links">
-                <a href="">صفحه اصلی</a>
+                <a href="{% url 'home' %}">صفحه اصلی</a>
                 |
                 <a href="">درباره ما</a>
                 |
-                <a href="">ارتباط با ما</a>
+                <a href="{% url 'contact' %}">ارتباط با ما</a>
                 |
-                <a href="">بلاگ و گزارش کار</a>
+                <a href="{% url 'blog-list' %}">بلاگ و گزارش کار</a>
             </p>
             <p class="footer-company-about">
             خادمین سیده زینب یک گروه جهادی درمانی است که هفت سال است در حوزه درمانی خدمت رسانی میکند
