@@ -66,3 +66,5 @@ def search_blog(request) :
                         keywords__contains=search_str, owner=request.user)
         data = blog.values()
         return JsonResponse(list(data), safe=False)
+    else:
+        return render(request, 'blog/blog-list.html')
