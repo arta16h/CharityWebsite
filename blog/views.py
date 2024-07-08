@@ -10,20 +10,20 @@ import json
 
 class BlogListView(LoginRequiredMixin, ListView) :
     model = Blog
-    template_name = 'blog/blog-list'
+    template_name = 'blog/blog-list.html'
     context_object_name = 'blog'
     ordering = ["-created_at"]
     paginate_by = 7
 
 class BlogDetailView(LoginRequiredMixin, DetailView) :
     model = Blog
-    template_name = 'blog/blog-detail'
+    template_name = 'blog/blog-detail.html'
 
 
 class BlogCreateView(LoginRequiredMixin, CreateView) :
     model = Blog
     fields = ['title', 'content']
-    template_name = 'blog/new-blog'
+    template_name = 'blog/new-blog.html'
 
     def form_valid(self, form) :
         form.instance.author = self.request.user
@@ -66,3 +66,5 @@ def search_blog(request) :
                         keywords__contains=search_str, owner=request.user)
         data = blog.values()
         return JsonResponse(list(data), safe=False)
+    else:
+        return render(request, 'blog/blog-list.html')
