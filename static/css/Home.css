@@ -1101,6 +1101,14 @@
   margin-bottom: 5px;
 }
 
+.footer-distributed .footer-icons a i {
+  transition: all .4s ease;
+}
+
+.footer-distributed .footer-icons i {
+  line-height: inherit;
+}
+
 .footer-distributed .footer-icons a:hover {
   background-color: #ffd654;
 }
