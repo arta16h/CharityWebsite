@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 <!-- {% load crispy_forms_tags %} -->
+{% load jalali_tags %}
 {% load static %}
 {% block title %}ثبت نام داوطلب{% endblock %}
-{% block link %} <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}"> {% endblock %}
+{% block link %} <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}"> {% endblock %}
 {% block custom_style %}
     <style>
         .error{
@@ -191,7 +192,7 @@
 </form>
 
 <script src="{% url 'js-catalog' %}"></script>
-{{form.media}}
-<script src="{% static 'admin/js/core.js' %}"></script>
+<!-- {{form.media}} -->
+<script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
 
 {% endblock %}
