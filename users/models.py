@@ -47,19 +47,19 @@ class Volunteer(models.Model) :
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    first_name = models.CharField(verbose_name=_("first name"), max_length=100, null=True, blank=True)
-    last_name = models.CharField(verbose_name=_("last name"), max_length=100, null=True, blank=True)
-    email = models.EmailField(verbose_name=_("email"), unique=True, null=True, blank=True)    
-    city = models.CharField(verbose_name=_("city"), max_length=100, null=True, blank=True)
+    first_name = models.CharField(verbose_name=_("نام"), max_length=100, null=True, blank=True)
+    last_name = models.CharField(verbose_name=_("نام خانوادگی"), max_length=100, null=True, blank=True)
+    email = models.EmailField(verbose_name=_("ایمیل"), unique=True, null=True, blank=True)    
+    city = models.CharField(verbose_name=_("شهر محل سکونت"), max_length=100, null=True, blank=True)
     phone = models.CharField(
-        verbose_name=_("phone"),
+        verbose_name=_("شماره تماس"),
         max_length=14, 
         validators=[RegexValidator(r'09(\d{9})$')], 
         unique=True
     )
-    username = models.CharField(_("username"), max_length=50, null=True, blank=True)
-    image = models.ImageField(verbose_name=_("image"), upload_to="users/images", null=True, blank=True)   
-    volunteer_info = models.OneToOneField(Volunteer, on_delete=models.SET_NULL, null=True, blank=True)
+    username = models.CharField(_("نام کاربری"), max_length=50, null=True, blank=True)
+    image = models.ImageField(verbose_name=_("عکس پروفایل"), upload_to="users/images", null=True, blank=True)   
+    volunteer_info = models.OneToOneField(Volunteer, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_('اطلاعات داوطلبی'))
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
