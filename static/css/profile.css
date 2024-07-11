@@ -9,10 +9,16 @@
 }
 .form-control {
     border: none;
-    font-family: cursive;
+    /* font-family: cursive; */
     text-align: end;
     display: inline;
+    /* padding: 0px; */
 }
+
+/* .form-col{
+    padding-left: 10px;
+} */
+
 form .profile_update {
     display: none;
 }
