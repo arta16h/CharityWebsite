@@ -6,6 +6,7 @@ from utils.file_path_creator import make_image_path
 from django.utils.translation import gettext_lazy as _
 from .enums import *
 from .manager import UserManager
+from django_jalali.db.models import jDateField
 # Create your models here.
 
 
@@ -13,7 +14,7 @@ class Volunteer(models.Model) :
     first_name = models.CharField(verbose_name=_("first name"), max_length=100)
     last_name = models.CharField(verbose_name=_("last name"), max_length=100)
     email = models.EmailField(verbose_name=_("email"), unique=True)    
-    birth = models.DateField(verbose_name=_("birth day"))
+    birth = jDateField(verbose_name=_("birth day"))
     nc = models.CharField(verbose_name=_("nc"), max_length=10, unique=True)
     major = models.CharField(verbose_name=_("major"), max_length=100, null=True, blank=True)
     city = models.CharField(verbose_name=_("city"), max_length=100, null=True, blank=True)

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'django.contrib.humanize',
     "compressor",
+    'django_jalali',
 ]
 
 MIDDLEWARE = [

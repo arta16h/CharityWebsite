@@ -3,6 +3,8 @@ from django.urls import reverse_lazy
 from django.core.validators import RegexValidator
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django_jalali.forms import jDateInput
+from django_jalali.admin.widgets import AdminjDateWidget
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from datetime import datetime
@@ -27,7 +29,7 @@ class VolunteerRegisterForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'gender': forms.Select(),
-            'birth': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': ''}),
+            'birth': jDateInput(attrs={'widgets' : 'AdminjDateWidget'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'profile_pic': forms.FileInput(attrs={'class': 'form-control'}),
             'education': forms.Select(attrs={'class': 'text-end p-1 m-1'}),

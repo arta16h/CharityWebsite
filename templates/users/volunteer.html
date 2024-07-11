@@ -2,6 +2,7 @@
 <!-- {% load crispy_forms_tags %} -->
 {% load static %}
 {% block title %}ثبت نام داوطلب{% endblock %}
+{% block link %} <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}"> {% endblock %}
 {% block custom_style %}
     <style>
         .error{
@@ -188,4 +189,9 @@
         </div>
     </div>
 </form>
+
+<script src="{% url 'js-catalog' %}"></script>
+{{form.media}}
+<script src="{% static 'admin/js/core.js' %}"></script>
+
 {% endblock %}
