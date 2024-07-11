@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-<!-- {% load crispy_forms_tags %} -->
 {% load jalali_tags %}
 {% load static %}
 {% block title %}ثبت نام داوطلب{% endblock %}
@@ -13,11 +12,6 @@
             color: #f8911b;
         }
         body {
-            /* background-image: url('../../static/src/images/6039f0b087c28.png') !important;
-            background-repeat: no-repeat;
-            background-size: cover; */
-            /* background-image: linear-gradient();
-            background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%)!important; */
             background-color: #fff;
         }
     </style>
@@ -28,7 +22,6 @@
     <span class="error">
         {{ form.non_field_errors.as_text }} 
     </span>
-    <!-- background-image: linear-gradient(to right, #3ab5b0 0%, #3d99be 31%, #56317a 100%); -->
     <div class="container d-flex justify-content-center align-items-center">
         <div style="background-color: #17755a; width: 700px;" class="row d-flex justify-content-between m-5 rounded border-dark flex-end px-5 " style="border: 1px solid black; width:60%">
             <h2 class="text-center  text-zinc-100 ">فرم ثبت نام داوطلب</h2>
@@ -81,7 +74,6 @@
                         </span>
                         {{ form.phone }}
                     </div>
-
                     <div class="col-sm-5 my-1">
                         <p class="text-amber-200 text-end m-0">
                             :{{ form.gender.label }}
@@ -109,17 +101,6 @@
                         </span>
                         {{ form.city }}
                     </div>
-                    <!-- <div class="col-sm-5 my-1">
-                        <p class="text-amber-200 text-end m-0">
-                            :{{ form.experience.label }}                         
-                        </p>
-                        <span class="error">
-                            {{ form.experience.errors.as_text }} 
-                        </span>
-                        <div style="width: 10px;">
-                            {{ form.experience }}
-                        </div>
-                    </div> -->
                     <div class="col-sm-5 my-1">
                         <p class="text-amber-200 text-end m-0">
                             :{{ form.specialist_info.label }}                           
@@ -192,7 +173,6 @@
 </form>
 
 <script src="{% url 'js-catalog' %}"></script>
-<!-- {{form.media}} -->
 <script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
 
 {% endblock %}
