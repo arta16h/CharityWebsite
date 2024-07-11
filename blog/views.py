@@ -22,7 +22,7 @@ class BlogDetailView(LoginRequiredMixin, DetailView) :
 
 class BlogCreateView(LoginRequiredMixin, CreateView) :
     model = Blog
-    fields = ['title', 'content']
+    fields = ['title','imageUrl', 'content', 'category']
     template_name = 'blog/new-blog.html'
 
     def form_valid(self, form) :

@@ -18,7 +18,7 @@ class Blog(models.Model) :
     title = models.CharField(max_length = 255)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
-    category = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category, null=True, blank=True)
     keywords = models.TextField(null=True, blank=True)
     imageUrl = models.URLField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
