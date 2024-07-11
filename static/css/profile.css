@@ -9,16 +9,30 @@
 }
 .form-control {
     border: none;
-    font-family: cursive;
+    /* font-family: cursive; */
     text-align: end;
     display: inline;
+    /* padding: 0px; */
 }
+
+/* .form-col{
+    padding-left: 10px;
+} */
+
 form .profile_update {
     display: none;
 }
 .form-control:hover{
     background-color: rgba(126, 126, 126, 0.5);
+    width: fit-content !important;
 }
+
+.overlay-content-wrapper{
+    width: fit-content !important;
+}
+/* *{
+    overflow: hidden !important;
+} */
 .temp > span {
     background-color: white;
     font-size: 21px;
