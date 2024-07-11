@@ -14,7 +14,7 @@ class Volunteer(models.Model) :
     last_name = models.CharField(verbose_name=_("last name"), max_length=100)
     email = models.EmailField(verbose_name=_("email"), unique=True)    
     birth = models.DateField(verbose_name=_("birth day"))
-    nc = models.BigIntegerField(verbose_name=_("nc"))
+    nc = models.CharField(verbose_name=_("nc"), max_length=10, unique=True)
     major = models.CharField(verbose_name=_("major"), max_length=100, null=True, blank=True)
     city = models.CharField(verbose_name=_("city"), max_length=100, null=True, blank=True)
     phone = models.CharField(
@@ -25,14 +25,16 @@ class Volunteer(models.Model) :
     )
     specialist_info = models.TextField(verbose_name=_("specialist info"), null=True, blank=True)
     profile_pic = models.ImageField(verbose_name=_("profile picture"), upload_to=make_image_path, null=True, blank=True)   
-    abilities = models.CharField(max_length= 100, choices=ABILITIES_CHOICES)
+    abilities = models.CharField(max_length= 100, choices=ABILITIES_CHOICES, default='لوله کشی')
     marital_status = models.PositiveSmallIntegerField(
         verbose_name=_("marital status"),
-        choices= MARITAL_CHOICES
+        choices= MARITAL_CHOICES,
+        default='مجرد'
     )
     gender = models.PositiveSmallIntegerField(
         verbose_name=_("gender"), 
-        choices=GENDER_CHOICES
+        choices=GENDER_CHOICES,
+        default= 'مذکر'
     )
     education = models.PositiveSmallIntegerField(
         verbose_name=_("education"), 
