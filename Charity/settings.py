@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     "compressor",
     'django_jalali',
+    'jalali_date',
 ]
 
 MIDDLEWARE = [
@@ -190,3 +191,21 @@ OTP_DIGIT_COUNT = int(os.environ.get("OTP_DIGIT_COUNT", 3))
 OTP_EXPIRE_TIME = int(os.environ.get("OTP_EXPIRE_TIME", 60))
 
 KAVENEGAR_API_KEY = os.environ.get("KAVENEGAR_API_KEY")
+
+#--------------Jalali---------------
+JALALI_DATE_DEFAULTS = {
+    'Strftime' : {
+        'date' : '%y/%m/%d',
+        'datetime' : '%H:%M:%S _ %y/%m/%d',
+    },
+    'Static' : {
+        'js' : [
+            'admin/js/django_jalali.min.js'
+        ],
+        'css' : {
+            'all' : [
+                'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css'
+            ]
+        }
+    }
+}
