@@ -15,16 +15,16 @@ class Volunteer(models.Model) :
     email = models.EmailField(verbose_name=_("email"), unique=True)    
     birth = models.DateField(verbose_name=_("birth day"))
     nc = models.BigIntegerField(verbose_name=_("nc"))
-    major = models.CharField(verbose_name=_("major"), max_length=100)
-    city = models.CharField(verbose_name=_("city"), max_length=100)
+    major = models.CharField(verbose_name=_("major"), max_length=100, null=True, blank=True)
+    city = models.CharField(verbose_name=_("city"), max_length=100, null=True, blank=True)
     phone = models.CharField(
         verbose_name=_("phone"),
         max_length=14, 
         validators=[RegexValidator(r'09(\d{9})$')], 
         unique=True
     )
-    specialist_info = models.TextField(verbose_name=_("specialist info"))
-    profile_pic = models.ImageField(verbose_name=_("profile picture"), upload_to=make_image_path)   
+    specialist_info = models.TextField(verbose_name=_("specialist info"), null=True, blank=True)
+    profile_pic = models.ImageField(verbose_name=_("profile picture"), upload_to=make_image_path, null=True, blank=True)   
     abilities = models.CharField(max_length= 100, choices=ABILITIES_CHOICES)
     marital_status = models.PositiveSmallIntegerField(
         verbose_name=_("marital status"),
@@ -36,9 +36,10 @@ class Volunteer(models.Model) :
     )
     education = models.PositiveSmallIntegerField(
         verbose_name=_("education"), 
-        choices=EDU_CHOICES
+        choices=EDU_CHOICES,
+        null=True, blank=True
     )
-    experience_info = models.TextField(verbose_name=_("experience info"))
+    experience_info = models.TextField(verbose_name=_("experience info"), null=True, blank=True)
 
 
 
