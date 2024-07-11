@@ -1,21 +1,8 @@
-# SOME DESCRIPTIVE TITLE.
+# TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
-msgid ""
-msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 20:36+0330\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+    
 
 #: .\Charity\settings.py:128
 msgid "Persian"
@@ -98,8 +85,6 @@ msgid "experience info"
 msgstr "جزئیات سابقه"
 
 #: .\users\models.py:56
-#, fuzzy
-#| msgid "persian name"
 msgid "username"
 msgstr "نام فارسی"
 
@@ -108,9 +93,7 @@ msgid "image"
 msgstr "عکس"
 
 #: .\users\views.py:45
-#, fuzzy
-#| msgid "you has registered as volunteer"
-msgid "you has already registered as volunteer"
+msgid "you have already registered as volunteer"
 msgstr "شما به عنوان داوطلب ثبت نام شدید"
 
 #: .\users\views.py:85
@@ -123,14 +106,14 @@ msgstr "کاربر یافت نشد"
 
 #: .\users\views.py:104
 msgid "ایمیل با موفقیت ارزیابی شد"
-msgstr "ایمیل با موفقیت لرزیابی شد"
+msgstr "ایمیل با موفقیت ارزیابی شد"
 
 #: .\users\views.py:106
 msgid "کاربر یافت نشد"
 msgstr "کاربر یافت نشد"
 
 #: .\users\views.py:113 .\users\views.py:126
-msgid "to create new account log out first"
+msgid "to create new account, log out first"
 msgstr "برای ساختن حساب جدید لطفا خارج شوید"
 
 #: .\users\views.py:200
@@ -142,7 +125,7 @@ msgid "code has sent to {otp_identifier}"
 msgstr "کد یکبارمصرف به {otp_identifier} ارسال شده است"
 
 #: .\users\views.py:219
-msgid "otp identifier has bot provided"
+msgid "otp identifier has not provided"
 msgstr "کد یکبارمصرف ارائه نشده است"
 
 #: .\users\views.py:223
@@ -175,12 +158,12 @@ msgid "Email Doesn't Exists "
 msgstr "این ایمیل ثبت نشده است"
 
 #~ msgid "female"
-#~ msgstr "زن"
+#~ msgstr "مونث"
 
 #~ msgid "single"
 #~ msgstr "مجرد"
 
-#~ msgid "maried"
+#~ msgid "married"
 #~ msgstr "متاهل"
 
 #~ msgid "diploma"
