@@ -33,44 +33,45 @@
             </div>
             <div class="col-sm-12 col-md-6 d-fslex">
                 <div class="row justify-content-end align-middle h-full">
-                    <div class="row flex-row-reverse mx-sm-10 mx-md-0 h-fit rounded-md align-items-center">
-                        <div class="col-5 h-fit  w-max">
-                            <p class="text-end w-max"  style="font-family: cursive;">:نام</p>
+                    <div class="row flex-row-reverse pl-0 mx-sm-10 mx-md-0 h-fit rounded-md align-items-center">
+                        <div class="col-3 form-col h-fit  w-max">
+                            <p class="text-end w-max" >:نام</p>
                         </div>
-                        <div class="col-7 my-1 h-fit overlay-content-wrapper">
+                        <div class="col-7 form-col my-1 h-fit w-fit px-2">
                             <span class="error">
                                 {{ profile_update_form.first_name.errors.as_text }} 
                             </span>
                             {{ profile_update_form.first_name }}
                         </div>
                     </div>
-                    <div class="row flex-row-reverse mx-sm-10 mx-md-0 h-fit rounded-md align-items-center justify-content-betweenr ">
-                        <div class="col-5 h-fit w-max ">
-                            <p class="text-end w-max"  style="font-family: cursive;">:نام خانوادگی</p>
+                    <div class="row flex-row-reverse pl-0 mx-sm-10 mx-md-0 h-fit rounded-md align-items-center">
+                        <div class="col-3 form-col h-fit  w-max">
+                            <p class="text-end w-max" >: نام خانوادگی</p>
                         </div>
-                        <div class="col-7 my-1 h-fit">
+                        <div class="col-7 form-col my-1 h-fit w-fit px-2">
                             <span class="error">
                                 {{ profile_update_form.last_name.errors.as_text }} 
                             </span>
                             {{ profile_update_form.last_name }}
                         </div>
                     </div>
-                    <div class="row flex-row-reverse mx-sm-10 mx-md-0 w-max h-fit rounded-md align-items-center">
-                        <div class="col-5 h-fit w-max">
-                            <p class="text-end"  style="font-family: cursive;">:شماره تماس </p>
+                    
+                    <div class="row flex-row-reverse pl-0 mx-sm-10 mx-md-0 w-max h-fit rounded-md align-items-center">
+                        <div class="col-3 form-col h-fit w-max ">
+                            <p class="text-end w-max" >:شماره تماس </p>
                         </div>
-                        <div class="col-sm-s7 my-1 w-fit h-fit">
+                        <div class="col-7 form-col my-1 w-fit px-2  h-fit">
                             <span class="error">
                                 {{ profile_update_form.phone.errors.as_text }} 
                             </span>
                             {{ profile_update_form.phone }}
                         </div>
                     </div>
-                    <div class="row flex-row-reverse mx-sm-10 mx-md-0 w-max h-fit rounded-md align-items-center">
-                        <div class="col-5 h-fit w-max ">
-                            <p class="text-end w-max"  style="font-family: cursive;">:ایمیل </p>
+                    <div class="row flex-row-reverse pl-0 mx-sm-10 mx-md-0 w-max h-fit rounded-md align-items-center">
+                        <div class="col-3 form-col h-fit w-max">
+                            <p class="text-end w-max" >:ایمیل </p>
                         </div>
-                        <div class="col-sm-7 my-1 w-fit  h-fit">
+                        <div class="col-7 form-col my-1 w-fit px-2  h-fit">
                             <span class="error">
                                 {{ profile_update_form.email.errors.as_text }} 
                             </span>
