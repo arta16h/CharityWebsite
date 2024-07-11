@@ -11,38 +11,38 @@ from django_jalali.db.models import jDateField
 
 
 class Volunteer(models.Model) :
-    first_name = models.CharField(verbose_name=_("first name"), max_length=100)
-    last_name = models.CharField(verbose_name=_("last name"), max_length=100)
-    email = models.EmailField(verbose_name=_("email"), unique=True)    
-    birth = jDateField(verbose_name=_("birth day"))
-    nc = models.CharField(verbose_name=_("nc"), max_length=10, unique=True)
-    major = models.CharField(verbose_name=_("major"), max_length=100, null=True, blank=True)
-    city = models.CharField(verbose_name=_("city"), max_length=100, null=True, blank=True)
+    first_name = models.CharField(verbose_name=_("نام"), max_length=100)
+    last_name = models.CharField(verbose_name=_("نام خانوادگی"), max_length=100)
+    email = models.EmailField(verbose_name=_("ایمیل"), unique=True)    
+    birth = jDateField(verbose_name=_("تاریخ تولد"))
+    nc = models.CharField(verbose_name=_("کدملی"), max_length=10, unique=True)
+    major = models.CharField(verbose_name=_("رشته تحصیلی"), max_length=100, null=True, blank=True)
+    city = models.CharField(verbose_name=_("شهر محل سکونت"), max_length=100, null=True, blank=True)
     phone = models.CharField(
-        verbose_name=_("phone"),
+        verbose_name=_("شماره تماس"),
         max_length=14, 
         validators=[RegexValidator(r'09(\d{9})$')], 
         unique=True
     )
-    specialist_info = models.TextField(verbose_name=_("specialist info"), null=True, blank=True)
-    profile_pic = models.ImageField(verbose_name=_("profile picture"), upload_to=make_image_path, null=True, blank=True)   
-    abilities = models.CharField(max_length= 100, choices=ABILITIES_CHOICES, default='لوله کشی')
+    specialist_info = models.TextField(verbose_name=_("تخصص"), null=True, blank=True)
+    profile_pic = models.ImageField(verbose_name=_("عکس پرسنلی"), upload_to=make_image_path, null=True, blank=True)   
+    abilities = models.CharField(max_length= 100, choices=ABILITIES_CHOICES, default='لوله کشی', verbose_name=_("توانایی ها"))
     marital_status = models.PositiveSmallIntegerField(
-        verbose_name=_("marital status"),
+        verbose_name=_("وضعیت تاهل"),
         choices= MARITAL_CHOICES,
         default='مجرد'
     )
     gender = models.PositiveSmallIntegerField(
-        verbose_name=_("gender"), 
+        verbose_name=_("جنسیت"), 
         choices=GENDER_CHOICES,
         default= 'مذکر'
     )
     education = models.PositiveSmallIntegerField(
-        verbose_name=_("education"), 
+        verbose_name=_("تحصیلات"), 
         choices=EDU_CHOICES,
         null=True, blank=True
     )
-    experience_info = models.TextField(verbose_name=_("experience info"), null=True, blank=True)
+    experience_info = models.TextField(verbose_name=_("سابقه کار جهادی"), null=True, blank=True)
 
 
 
