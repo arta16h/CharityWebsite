@@ -27,7 +27,7 @@ class VolunteerRegisterForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'gender': forms.Select(),
-            'birth': JalaliDateField(widget=AdminJalaliDateWidget),
+            'birth': AdminJalaliDateWidget(attrs={'class' : 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'profile_pic': forms.FileInput(attrs={'class': 'form-control'}),
             'education': forms.Select(attrs={'class': 'text-end p-1 m-1'}),
@@ -62,8 +62,8 @@ class VolunteerRegisterForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(VolunteerRegisterForm, self).__init__(*args, **kwargs)
-        # for visible in self.visible_fields():
-        #     visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
 
 
 # class ContactUsForm(forms.Form) :
