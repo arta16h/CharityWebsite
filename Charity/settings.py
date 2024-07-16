@@ -194,18 +194,29 @@ KAVENEGAR_API_KEY = os.environ.get("KAVENEGAR_API_KEY")
 
 #--------------Jalali---------------
 JALALI_DATE_DEFAULTS = {
-    'Strftime' : {
-        'date' : '%y/%m/%d',
-        'datetime' : '%H:%M:%S _ %y/%m/%d',
+   'LIST_DISPLAY_AUTO_CONVERT': False,
+   'Strftime': {
+        'date': '%y/%m/%d',
+        'datetime': '%H:%M:%S _ %y/%m/%d',
     },
-    'Static' : {
-        'js' : [
-            'admin/js/django_jalali.min.js'
+    'Static': {
+        'js': [
+            'admin/js/django_jalali.min.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.core.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/calendar.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.datepicker-cc.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.datepicker-cc-fa.js',
+            # 'admin/js/main.js',
         ],
-        'css' : {
-            'all' : [
-                'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css'
+        'css': {
+            'all': [
+                'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css',
             ]
         }
-    }
+    },
 }
+
+LANGUAGE_CODE = 'fa'
+
+import locale
+locale.setlocale(locale.LC_ALL, "Persian_Iran.UTF-8")
