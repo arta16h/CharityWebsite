@@ -87,6 +87,19 @@
                         <p>ویرایش پروفایل</p>
                         <span>></span>
                     </a>
+                    {% if request.user.volunteer_info %}
+                    <a href="{% url 'volunteer' %}" class="sub-menu-link" style="display: none;">
+                        <i class="fa-solid fa-plus"></i>
+                        <p>ثبت نام به عنوان داوطلب</p>
+                        <span>></span>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'volunteer' %}" class="sub-menu-link">
+                        <i class="fa-solid fa-plus"></i>
+                        <p>ثبت نام به عنوان داوطلب</p>
+                        <span>></span>
+                    </a>
+                    {% endif %}
                     <a href="" class="sub-menu-link">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                         <p>خروج</p>
