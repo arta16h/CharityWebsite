@@ -10,6 +10,7 @@
         <meta name="description" content="">
         <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'css/navbar.css' %}" media="screen">
         <link rel="stylesheet" href="{% static 'css/base.css' %}" media="screen">
         <link rel="stylesheet" href="{% static 'css/Home.css' %}" media="screen">
         <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script>
@@ -51,6 +52,7 @@
                             کمک آنلاین
                         </button>
                     </a>
+                    <img src="{% static 'image/avatar.webp' %}" class="user-pic" onclick="toggleMenu()">
                     <!-- <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
@@ -59,6 +61,29 @@
                 </div>
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky"></div>
+
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <img src="{% static 'image/avatar.webp' %}">
+                        <p>سودا حیاتی</p>
+                        <hr>
+                    </div>
+
+                    <a href="" class="sub-menu-link">
+                        <i class="fa-solid fa-user"></i>
+                        <p>ویرایش پروفایل</p>
+                        <span>></span>
+                    </a>
+                    <a href="" class="sub-menu-link">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        <p>خروج</p>
+                        <span>></span>
+                    </a>
+
+                </div>
+            </div>
+
         </nav>
         <div class="container">
             {% include 'partials/_messages.html' %}
@@ -84,6 +109,12 @@
                 navbar.classList.remove('backdrop-blur-sm');
             }
         });
+        </script>
+        <script>
+            let subMenu = document.getElementById("subMenu");
+            function toggleMenu(){
+                subMenu.classList.toggle("open-menu");
+            }
         </script>
         {% block script %}
         {% endblock %}
