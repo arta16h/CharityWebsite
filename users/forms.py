@@ -110,12 +110,12 @@ class DocumentForm(forms.ModelForm) :
 
     class Meta :
         model= Document
-        fields=['name', 'file', 'description']
+        fields=['filename', 'file', 'description']
         widgets = {
             'file' : forms.ClearableFileInput()
         }
         labels = {
-        'name' : 'نام فایل',
+        'filename' : 'نام فایل',
         'file' : 'فایل',
         'description' : 'توضیحات'
         }
