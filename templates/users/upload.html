@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}بارگزاری مدارک{% endblock %}
+{% block link %} <link rel="stylesheet" href="{% static 'css/upload.css' %}"> {% endblock %}
+
+
+{% block content %}
+<div class="wrapper">
+    <header>لطفا مدارک خواسته شده را بارگزاری کنید</header>
+    <form action="POST">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>فایل را برای بارگزاری بکشید</p>
+    </form>
+    <section class="progress-area">
+        <li class="row">
+            <i class="fas fa-file-alt"></i>
+            <div class="content">
+                <div class="details">
+                    <span class="name"></span>
+                    <span class="percent"></span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+        </li>
+    </section>
+    <section class="uploaded-area">
+        <li class="row">
+            <div class="content">
+                <i class="fas fa-file-alt"></i>
+                <div class="details">
+                    <span class="name"></span>
+                    <span class="size"></span>
+                </div>
+            </div>
+            <i class="fas fa-check"></i>
+        </li>
+    </section>
+</div>
+
+
+<script src="{% static 'dropzone-5.7.0/dist/dropzone.js' %}"></script>
+<script src="{% static 'dropzone.js' %}"></script>
+{% endblock %}
