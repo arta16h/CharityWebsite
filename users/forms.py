@@ -6,8 +6,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from jalali_date.fields import JalaliDateField
 from jalali_date.widgets import AdminJalaliDateWidget
 from datetime import datetime
-from .models import User
-from .models import Volunteer
+from .models import User, Volunteer, Document
 
 from typing import Any
 
@@ -106,3 +105,18 @@ class CustomUserChangeForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),            
         }
+
+class DocumentForm(forms.ModelForm) :
+
+    class Meta :
+        model= Document
+        fields=['name', 'file', 'description']
+        widgets = {
+            'file' : forms.ClearableFileInput()
+        }
+        labels = {
+        'name' : 'نام فایل',
+        'file' : 'فایل',
+        'description' : 'توضیحات'
+        }
+        error_messages = messages
