@@ -1,13 +1,14 @@
 from django.urls import path
 from .views import (
     home, volunteer_register, about_us, dashboard, contact_us, donate,
-    RegistrationView, LoginView, LogoutView, SendOtpView,
+    RegistrationView, LoginView, LogoutView, SendOtpView, upload,
     VerifyOtpView, PhoneValidationView, EmailValidationView,
 )
 
 urlpatterns = [
     path("home/", home, name="home"),
     path("donate/", donate, name="donate"),
+    path("upload/", upload, name="upload"),
     path("about/", about_us, name='about'),
     path("contact/", contact_us, name='contact'),
     path("dashboard/", dashboard, name="dashboard"),
