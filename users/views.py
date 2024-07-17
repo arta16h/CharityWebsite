@@ -17,7 +17,7 @@ import json, re
 from datetime import datetime, timedelta
 from Charity.settings import mail
 
-from .forms import VolunteerRegisterForm, RegisterForm, NoPasswordRegisterForm, LoginForm, CustomUserChangeForm
+from .forms import VolunteerRegisterForm, RegisterForm, NoPasswordRegisterForm, LoginForm, CustomUserChangeForm, DocumentForm
 from .authentication import OtpAuthBackend, UserAuthBackend
 from .models import User
 from utils.otp_tools import generate_otp_code, send_otp_code
@@ -286,7 +286,21 @@ class VerifyOtpView(APIView):
     
 def donate(request):
     if request.method == 'POST':
-        # Process the form data and handle the donation logic
         messages.success(request, 'Thank you for your donation!')
         return redirect('donate')
     return render(request, 'donate.html')
+
+@login_required(login_url='login')
+def upload(request) :
+    form = DocumentForm
+
+    if request.is_ajax() and request.method == 'POST' :
+        form = DocumentForm(data=request.POST, instance=request.user)
+        if form.is_valid() :
+            form.save()
+            messages.success(request, 'مدارک شما با موفقیت ارسال شد')
+            return redirect('dashboard')
+    else:
+        form = DocumentForm()
+        messages.error(request, 'عملیات با خطا مواجه شد')
+        return redirect("upload")
