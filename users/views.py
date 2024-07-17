@@ -294,7 +294,7 @@ def donate(request):
 def upload(request) :
     form = DocumentForm
 
-    if request.is_ajax() and request.method == 'POST' :
+    if request.method == 'POST' :
         form = DocumentForm(data=request.POST, instance=request.user)
         if form.is_valid() :
             form.save()
