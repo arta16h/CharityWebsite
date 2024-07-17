@@ -89,3 +89,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Send an email to this user."""
         if self.email:
             send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class Document(models.Model) :
+    name = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("نام فایل"))
+    file = models.FileField(upload_to=make_image_path,verbose_name=_("مدارک"))
+    description = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("توضیحات"))
