@@ -92,6 +92,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Document(models.Model) :
-    name = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("نام فایل"))
+    filename = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("نام فایل"))
     file = models.FileField(upload_to=make_image_path,verbose_name=_("مدارک"))
     description = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("توضیحات"))
+    date_added = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
