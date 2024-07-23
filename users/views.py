@@ -1,7 +1,5 @@
-from django.core.validators import RegexValidator
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.contrib import messages, auth
 from django.views import View
@@ -13,30 +11,16 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-import json, re
+import re
 from datetime import datetime, timedelta
-from Charity.settings import mail
 
-from .forms import VolunteerRegisterForm, RegisterForm, NoPasswordRegisterForm, LoginForm, CustomUserChangeForm, DocumentForm
-from .authentication import OtpAuthBackend, UserAuthBackend
+from .forms import VolunteerRegisterForm, NoPasswordRegisterForm, LoginForm, CustomUserChangeForm, DocumentForm
+from .authentication import OtpAuthBackend
 from .models import User
 from utils.otp_tools import generate_otp_code, send_otp_code
 # Create your views here.
 
 def home(request) :
-    # if request.method == "POST":
-    #     form = ContactUsForm(request.POST or None)
-    #     if form.is_valid():
-    #         cd = form.cleaned_data
-    #         name = cd['name']
-    #         email = cd['email']
-    #         subject = cd['subject']
-    #         content = cd['content']
-    #         message = "نام:{0}\n ایمیل:{1}\n پیام:{3}".format(name, email, content)
-    #         send_mail(subject, message, mail, [settings.Contact_Us_Email] ,fail_silently=False)
-    # else :
-    #     form = ContactUsForm()
-    #     context = {'form' : form}
     return render(request, "home.html")
 
 
