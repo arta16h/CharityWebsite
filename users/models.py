@@ -97,3 +97,14 @@ class Document(models.Model) :
     description = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("توضیحات"))
     date_added = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Slider(models.Model) :
+    title = models.CharField(max_length=255, verbose_name=_("عنوان"))
+    link = models.URLField(max_length=255, verbose_name=_("لینک"))
+    description = models.TextField(verbose_name=_("توضیحات"))
+    image = models.ImageField(upload_to='images/slider')
+
+    class Meta :
+        verbose_name = "اسلایدر"
+        verbose_name_plural = "اسلایدرها"
+    
