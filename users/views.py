@@ -16,7 +16,7 @@ from datetime import datetime, timedelta
 
 from .forms import VolunteerRegisterForm, NoPasswordRegisterForm, LoginForm, CustomUserChangeForm, DocumentForm
 from .authentication import OtpAuthBackend
-from .models import User
+from .models import User, Slider
 from utils.otp_tools import generate_otp_code, send_otp_code
 # Create your views here.
 
@@ -50,7 +50,11 @@ def volunteer_register(request):
     return render(request, "users/volunteer.html", {"form": form})
 
 def about_us(request) :
-    return render (request, 'about.html')
+    sliders = Slider.objects.all()
+    context = {
+        'sliders' : sliders
+    }
+    return render (request, 'about.html', context)
 
 def contact_us(request) :
     return render (request, 'contact.html')
