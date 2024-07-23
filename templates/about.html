@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}درباره ما{% endblock %}
+
+{% block link %} <link rel="stylesheet" href="{% static '' %}"> {% endblock %}
+
+{% block content %}
+    <div class="slideshow single-slider owl-carousel">
+        {% for slider in sliders %}
+        <div class="item {{ forloop.first|yesno:'active,' }}">
+            <a href="{{ slider.link }}">
+                <img src="{{ slider.image.url }}" alt="{{ slider.title }}" class="img-responsive">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
