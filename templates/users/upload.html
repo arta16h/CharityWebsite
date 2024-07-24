@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}بارگزاری مدارک{% endblock %}
+{% block link %} <link rel="stylesheet" href="{% static '' %}"> {% endblock %}
+
+{% block content %}
+
+    <div class="file-uploader">
+      <div class="uploader-header">
+        <h2 class="uploader-title">بارگزاری مدارک</h2>
+        <h4 class="file-completed-status"></h4>
+      </div>
+      <ul class="file-list"></ul>
+      <div class="file-upload-box">
+        <h2 class="box-title">
+          <span class="file-instruction">فایل را برای بارگزاری بکشید یا</span>
+          <span class="file-browse-button">جست و جو کنید</span>
+        </h2>
+        <input class="file-browse-input" type="file" multiple hidden>
+      </div>
+    </div>
+
+{% endblock %}
