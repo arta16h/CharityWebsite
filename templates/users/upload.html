@@ -2,23 +2,28 @@
 {% load static %}
 
 {% block title %}بارگزاری مدارک{% endblock %}
-{% block link %} <link rel="stylesheet" href="{% static '' %}"> {% endblock %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/upload.css' %}">
+{% endblock %}
 
 {% block content %}
 
     <div class="file-uploader">
       <div class="uploader-header">
-        <h2 class="uploader-title">بارگزاری مدارک</h2>
         <h4 class="file-completed-status"></h4>
+        <h2 class="uploader-title">بارگزاری مدارک</h2>
       </div>
       <ul class="file-list"></ul>
       <div class="file-upload-box">
         <h2 class="box-title">
           <span class="file-instruction">فایل را برای بارگزاری بکشید یا</span>
           <span class="file-browse-button">جست و جو کنید</span>
+          <input type="hidden" name="csrfmiddlewaretoken" value='{{csrf_token}}' id="csrf">
         </h2>
+        <p id="upload-input" style="display: none;">{% url 'upload' %}</p>
         <input class="file-browse-input" type="file" multiple hidden>
       </div>
     </div>
 
+    <script src="{% static 'js/upload.js' %}"></script>
 {% endblock %}
