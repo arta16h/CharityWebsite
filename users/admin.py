@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  Volunteer, User, Slider
+from .models import  Volunteer, User, Slider, Document
 
 # Register your models here.
 
@@ -7,3 +7,4 @@ from .models import  Volunteer, User, Slider
 admin.site.register(Volunteer)
 admin.site.register(User)
 admin.site.register(Slider)
+admin.site.register(Document)
