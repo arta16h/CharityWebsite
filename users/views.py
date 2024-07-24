@@ -283,12 +283,14 @@ def upload(request) :
     form = DocumentForm
 
     if request.method == 'POST' :
-        form = DocumentForm(data=request.POST, instance=request.user)
+        form = DocumentForm(request.POST, request.FILES)
         if form.is_valid() :
-            form.save()
+            doc = form.save(commit=False)
+            doc.user = request.user
+            doc.save()
             messages.success(request, 'مدارک شما با موفقیت ارسال شد')
             return redirect('dashboard')
+        messages.error(request, 'عملیات با خطا مواجه شد')
     else:
         form = DocumentForm()
-        messages.error(request, 'عملیات با خطا مواجه شد')
         return render(request, "users/upload.html")
