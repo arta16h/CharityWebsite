@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.validators import RegexValidator
 from django.core.mail import send_mail
-from utils.file_path_creator import make_image_path, make_document_path
+from utils.file_path_creator import make_image_path
 from django.utils.translation import gettext_lazy as _
 from .enums import *
 from .manager import UserManager
