@@ -90,10 +90,28 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.email:
             send_mail(subject, message, from_email, [self.email], **kwargs)
 
+class DocumentCategory(models.Model):
+    name = models.CharField(_("نام"), max_length=100)
+    slug = models.SlugField(_('اسلاگ'), max_length=255, unique=True)
+    is_active = models.BooleanField(_("فعال"), default=True)
 
+    date_added = models.DateTimeField(_("تاریخ افزودن"), auto_now_add=True)
+    date_modify = models.DateTimeField(_("تاریخ آخرین تغییر"), auto_now=True)
+
+    class Meta:
+        db_table = 'document_category'
+        verbose_name = _('document category')
+        verbose_name_plural = _("document categories")
+
+
+    def __str__(self):
+        return self.name or ""
+    
+    
 class Document(models.Model) :
     filename = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("نام فایل"))
     file = models.FileField(upload_to=make_image_path,verbose_name=_("مدارک"))
+    category = models.ForeignKey(DocumentCategory, on_delete=models.SET_NULL, null=True, blank=True)
     description = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("توضیحات"))
     date_added = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
