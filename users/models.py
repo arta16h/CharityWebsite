@@ -7,8 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from .enums import *
 from .manager import UserManager
 from django_jalali.db.models import jDateField
-# Create your models here.
 
+# Create your models here.
 
 class Volunteer(models.Model) :
     first_name = models.CharField(verbose_name=_("نام"), max_length=100)
@@ -43,6 +43,10 @@ class Volunteer(models.Model) :
         null=True, blank=True
     )
     experience_info = models.TextField(verbose_name=_("سابقه کار جهادی"), null=True, blank=True)
+
+    class Meta :
+        verbose_name = _("داوطلب")
+        verbose_name_plural = _("داوطلب ها")
 
 
 
@@ -89,6 +93,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Send an email to this user."""
         if self.email:
             send_mail(subject, message, from_email, [self.email], **kwargs)
+    class Meta :
+        verbose_name = _("عضو")
+        verbose_name_plural = _("اعضا")
 
 class DocumentCategory(models.Model):
     name = models.CharField(_("نام"), max_length=100)
@@ -100,8 +107,8 @@ class DocumentCategory(models.Model):
 
     class Meta:
         db_table = 'document_category'
-        verbose_name = _('document category')
-        verbose_name_plural = _("document categories")
+        verbose_name = _('نوع مدرک')
+        verbose_name_plural = _("انواع مدارک")
 
 
     def __str__(self):
@@ -116,6 +123,11 @@ class Document(models.Model) :
     date_added = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta :
+        verbose_name = _("مدرک")
+        verbose_name_plural = _("مدارک")
+    
+
 class Slider(models.Model) :
     title = models.CharField(max_length=255, verbose_name=_("عنوان"))
     link = models.URLField(max_length=255, verbose_name=_("لینک"))
@@ -123,6 +135,6 @@ class Slider(models.Model) :
     image = models.ImageField(upload_to='images/slider')
 
     class Meta :
-        verbose_name = "اسلایدر"
-        verbose_name_plural = "اسلایدرها"
+        verbose_name = _("اسلایدر")
+        verbose_name_plural = _("اسلایدرها")
     
