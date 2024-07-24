@@ -25,7 +25,7 @@ const createFileItemHTML = (file, uniqueIdentifier) => {
                     <div class="file-info">
                         <small class="file-size">0 MB / ${formattedFileSize}</small>
                         <small class="file-divider">•</small>
-                        <small class="file-status">Uploading...</small>
+                        <small class="file-status">در حال بارگزاری...</small>
                     </div>
                     </div>
                     <button class="cancel-button">
@@ -39,101 +39,86 @@ const createFileItemHTML = (file, uniqueIdentifier) => {
             </li>`;
 }
 
-// Function to handle file uploading
 const handleFileUploading = (file, uniqueIdentifier) => {
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append("file", file);
     formData.append(csrfToken.name, csrfToken.value)
 
-    // Adding progress event listener to the ajax request
     xhr.upload.addEventListener("progress", (e) => {
-        // Updating progress bar and file size element
         const fileProgress = document.querySelector(`#file-item-${uniqueIdentifier} .file-progress`);
         const fileSize = document.querySelector(`#file-item-${uniqueIdentifier} .file-size`);
 
-        // Formatting the uploading or total file size into KB or MB accordingly
         const formattedFileSize = file.size >= 1024 * 1024  ? `${(e.loaded / (1024 * 1024)).toFixed(2)} MB / ${(e.total / (1024 * 1024)).toFixed(2)} MB` : `${(e.loaded / 1024).toFixed(2)} KB / ${(e.total / 1024).toFixed(2)} KB`;
         const progress = Math.round((e.loaded / e.total) * 100);
         fileProgress.style.width = `${progress}%`;
         fileSize.innerText = formattedFileSize;
     });
 
-    // Opening connection to the server API endpoint "api.php" and sending the form data
     const uploadUrl = document.getElementById("upload-input").innerText
     xhr.open("POST", uploadUrl, true);
     xhr.send(formData);
     return xhr;
 }
 
-// Function to handle selected files
 const handleSelectedFiles = ([...files]) => {
-    if(files.length === 0) return; // Check if no files are selected
+    if(files.length === 0) return;
     totalFiles += files.length;
 
     files.forEach((file, index) => {
         const uniqueIdentifier = Date.now() + index;
         const fileItemHTML = createFileItemHTML(file, uniqueIdentifier);
-        // Inserting each file item into file list
         fileList.insertAdjacentHTML("afterbegin", fileItemHTML);
         const currentFileItem = document.querySelector(`#file-item-${uniqueIdentifier}`);
         const cancelFileUploadButton = currentFileItem.querySelector(".cancel-button");
 
         const xhr = handleFileUploading(file, uniqueIdentifier);
 
-        // Update file status text and change color of it 
         const updateFileStatus = (status, color) => {
             currentFileItem.querySelector(".file-status").innerText = status;
             currentFileItem.querySelector(".file-status").style.color = color;
         }
 
         xhr.addEventListener("readystatechange", () => {
-            // Handling completion of file upload
             if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 completedFiles++;
                 cancelFileUploadButton.remove();
-                updateFileStatus("Completed", "#00B125");
-                fileCompletedStatus.innerText = `${completedFiles} / ${totalFiles} files completed`;
+                updateFileStatus("موفق", "#00B125");
+                fileCompletedStatus.innerText = `${completedFiles} / ${totalFiles} بارگزاری شد`;
             }
         });
 
-        // Handling cancellation of file upload
         cancelFileUploadButton.addEventListener("click", () => {
-            xhr.abort(); // Cancel file upload
-            updateFileStatus("Cancelled", "#E3413F");
+            updateFileStatus("لغو شد", "#E3413F");
             cancelFileUploadButton.remove();
         });
 
-        // Show Alert if there is any error occured during file uploading
         xhr.addEventListener("error", () => {
-            updateFileStatus("Error", "#E3413F");
-            alert("An error occurred during the file upload!");
+            updateFileStatus("خطا", "#E3413F");
+            alert("خطایی رخ داده است!");
         });
     });
 
-    fileCompletedStatus.innerText = `${completedFiles} / ${totalFiles} files completed`;
+    fileCompletedStatus.innerText = `${completedFiles} / ${totalFiles} بارگزاری شد`;
 }
 
-// Function to handle file drop event
 fileUploadBox.addEventListener("drop", (e) => {
     e.preventDefault();
     handleSelectedFiles(e.dataTransfer.files);
     fileUploadBox.classList.remove("active");
-    fileUploadBox.querySelector(".file-instruction").innerText = "Drag files here or";
+    fileUploadBox.querySelector(".file-instruction").innerText = "فایل را برای بارگزاری بکشید یا";
 });
 
-// Function to handle file dragover event
 fileUploadBox.addEventListener("dragover", (e) => {
     e.preventDefault();
     fileUploadBox.classList.add("active");
-    fileUploadBox.querySelector(".file-instruction").innerText = "Release to upload or";
+    fileUploadBox.querySelector(".file-instruction").innerText = "فایل را برای بارگزاری رها کنید یا";
 });
 
-// Function to handle file dragleave event
 fileUploadBox.addEventListener("dragleave", (e) => {
     e.preventDefault();
     fileUploadBox.classList.remove("active");
-    fileUploadBox.querySelector(".file-instruction").innerText = "Drag files here or";
+    fileUploadBox.querySelector(".file-instruction").innerText = "فایل را برای بارگزاری بکشید یا";
 });
 
 fileBrowseInput.addEventListener("change", (e) => handleSelectedFiles(e.target.files));
