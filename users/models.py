@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.validators import RegexValidator
 from django.core.mail import send_mail
-from utils.file_path_creator import make_image_path
+from utils.file_path_creator import make_image_path, make_document_path
 from django.utils.translation import gettext_lazy as _
 from .enums import *
 from .manager import UserManager
@@ -107,10 +107,10 @@ class DocumentCategory(models.Model):
     def __str__(self):
         return self.name or ""
     
-    
+
 class Document(models.Model) :
     filename = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("نام فایل"))
-    file = models.FileField(upload_to=make_image_path,verbose_name=_("مدارک"))
+    file = models.FileField(upload_to='documents/',verbose_name=_("مدارک"))
     category = models.ForeignKey(DocumentCategory, on_delete=models.SET_NULL, null=True, blank=True)
     description = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("توضیحات"))
     date_added = models.DateTimeField(auto_now_add=True)
