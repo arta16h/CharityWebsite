@@ -1,7 +1,5 @@
-from django.core.validators import RegexValidator
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.contrib import messages, auth
 from django.views import View
@@ -13,30 +11,16 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-import json, re
+import re
 from datetime import datetime, timedelta
-from Charity.settings import mail
 
-from .forms import VolunteerRegisterForm, RegisterForm, NoPasswordRegisterForm, LoginForm, CustomUserChangeForm, DocumentForm
-from .authentication import OtpAuthBackend, UserAuthBackend
-from .models import User
+from .forms import VolunteerRegisterForm, NoPasswordRegisterForm, LoginForm, CustomUserChangeForm, DocumentForm
+from .authentication import OtpAuthBackend
+from .models import User, Slider
 from utils.otp_tools import generate_otp_code, send_otp_code
 # Create your views here.
 
 def home(request) :
-    # if request.method == "POST":
-    #     form = ContactUsForm(request.POST or None)
-    #     if form.is_valid():
-    #         cd = form.cleaned_data
-    #         name = cd['name']
-    #         email = cd['email']
-    #         subject = cd['subject']
-    #         content = cd['content']
-    #         message = "نام:{0}\n ایمیل:{1}\n پیام:{3}".format(name, email, content)
-    #         send_mail(subject, message, mail, [settings.Contact_Us_Email] ,fail_silently=False)
-    # else :
-    #     form = ContactUsForm()
-    #     context = {'form' : form}
     return render(request, "home.html")
 
 
@@ -66,7 +50,11 @@ def volunteer_register(request):
     return render(request, "users/volunteer.html", {"form": form})
 
 def about_us(request) :
-    return render (request, 'about.html')
+    sliders = Slider.objects.all()
+    context = {
+        'sliders' : sliders
+    }
+    return render (request, 'about.html', context)
 
 def contact_us(request) :
     return render (request, 'contact.html')
@@ -295,12 +283,14 @@ def upload(request) :
     form = DocumentForm
 
     if request.method == 'POST' :
-        form = DocumentForm(data=request.POST, instance=request.user)
+        form = DocumentForm(request.POST, request.FILES)
         if form.is_valid() :
-            form.save()
+            doc = form.save(commit=False)
+            doc.user = request.user
+            doc.save()
             messages.success(request, 'مدارک شما با موفقیت ارسال شد')
             return redirect('dashboard')
+        messages.error(request, 'عملیات با خطا مواجه شد')
     else:
         form = DocumentForm()
-        messages.error(request, 'عملیات با خطا مواجه شد')
         return render(request, "users/upload.html")

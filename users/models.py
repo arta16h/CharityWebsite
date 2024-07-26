@@ -7,8 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from .enums import *
 from .manager import UserManager
 from django_jalali.db.models import jDateField
-# Create your models here.
 
+# Create your models here.
 
 class Volunteer(models.Model) :
     first_name = models.CharField(verbose_name=_("نام"), max_length=100)
@@ -43,6 +43,10 @@ class Volunteer(models.Model) :
         null=True, blank=True
     )
     experience_info = models.TextField(verbose_name=_("سابقه کار جهادی"), null=True, blank=True)
+
+    class Meta :
+        verbose_name = _("داوطلب")
+        verbose_name_plural = _("داوطلب ها")
 
 
 
@@ -89,11 +93,48 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Send an email to this user."""
         if self.email:
             send_mail(subject, message, from_email, [self.email], **kwargs)
+    class Meta :
+        verbose_name = _("عضو")
+        verbose_name_plural = _("اعضا")
 
+class DocumentCategory(models.Model):
+    name = models.CharField(_("نام"), max_length=100)
+    slug = models.SlugField(_('اسلاگ'), max_length=255, unique=True)
+    is_active = models.BooleanField(_("فعال"), default=True)
+
+    date_added = models.DateTimeField(_("تاریخ افزودن"), auto_now_add=True)
+    date_modify = models.DateTimeField(_("تاریخ آخرین تغییر"), auto_now=True)
+
+    class Meta:
+        db_table = 'document_category'
+        verbose_name = _('نوع مدرک')
+        verbose_name_plural = _("انواع مدارک")
+
+
+    def __str__(self):
+        return self.name or ""
+    
 
 class Document(models.Model) :
     filename = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("نام فایل"))
-    file = models.FileField(upload_to=make_image_path,verbose_name=_("مدارک"))
+    file = models.FileField(upload_to='documents/',verbose_name=_("مدارک"))
+    category = models.ForeignKey(DocumentCategory, on_delete=models.SET_NULL, null=True, blank=True)
     description = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("توضیحات"))
     date_added = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta :
+        verbose_name = _("مدرک")
+        verbose_name_plural = _("مدارک")
+    
+
+class Slider(models.Model) :
+    title = models.CharField(max_length=255, verbose_name=_("عنوان"))
+    link = models.URLField(max_length=255, verbose_name=_("لینک"))
+    description = models.TextField(verbose_name=_("توضیحات"))
+    image = models.ImageField(upload_to='images/slider')
+
+    class Meta :
+        verbose_name = _("اسلایدر")
+        verbose_name_plural = _("اسلایدرها")
+    

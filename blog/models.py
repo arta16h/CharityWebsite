@@ -14,6 +14,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
+    class Meta :
+        verbose_name = _("دسته بندی")
+        verbose_name_plural = _("دسته بندی ها")
+    
 User = settings.AUTH_USER_MODEL    
 class Blog(models.Model) :
     title = models.CharField(max_length = 255, verbose_name=_('عنوان'))
@@ -30,3 +34,7 @@ class Blog(models.Model) :
     
     def get_absolute_url(self) :
         return reverse('blog-detail', kwargs={'pk':self.pk})
+    
+    class Meta :
+        verbose_name = _("بلاگ")
+        verbose_name_plural = _("بلاگ ها")
