@@ -148,4 +148,24 @@ class Slider(models.Model) :
     class Meta :
         verbose_name = _("اسلایدر")
         verbose_name_plural = _("اسلایدرها")
+
+
+class MainData(models.Model) :
+    phone = models.CharField(verbose_name=_("شماره موکب"), max_length=14, validators=[RegexValidator(r'09(\d{9})$')], null=True, blank=True)
+    email = models.EmailField(verbose_name=_("ایمیل"), null=True, blank=True)
+    credit = models.CharField(verbose_name=_("شماره کارت"), max_length=16, null=True, blank=True)
+    address = models.CharField(verbose_name=_("آدرس"), max_length=255, null=True, blank=True)
+    igurl = models.URLField(max_length=255, verbose_name=_("لینک اینستاگرام"), null=True, blank=True)
+    telurl = models.URLField(max_length=255, verbose_name=_("لینک تلگرام"), null=True, blank=True)
+    eturl = models.URLField(max_length=255, verbose_name=_("لینک ایتا"), null=True, blank=True)
+    homeh1 = models.CharField(verbose_name=_("تیتر اول صفحه اصلی"), max_length=255, null=True, blank=True)
+    homeh2 = models.CharField(verbose_name=_("تیتر دوم صفحه اصلی"), max_length=255, null=True, blank=True)
+    homeh3 = models.CharField(verbose_name=_("متن اول صفحه اصلی"), max_length=255, null=True, blank=True)
+    logo = models.ImageField(verbose_name=_("لوگو"), upload_to="logo/", null=True, blank=True)
+    home = models.ImageField(verbose_name=_("عکس صفحه اصلی"), upload_to="home/", null=True, blank=True)
+    footerabout = models.CharField(verbose_name=_("اطلاعات فوتر"), max_length=255, null=True, blank=True)
+
+    class Meta :
+        verbose_name = _("اطلاعات")
+        verbose_name_plural = _("اطلاعات")
     
