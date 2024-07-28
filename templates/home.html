@@ -16,13 +16,13 @@
             <div class="u-gutter-0 u-layout" style="height: fit-content;">
                 <div class=" row grid-container inline" style="display: inline;">
                     <div class="u-align-right u-container-style grid-child col-6" style="float: right; padding: 0;">
-                        <img src="{% static 'image/shrine.jpg' %}" alt="حرم حضرت زینب" style="float: right; width: auto; overflow: hidden;">
+                        <img src="{{main_data.home.url}}" alt="حرم حضرت زینب" style="float: right; width: auto; overflow: hidden;">
                     </div>
                     <div class="col-3 u-align-left u-container-style u-hidden-sm u-hidden-xs u-layout-cell u-size-17 u-layout-cell-1 grid-child" style="margin-left: 10%; padding-bottom: 0;">
                         <div class="u-container-layout u-container-layout-1" style="padding-bottom: 0;">
-                            <h5 class="u-custom-font u-font-pt-sans u-text u-text-1">LOREM IPSUM </h5>
-                            <h1 class="u-text u-text-2">Lorem<br><b>IPSUM</b></h1>
-                            <p class="u-text u-text-3">لِیُنفِقْ ذُو سَعَةٍ مِّن سَعَتِهِ وَمَن قُدِرَ عَلَیْهِ رِزْقُهُ فَلْیُنفِقْ مِمَّا آتَاهُ اللَّهُ لَا یُکَلِّفُ اللَّهُ نَفْسًا إِلَّا مَا آتَاهَا سَیَجْعَلُ اللَّهُ بَعْدَ عُسْرٍ یُسْرًا</p>
+                            <h5 class="u-custom-font u-font-pt-sans u-text u-text-1">{{main_data.homeh1}}</h5>
+                            <h1 class="u-text u-text-2">{{main_data.homeh2}}</h1>
+                            <p class="u-text u-text-3">{{main_data.homeh3}}</p>
                             <a href="{% url 'about' %}" class="u-btn u-btn-rectangle u-button-style u-font-pt-sans u-radius-0" id="readmore">بیشتر بخوانید</a>
                         </div>
                     </div>
@@ -161,15 +161,15 @@
         <div class="footer-left">
             <div>
                 <i class="fa fa-map-marker"></i>
-                <p>تهران-ایران</p>
+                <p>{{ main_data.address }}</p>
             </div>
             <div>
                 <i class="fa fa-phone"></i>
-                <p>09102995539</p>
+                <p>{{ main_data.phone }}</p>
             </div>
             <div>
                 <i class="fa fa-envelope"></i>
-                <p><a href="{% url 'contact' %}">sayyidahzaynab313@gmail.com</a></p>
+                <p><a href="{% url 'contact' %}">{{ main_data.email }}</a></p>
             </div>
         </div>
         <div class="footer-center">
@@ -183,15 +183,15 @@
                 <a href="{% url 'blog-list' %}">بلاگ و گزارش کار</a>
             </p>
             <p class="footer-company-about">
-            خادمین سیده زینب یک گروه جهادی درمانی است که هفت سال است در حوزه درمانی خدمت رسانی میکند
+                {{main_data.footerabout}}
             </p>
         </div>
         <div class="footer-right">
             <p class="footer-company-name">خادمین سیده زینب</p>
             <div class="footer-icons">
-                <a class="cz-instagram" href="https://www.instagram.com/sayyidahzaynab313/" data-title="اینستاگرام" aria-label="اینستاگرام" target="_blank" rel="noopener noreferrer nofollow"><i class="fab fa-instagram"></i></a>
-                <a class="cz-telegram-plane" href="https://t.me/sayyidahZAYNAB/" data-title="تلگرام" aria-label="تلگرام" target="_blank" rel="noopener noreferrer nofollow"><i class="fab fa-telegram-plane"></i></a>
-                <a href="https://eitaa.com/sayyidahzaynab313/" data-title="ایتا" aria-label="ایتا" target="_blank" rel="noopener noreferrer nofollow">
+                <a class="cz-instagram" href="{{main_data.instagram}}" data-title="اینستاگرام" aria-label="اینستاگرام" target="_blank" rel="noopener noreferrer nofollow"><i class="fab fa-instagram"></i></a>
+                <a class="cz-telegram-plane" href="{{main_data.telegram}}" data-title="تلگرام" aria-label="تلگرام" target="_blank" rel="noopener noreferrer nofollow"><i class="fab fa-telegram-plane"></i></a>
+                <a href="{{main_data.eitaa}}" data-title="ایتا" aria-label="ایتا" target="_blank" rel="noopener noreferrer nofollow">
                     <i class="fas" data-rocket-lazy-bg-3412258e-447d-4b60-be67-1fd8770ffc31="loaded">
                         <img src="{% static 'image/eitaa-icon.png' %}" alt="" style="width: 70%;" class="img-responsive center-block">
                     </i>
