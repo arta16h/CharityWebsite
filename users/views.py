@@ -16,12 +16,16 @@ from datetime import datetime, timedelta
 
 from .forms import VolunteerRegisterForm, NoPasswordRegisterForm, LoginForm, CustomUserChangeForm, DocumentForm
 from .authentication import OtpAuthBackend
-from .models import User, Slider
+from .models import User, Slider, MainData
 from utils.otp_tools import generate_otp_code, send_otp_code
 # Create your views here.
 
 def home(request) :
-    return render(request, "home.html")
+    main_data = MainData.objects.first()
+    context = {
+        'main_data' : main_data
+    }
+    return render(request, "home.html", context)
 
 
 def volunteer_register(request):
