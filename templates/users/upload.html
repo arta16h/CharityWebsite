@@ -8,22 +8,23 @@
 
 {% block content %}
 
-    <div class="file-uploader">
-      <div class="uploader-header" style="background-color: #17755a; color: #fff;">
+<div class="file-uploader">
+    <div class="uploader-header" style="background-color: #17755a; color: #fff;">
         <h4 class="file-completed-status"></h4>
         <h2 class="uploader-title">بارگزاری مدارک</h2>
-      </div>
-      <ul class="file-list"></ul>
-      <div class="file-upload-box">
+    </div>
+    <ul class="file-list"></ul>
+    <div class="file-upload-box">
         <h2 class="box-title">
-          <span class="file-instruction">فایل را برای بارگزاری بکشید یا</span>
-          <span class="file-browse-button" style="color: #17755a;">جست و جو کنید</span>
-          <input type="hidden" name="csrfmiddlewaretoken" value='{{csrf_token}}' id="csrf">
+            <span class="file-instruction">فایل را برای بارگزاری بکشید یا</span>
+            <span class="file-browse-button" style="color: #17755a;">جست و جو کنید</span>
+            <input type="hidden" name="csrfmiddlewaretoken" value='{{csrf_token}}' id="csrf">
         </h2>
         <p id="upload-input" style="display: none;">{% url 'upload' %}</p>
         <input class="file-browse-input" type="file" multiple hidden>
-      </div>
     </div>
+    <div id="info"></div>
+</div>
 
-    <script src="{% static 'js/upload.js' %}"></script>
+<script src="{% static 'js/upload.js' %}"></script>
 {% endblock %}
