@@ -1,12 +1,85 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}داشبورد{% endblock %}
+{% block title %}داشبرد اعضا{% endblock %}
 
 {% block link %}
-    <link rel="stylesheet" href="{% static 'css/profile.css'%}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block custom_style %}
+    <style>
+    </style>
 {% endblock %}
 
 {% block content %}
+<div class="sidebar">
+    <div class="top">
+        <i class='bx bx-menu bx-tada-hover' id="btn"></i>
+    </div>
+    <ul>
+        <li>
+            <a href="">
+                <i class='bx bxs-bell-ring'></i>
+                <span class="nav-item">پیام ها</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="">
+                <i class='bx bxs-edit'></i>
+                <span class="nav-item">ویرایش پروفایل</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="">
+                <i class='bx bxs-cloud-upload'></i>
+                <span class="nav-item">بارگزاری مدارک</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="">
+                <i class='bx bxs-user-plus'></i>
+                <span class="nav-item">ثبت نام داوطلب</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="">
+                <i class='bx bx-log-out'></i>
+                <span class="nav-item">خروج</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="main-content">
+
+    <ul class="first-row">
+        <li style="background: #ffdb66; padding: 24px; border-radius: 20px; display: flex; align-items: center; grid-gap: 24px;">
+            <i class='bx bx-calendar-heart' style="background: #d63363; color: #fff; width: 80px; height: 80px; border-radius: 10px; font-size: 36px; display: flex; justify-content: center; align-items: center;"></i>
+            <span class="text">
+                <h3>45 روز</h3>
+                <p>سابقه عضویت شما</p>
+            </span>
+        </li>
+        <li style="background: #ffdb66; padding: 24px; border-radius: 20px; display: flex; align-items: center; grid-gap: 24px;">
+            <i class='bx bx-trophy' style="background: #d63363;color: #fff; width: 80px; height: 80px; border-radius: 10px; font-size: 36px; display: flex; justify-content: center; align-items: center;"></i>
+            <span class="text">
+                <h3>38</h3>
+                <p>اردوهای شرکت کرده</p>
+            </span>
+        </li>
+        <li style="background: #ffdb66; padding: 24px; border-radius: 20px; display: flex; align-items: center; grid-gap: 24px;">
+            <i class='bx bx-donate-heart' style="background: #d63363; color: #fff; width: 80px; height: 80px; border-radius: 10px; font-size: 36px; display: flex; justify-content: center; align-items: center;"></i>
+            <span class="text">
+                <h3>1000000 تومان</h3>
+                <p>میزان کمک مالی</p>
+            </span>
+        </li>
+    </ul>
 
     <div class="container d-flex justify-content-center align-items-center w-90 max-w-[80rem]">
         <div class="row d-flex justify-content-center  w-100 max-w-[80rem] text-center1 my-5 rounded border-dark relative" style="border: 1px solid black; width:fit-content">
@@ -107,11 +180,19 @@
         </div> -->
         </div>
     </div>
-{% endblock %}
-{% block script %}
+
+</div>
+
 <script>
+    let btn = document.querySelector('#btn');
+    let sidebar = document.querySelector('.sidebar');
+
+    btn.onclick = function () {
+        sidebar.classList.toggle("active");
+    };
+
     function showSubmitButton(){
-        document.getElementById("profile_update_submit").classList.remove("d-none")
+    document.getElementById("profile_update_submit").classList.remove("d-none")
     }
     document.querySelectorAll("input.form-control").forEach(el => {
         el.addEventListener("change", showSubmitButton)
