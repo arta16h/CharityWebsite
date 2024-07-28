@@ -19,22 +19,22 @@ const createFileItemHTML = (file, uniqueIdentifier) => {
     return `<li class="file-item" id="file-item-${uniqueIdentifier}">
                 <div class="file-extension">${extension}</div>
                 <div class="file-content-wrapper">
-                <div class="file-content">
-                    <div class="file-details">
-                    <h5 class="file-name">${name}</h5>
-                    <div class="file-info">
-                        <small class="file-size">0 MB / ${formattedFileSize}</small>
-                        <small class="file-divider">•</small>
-                        <small class="file-status">در حال بارگزاری...</small>
+                    <div class="file-content">
+                        <div class="file-details">
+                            <h5 class="file-name">${name}</h5>
+                            <div class="file-info">
+                                <small class="file-size">0 MB / ${formattedFileSize}</small>
+                                <small class="file-divider">•</small>
+                                <small class="file-status">در حال بارگزاری...</small>
+                            </div>
+                        </div>
+                        <button class="cancel-button">
+                            <i class="bx bx-x"></i>
+                        </button>
                     </div>
+                    <div class="file-progress-bar">
+                        <div class="file-progress"></div>
                     </div>
-                    <button class="cancel-button">
-                    <i class="bx bx-x"></i>
-                    </button>
-                </div>
-                <div class="file-progress-bar">
-                    <div class="file-progress"></div>
-                </div>
                 </div>
             </li>`;
 }
