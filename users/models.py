@@ -6,6 +6,7 @@ from utils.file_path_creator import make_image_path
 from django.utils.translation import gettext_lazy as _
 from .enums import *
 from .manager import UserManager
+from PIL import Image
 from django_jalali.db.models import jDateField
 
 # Create your models here.
@@ -93,6 +94,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Send an email to this user."""
         if self.email:
             send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def save(self) :
+        super().save()
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300 :
+            output = (300, 300)
+            img.thumbnail(output)
+            img.save(self.image.path)
+
     class Meta :
         verbose_name = _("عضو")
         verbose_name_plural = _("اعضا")
