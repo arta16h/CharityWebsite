@@ -1,0 +1,112 @@
+.sidebar {
+    position: absolute;
+    top: 148;
+    left: 0;
+    width: 80px;
+    min-height: 100vh;
+    padding: 0.4rem 0.8rem;
+    background-color: #17755a;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active {
+    width: 220px;
+}
+
+.sidebar #btn {
+    position: absolute;
+    color: #fff;
+    top: 150;
+    left: 40%;
+    font-size: 1.2rem;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+.sidebar.active #btn {
+    left: 80%;
+}
+
+.sidebar ul {
+    margin-top: 50px;
+}
+
+.sidebar ul li {
+    position: relative;
+    list-style-type: none;
+    height: 50px;
+    width: 90%;
+    margin: 0.8rem auto;
+    line-height: 50px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 0.8rem;
+}
+
+.sidebar ul li a:hover {
+    background-color: #fff;
+    color: #17755a;
+}
+
+.sidebar ul li a i {
+    min-width: 50px;
+    text-align: center;
+    height: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+}
+
+.sidebar .nav-item {
+    opacity: 0;
+}
+
+.sidebar.active .nav-item {
+    opacity: 1;
+}
+
+.sidebar.active ~ .main-content {
+    left: 200px;
+    width: calc(100% - 220px);
+}
+
+.main-content {
+    position: relative;
+    top: 148;
+    left: 80px;
+    transition: all 0.5s ease;
+    width: calc(100% - 80px);
+    padding: 1rem;
+}
+
+.first-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-gap: 24px;
+}
+
+.main-content .first-row li {
+    padding: 24px;
+    border-radius: 20px;
+    background: #ffdb66;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
+}
+
+.main-content .first-row li .bx {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    background: #d63363;
+    font-size: 36px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

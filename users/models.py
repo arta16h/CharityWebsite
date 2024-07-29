@@ -6,6 +6,7 @@ from utils.file_path_creator import make_image_path
 from django.utils.translation import gettext_lazy as _
 from .enums import *
 from .manager import UserManager
+from PIL import Image
 from django_jalali.db.models import jDateField
 
 # Create your models here.
@@ -93,6 +94,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Send an email to this user."""
         if self.email:
             send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def save(self) :
+        super().save()
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300 :
+            output = (300, 300)
+            img.thumbnail(output)
+            img.save(self.image.path)
+
     class Meta :
         verbose_name = _("عضو")
         verbose_name_plural = _("اعضا")
@@ -137,4 +148,24 @@ class Slider(models.Model) :
     class Meta :
         verbose_name = _("اسلایدر")
         verbose_name_plural = _("اسلایدرها")
+
+
+class MainData(models.Model) :
+    phone = models.CharField(verbose_name=_("شماره موکب"), max_length=14, validators=[RegexValidator(r'09(\d{9})$')], null=True, blank=True)
+    email = models.EmailField(verbose_name=_("ایمیل"), null=True, blank=True)
+    credit = models.CharField(verbose_name=_("شماره کارت"), max_length=16, null=True, blank=True)
+    address = models.CharField(verbose_name=_("آدرس"), max_length=255, null=True, blank=True)
+    instagram = models.URLField(max_length=255, verbose_name=_("لینک اینستاگرام"), null=True, blank=True)
+    telegram = models.URLField(max_length=255, verbose_name=_("لینک تلگرام"), null=True, blank=True)
+    eitaa = models.URLField(max_length=255, verbose_name=_("لینک ایتا"), null=True, blank=True)
+    homeh1 = models.CharField(verbose_name=_("تیتر اول صفحه اصلی"), max_length=255, null=True, blank=True)
+    homeh2 = models.CharField(verbose_name=_("تیتر دوم صفحه اصلی"), max_length=255, null=True, blank=True)
+    homeh3 = models.CharField(verbose_name=_("متن اول صفحه اصلی"), max_length=255, null=True, blank=True)
+    logo = models.ImageField(verbose_name=_("لوگو"), upload_to="logo/", null=True, blank=True)
+    home = models.ImageField(verbose_name=_("عکس صفحه اصلی"), upload_to="home/", null=True, blank=True)
+    footerabout = models.CharField(verbose_name=_("اطلاعات فوتر"), max_length=255, null=True, blank=True)
+
+    class Meta :
+        verbose_name = _("اطلاعات")
+        verbose_name_plural = _("اطلاعات")
     
