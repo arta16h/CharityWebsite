@@ -31,12 +31,12 @@ class Volunteer(models.Model) :
     marital_status = models.PositiveSmallIntegerField(
         verbose_name=_("وضعیت تاهل"),
         choices= MARITAL_CHOICES,
-        default='مجرد'
+        default=SINGLE
     )
     gender = models.PositiveSmallIntegerField(
         verbose_name=_("جنسیت"), 
         choices=GENDER_CHOICES,
-        default= 'مذکر'
+        default=MALE
     )
     education = models.PositiveSmallIntegerField(
         verbose_name=_("تحصیلات"), 
@@ -70,6 +70,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+
+    date_added = models.DateTimeField(_("تاریخ عضویت"), auto_now=True)
+    date_modify = models.DateTimeField(_("تاریخ آخرین تغییر"), auto_now_add=True)
 
     USERNAME_FIELD = "phone"
 
