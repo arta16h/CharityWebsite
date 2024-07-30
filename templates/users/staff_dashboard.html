@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}داشبورد اعضا{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block custom_style %}
+    <style>
+        textarea{
+            height: 40px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="sidebar">
+    <div class="top">
+        <i class='bx bx-menu bx-tada-hover' id="btn"></i>
+    </div>
+    <ul>
+        <li>
+            <a href="">
+                <i class='bx bxs-bell-ring'></i>
+                <span class="nav-item">پیام ها</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="">
+                <i class='bx bxs-edit'></i>
+                <span class="nav-item">ویرایش پروفایل</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="">
+                <i class='bx bxs-cloud-upload'></i>
+                <span class="nav-item">بارگزاری مدارک</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="">
+                <i class='bx bxs-user-plus'></i>
+                <span class="nav-item">ثبت نام داوطلب</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="">
+                <i class='bx bx-log-out'></i>
+                <span class="nav-item">خروج</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="main-content">
+
+    <div class="container d-flex justify-content-center align-items-center w-90 max-w-[80rem]">
+        <div class="row d-flex  w-100 max-w-[80rem] justify-content-center m-  rounded border-dark" style="border: 1px solid black; width:fit-content">
+            <div class="temp w-full">
+                <span class="float-end d-flex text-end">
+                    <svg class="w-[36px] h-[36px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>                      
+                </span>
+                <span>ارسال پیام</span>
+            </div>
+            <div class="col-sm-12 col-md-10 d-fslex " id="create-notification-box">
+                <form id="notification-form" method="POST" action="{% url 'send_notification' %}">
+                    {% csrf_token %}
+                    <div class="row justify-content-end align-middle h-full pb-2">
+                        <div class="max-w-sm mx-auto col-sm-10 col-md-5 my-2">
+                            <label for="user_ids_filter" class="text-end block mb-2 text-sm font-medium text-gray-900 dark:text-white">یک یا چند مورد را انتخاب کنید(اختیاری)</label>
+                            <select multiple name="user_ids_filter" id="user_ids_filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                
+                                {% for user in users %}
+                                    <option class="text-end" value="{{user.id}}">{{user.get_full_name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="max-w-sm mx-auto col-sm-10 col-md-5 my-2">
+                            <label for="specialist_filter" class="text-end block mb-2 text-sm font-medium text-gray-900 dark:text-white">یک یا چند مورد را انتخاب کنید(اختیاری)</label>
+                            <select multiple name="specialist_filter" id="specialist_filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                
+                                {% for code, specialization in specializations %}
+                                <option class="text-end" value="{{code}}">{{specialization}}</option>
+                                <!-- <option value="CA">Canada</option>
+                                <option value="FR">France</option>
+                                <option value="DE">Germany</option> -->
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="max-w-sm mx-auto col-sm-10 col-md-5 my-2">
+                            <div class="text-end">
+                                {{notification_form.category.label}}
+                            </div>
+                            {{notification_form.category}}
+                        </div>
+                        <div class="max-w-sm mx-auto col-sm-10 col-md-5 my-2">
+                            <div class="text-end">
+                                {{notification_form.short_description.label}}
+                            </div>
+                            {{notification_form.short_description}}
+                        </div>
+                        <div class="max-w-sm mx-auto col-sm-10 col-md-5 my-2">
+                            <div class="text-end">
+                                {{notification_form.content.label}}
+                            </div>
+                            {{notification_form.content}}
+                        </div>
+                        <div class="max-w-sm mx-auto col-sm-10 col-md-5 my-2">
+                            <div class="text-end">
+                                {{notification_form.link.label}}
+                            </div>
+                            {{notification_form.link}}
+                        </div>
+                        <div class="max-w-sm mx-auto col-sm-10 d-flex justify-content-center col-md-10 my-2">
+                            <input type="submit" value="ارسال" class="form-control bg-lime-600 h-10">
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let btn = document.querySelector('#btn');
+    let sidebar = document.querySelector('.sidebar');
+
+    btn.onclick = function () {
+        sidebar.classList.toggle("active");
+    };
+
+    function showSubmitButton(){
+    document.getElementById("notification_submit").classList.remove("d-none")
+    }
+    document.querySelectorAll("input.form-control").forEach(el => {
+        el.addEventListener("change", showSubmitButton)
+    })
+</script>
+<script>
+    function sendNotification(url, form_data, csrftoken) {
+    let data = form_data;
+    let isValid = false;
+    let message = "";
+    let fullUrl = url;
+    $.ajax({
+        type: "POST",
+        url: fullUrl,
+        data: data,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        },
+        dataType: "json",
+        async: false,
+        success: function(response) {
+            isValid = true;
+            message = response['message'];
+        },
+        error: function(response) {
+            isValid = false;
+            message = response.responseJSON['message'];
+        }
+    });
+    return { isValid, message};
+}
+</script>
+<script>
+    document.getElementById('notificatsion-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const form_data = new FormData(e.target)
+        alert(JSON.stringify(form_data))
+        alert(JSON.stringify(e.target))
+        const sendResult = sendNotification(url="{% url 'send_notification' %}", form_data, csrftoken="{{ csrftoken }}");
+        if (!sendResult.isValid) {
+            $('#create-notification-box').prepend(`
+                <div class="alert alert-msg alert-danger" role="alert">${sendResult.message}</div>`
+            );
+            $('.alert-msg').fadeOut(10000);
+            return;
+        }
+        else {
+            $('#create-notification-box').prepend(`
+                <div class="alert alert-msg alert-success" role="alert">${verifyResult.message}</div>`
+            );
+            $('.alert-msg').fadeOut(10000);
+            return;
+        }
+        window.location.href="{% url 'home' %}";
+    });
+</script>
+{% endblock %}

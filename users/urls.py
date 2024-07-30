@@ -4,6 +4,7 @@ from .views import (
     RegistrationView, LoginView, LogoutView, SendOtpView, upload,
     VerifyOtpView, PhoneValidationView, EmailValidationView,
 )
+from .staff_views import staff_dashboard
 
 urlpatterns = [
     path("home/", home, name="home"),
@@ -12,6 +13,7 @@ urlpatterns = [
     path("about/", about_us, name='about'),
     path("contact/", contact_us, name='contact'),
     path("dashboard/", dashboard, name="dashboard"),
+    path("staff_dashboard/", staff_dashboard, name="staff_dashboard"),
     path("volunteer/", volunteer_register, name="volunteer"),
     path("login/", LoginView.as_view(), name='login'),
     path("logout/", LogoutView.as_view(), name='logout'),
