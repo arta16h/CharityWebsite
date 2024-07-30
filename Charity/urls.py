@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('users.urls')),
     path('', include('blog.urls')),
+    path('', include('notification.urls')),
     path('js-catalog', JavaScriptCatalog.as_view(), name='js-catalog'),
 ]
 
