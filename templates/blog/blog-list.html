@@ -1,4 +1,18 @@
+{% extends 'base.html' %}
 {% load static %}
+
+<!--================ Header Area =================-->
+{% block title %}بلاگ ها{% endblock %}
+{% block headername %}بلاگ ها{% endblock %}
+{% block nestname %}بلاگ ها{% endblock %}
+<!--================ End Header Area =================-->
+
+
+{% block link %}
+    <link rel="stylesheet" href="{% static ''%}">
+{% endblock %}
+
+
 {% block content %}
 
     <div class="container">
@@ -18,7 +32,7 @@
     {% for blog in blogs %}
     <div class="app-table">
         <article class="media content-section">
-            <img class="article-img" src="{{blog.imageUrl}}" alt="">
+            <img class="article-img" src="{{blog.image.url}}" alt="">
             <div class="media-body">
                 <div class="article-metadata">
                     <a href="#" class="mr-2">{{blog.author}}</a>
