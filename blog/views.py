@@ -77,3 +77,7 @@ class EventListView(LoginRequiredMixin, ListView) :
     ordering = ["-created_at"]
     paginate_by = 7
 
+class EventDetailView(LoginRequiredMixin, DetailView) :
+    model = Events
+    template_name = 'blog/event-detail.html'
+
