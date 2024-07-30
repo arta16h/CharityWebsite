@@ -95,7 +95,7 @@ class CustomUserChangeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CustomUserChangeForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
+            visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control form-control-prof"
             visible.field.widget.attrs['form'] = "profile_update"
 
     class Meta:
