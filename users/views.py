@@ -13,6 +13,7 @@ from rest_framework import status
 
 import re
 from datetime import datetime, timedelta
+import pytz
 
 from .forms import VolunteerRegisterForm, NoPasswordRegisterForm, LoginForm, CustomUserChangeForm, DocumentForm
 from .authentication import OtpAuthBackend
@@ -193,7 +194,10 @@ def dashboard(request) :
             user_update_form.save()
             return redirect("dashboard")
         
-    context = {"profile_update_form": user_update_form}
+    context = {
+        "profile_update_form": user_update_form,
+        'registered_days': (datetime.now(tz=pytz.timezone('Asia/Tehran')) - request.user.date_added).days
+        }
     return render(request, 'users/dashboard.html', context=context)
 
 
