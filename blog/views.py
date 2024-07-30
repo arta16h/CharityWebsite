@@ -81,3 +81,13 @@ class EventDetailView(LoginRequiredMixin, DetailView) :
     model = Events
     template_name = 'blog/event-detail.html'
 
+def search_event(request) :
+    if request.method == 'POST' :
+        search_str = json.loads(request.body).get("serachText")
+        event = Events.objects.filter(title__contains=search_str, owner=request.user) | Events.objects.filter(
+                content__contains=search_str, owner=request.user) | Events.objects.filter(
+                    place__contains=search_str, owner=request.user)
+        data = event.values()
+        return JsonResponse(list(data), safe=False)
+    else:
+        return render(request, 'blog/event-list.html')
