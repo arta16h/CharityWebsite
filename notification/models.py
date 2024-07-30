@@ -25,14 +25,16 @@ class NotificationCategory(models.Model):
 
 
 class Notification(models.Model):
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(NotificationCategory, on_delete=models.CASCADE)
+    users = models.ManyToManyField(User, verbose_name=_("کاربران"))
+    category = models.ForeignKey(NotificationCategory, on_delete=models.CASCADE, null=True, blank=True)
     short_description = models.CharField(_("توضیح کوتاه"), max_length=150, null=True, blank=True)
     content = models.TextField(_("محتوا"), null=True, blank=True)
     link = models.URLField(_("لینک"), max_length=250, null=True, blank=True)
     date = models.DateTimeField(_("تاریخ"), null=True, blank=True)
     is_seen = models.BooleanField(_("دیده شده"), default=False)
+    
+    date_added = models.DateTimeField(_("تاریخ افزودن"), auto_now_add=True)
+    date_modify = models.DateTimeField(_("تاریخ آخرین تغییر"), auto_now=True)
 
     def __str__(self):
         return f"{self.short_description}"
