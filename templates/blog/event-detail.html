@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--================ Header Area =================-->
+{% block title %}{{ object.title }}{% endblock %}
+{% block headername %}{{ object.title }}{% endblock %}
+{% block nestname %}{{ object.title }}{% endblock %}
+<!--================ End Header Area =================-->
+
+
+{% block link %}
+    <link rel="stylesheet" href="{% static ''%}">
+{% endblock %}
+
+{% block content %}
+
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <small class="text-muted">{{object.place}}</small>
+            <small class="text-muted">{{object.created_at}}</small>
+        </div>
+        <h2><a href="#" class="article-title">{{object.title}}</a></h2>
+        <p class="article-content">{{ object.content }}</p>
+    </div>
+    <img class="article-img" src="{{object.image.url}}" alt="{{object.title}}">
+    <br>
+</article>
+
+{% endblock content %}
