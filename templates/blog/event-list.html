@@ -2,9 +2,9 @@
 {% load static %}
 
 <!--================ Header Area =================-->
-{% block title %}بلاگ ها{% endblock %}
-{% block headername %}بلاگ ها{% endblock %}
-{% block nestname %}بلاگ ها{% endblock %}
+{% block title %}اردو ها{% endblock %}
+{% block headername %}اردو ها{% endblock %}
+{% block nestname %}اردو ها{% endblock %}
 <!--================ End Header Area =================-->
 
 
@@ -17,7 +17,7 @@
 
     <div class="container">
         {% include 'partials/_messages.html' %}
-        {% if blog.count %}
+        {% if event.count %}
         <div class="row">
             <div class="col-md-8"></div>
             <div class="col-md-4">
@@ -29,17 +29,17 @@
         {% endif %}
     </div>
 
-    {% for blog in blogs %}
+    {% for event in events %}
     <div class="app-table">
         <article class="media content-section">
-            <img class="article-img" src="{{blog.image.url}}" alt="">
+            <img class="article-img" src="{{event.image.url}}" alt="{{event.title}}">
             <div class="media-body">
                 <div class="article-metadata">
-                    <a href="#" class="mr-2">{{blog.author}}</a>
-                    <small class="text-muted">{{blog.created_at}}</small>
+                    <small class="text-muted">{{event.place}}</small>
+                    <small class="text-muted">{{event.created_at}}</small>
                 </div>
-                <h2><a href="{% url 'blog-detail' blog.id%}" class="article-title">{{blog.title}}</a></h2>
-                <p class="article-content">{{blog.content|truncatechars:200}}</p>
+                <h2><a href="{% url 'event-detail' event.id%}" class="article-title">{{event.title}}</a></h2>
+                <p class="article-content">{{event.content|truncatechars:200}}</p>
             </div>
             <br>
         </article>

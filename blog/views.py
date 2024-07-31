@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import Blog
+from .models import Blog, Events
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -22,7 +22,7 @@ class BlogDetailView(LoginRequiredMixin, DetailView) :
 
 class BlogCreateView(LoginRequiredMixin, CreateView) :
     model = Blog
-    fields = ['title','imageUrl', 'content', 'category']
+    fields = ['title','image', 'content', 'category']
     template_name = 'blog/new-blog.html'
 
     def form_valid(self, form) :
@@ -68,3 +68,26 @@ def search_blog(request) :
         return JsonResponse(list(data), safe=False)
     else:
         return render(request, 'blog/blog-list.html')
+    
+
+class EventListView(LoginRequiredMixin, ListView) :
+    model = Events
+    template_name = 'blog/event-list.html'
+    context_object_name = 'event'
+    ordering = ["-created_at"]
+    paginate_by = 7
+
+class EventDetailView(LoginRequiredMixin, DetailView) :
+    model = Events
+    template_name = 'blog/event-detail.html'
+
+def search_event(request) :
+    if request.method == 'POST' :
+        search_str = json.loads(request.body).get("serachText")
+        event = Events.objects.filter(title__contains=search_str, owner=request.user) | Events.objects.filter(
+                content__contains=search_str, owner=request.user) | Events.objects.filter(
+                    place__contains=search_str, owner=request.user)
+        data = event.values()
+        return JsonResponse(list(data), safe=False)
+    else:
+        return render(request, 'blog/event-list.html')

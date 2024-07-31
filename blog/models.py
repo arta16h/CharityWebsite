@@ -25,7 +25,7 @@ class Blog(models.Model) :
     content = models.TextField(verbose_name=_('متن'))
     category = models.ManyToManyField(Category, blank=True, verbose_name=_('دسته بندی'))
     keywords = models.TextField(null=True, blank=True, verbose_name=_('کلمات کلیدی'))
-    imageUrl = models.URLField(max_length=255, null=True, blank=True, verbose_name=_('لینک تصویر'))
+    image = models.ImageField(upload_to='images/blogs' ,null=True, blank=True, verbose_name=_('تصویر'))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -38,3 +38,21 @@ class Blog(models.Model) :
     class Meta :
         verbose_name = _("بلاگ")
         verbose_name_plural = _("بلاگ ها")
+
+
+class Events(models.Model) :
+    title = models.CharField(max_length = 255, verbose_name=_('عنوان'))
+    content = models.TextField(verbose_name=_('توضیحات'))
+    image = models.ImageField(upload_to='images/events', null=True, blank=True, verbose_name=_('تصویر'))
+    since = models.DateField(verbose_name=_('تاریخ شروع'))
+    till = models.DateField(verbose_name=_('تاریخ اتمام'))
+    place = models.CharField(max_length = 255, verbose_name=_('مکان'))
+    number = models.IntegerField(verbose_name=_('ظرفیت'))
+    volunteers = models.ManyToManyField(User, verbose_name=_('داوطلبان'))
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta :
+        verbose_name = _("اردو")
+        verbose_name_plural = _("اردو ها")
