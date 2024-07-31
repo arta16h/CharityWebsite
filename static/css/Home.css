@@ -1014,6 +1014,15 @@
   vertical-align: top;
 } 
 
+.footer-distributed .footer-right .footer-icons .fas img {
+  margin: auto;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .footer-distributed .footer-links {
   color: #fff;
   margin: 20px 0 12px;
