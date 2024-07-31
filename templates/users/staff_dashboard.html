@@ -208,7 +208,7 @@
                         </div>
                         <ul class="my-4 space-y-3 overflow-y-scroll max-h-60 overflow-x-clip">
                             {% for notif in request.user.notification_set.unread_notifications %}
-                            <li class="d-none  unread-notif notif ">
+                            <li class="unread-notif notif ">
                                 <a data-modal-target="unread-small-modal-notif-{{notif.id}}" data-modal-toggle="unread-small-modal-notif-{{notif.id}}" class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
                                     <span class="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">مشاهده</span>
                                     <span class="flex-1 ms-3 text-end whitespace-nowrap text-sm">{{notif.short_description|default_if_none:"پیام"}}</span>
@@ -287,7 +287,8 @@
                                         {% endif %}
                                     </div>
                                 </div>
-                            </div>                            {% endfor %}
+                            </div>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
