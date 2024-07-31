@@ -5,6 +5,7 @@
 {% block link %}
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block custom_style %}
@@ -24,6 +25,9 @@
         <li>
             <a href="">
                 <i class='bx bxs-bell-ring'></i>
+                <span class="absolute rounded-full text-sm w-5 h-5 -right-2 top-2 bg-orange-500 bg-opacity-75 text-center bg-transparents">
+                    {{request.user.notification_set.unread_notifications.count}}
+                </span>
                 <span class="nav-item">پیام ها</span>
             </a>
         </li>
@@ -75,25 +79,70 @@
                     {% csrf_token %}
                     <div class="row justify-content-end align-middle h-full pb-2">
                         <div class="max-w-sm mx-auto col-sm-10 col-md-5 my-2">
-                            <label for="user_ids_filter" class="text-end block mb-2 text-sm font-medium text-gray-900 dark:text-white">یک یا چند مورد را انتخاب کنید(اختیاری)</label>
-                            <select multiple name="user_ids_filter" id="user_ids_filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                
-                                {% for user in users %}
-                                    <option class="text-end" value="{{user.id}}">{{user.get_full_name}}</option>
-                                {% endfor %}
-                            </select>
+                            <button id="dropdownSearchButton" data-dropdown-toggle="dropdownAbilitySearch" class="float-end inline-flex w-full justify-center items-center px-4 py-2 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-700" type="button">
+                                فیلتر تخصص 
+                                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                </svg>
+                            </button>
+                            
+                            <!-- Dropdown menu -->
+                            <div id="dropdownAbilitySearch" class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                                <div class="p-3">
+                                    <label for="ability-input-group-search" class="sr-only text-end">جست و جو</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                        </div>
+                                        <input type="text" id="ability-input-group-search" class="text-end bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full ps-10 p-2.5  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="جست و جوی تخصص">
+                                    </div>
+                                    </div>
+                                    <ul id="ability-ul-list" class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSearchButton">
+                                        {% for code, specialization in specializations %}
+                                        <li>
+                                            <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <input id="checkbox-ability-{{forloop.counter}}" name="specialist_filter" value="{{code}}" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="checkbox-ability-{{forloop.counter}}" class="text-end w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{specialization}}</label>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                            </div>
                         </div>
                         <div class="max-w-sm mx-auto col-sm-10 col-md-5 my-2">
-                            <label for="specialist_filter" class="text-end block mb-2 text-sm font-medium text-gray-900 dark:text-white">یک یا چند مورد را انتخاب کنید(اختیاری)</label>
-                            <select multiple name="specialist_filter" id="specialist_filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                
-                                {% for code, specialization in specializations %}
-                                <option class="text-end" value="{{code}}">{{specialization}}</option>
-                                <!-- <option value="CA">Canada</option>
-                                <option value="FR">France</option>
-                                <option value="DE">Germany</option> -->
-                                {% endfor %}
-                            </select>
+                            <button id="dropdownSearchButton" data-dropdown-toggle="dropdownUserSearch" class="float-end w-full text-center inline-flex justify-center items-center px-4 py-2 text-sm font-medium  text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-700" type="button">
+                                فیلتر کاربران 
+                                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                </svg>
+                            </button>
+                            
+                            <!-- Dropdown menu -->
+                            <div id="dropdownUserSearch" class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                                <div class="p-3">
+                                    <label for="user-input-group-search" class="sr-only text-end">جست و جو</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                        </div>
+                                        <input type="text" id="user-input-group-search" class="text-end bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full ps-10 p-2.5  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="جست و جوی کاربر">
+                                    </div>
+                                    </div>
+                                    <ul id="user-ul-list" class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSearchButton">
+                                    {% for user in users %}
+                                        <li>
+                                            <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <input id="checkbox-item-{{forloop.counter}}" name="user_ids_filter" value="{{user.id}}" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="checkbox-item-{{forloop.counter}}" class="text-end w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{user.get_full_name}}</label>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                            </div>
                         </div>
                         <div class="max-w-sm mx-auto col-sm-10 col-md-5 my-2">
                             <div class="text-end">
@@ -139,15 +188,44 @@
         sidebar.classList.toggle("active");
     };
 
-    function showSubmitButton(){
-    document.getElementById("notification_submit").classList.remove("d-none")
-    }
-    document.querySelectorAll("input.form-control").forEach(el => {
-        el.addEventListener("change", showSubmitButton)
-    })
+    // function showSubmitButton(){
+    // document.getElementById("notification_submit").classList.remove("d-none")
+    // }
+    // document.querySelectorAll("input.form-control").forEach(el => {
+    //     el.addEventListener("change", showSubmitButton)
+    // })
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.getElementById('ability-input-group-search').addEventListener('input', function() {
+        var filter = this.value.toLowerCase();
+        var items = document.querySelectorAll('#ability-ul-list li');
+
+        items.forEach(function(item) {
+            var text = item.textContent.toLowerCase();
+            if (text.includes(filter)) {
+            item.style.display = '';
+            } else {
+            item.style.display = 'none';
+            }
+        });
+    });
+    document.getElementById('user-input-group-search').addEventListener('input', function() {
+        var filter = this.value.toLowerCase();
+        var items = document.querySelectorAll('#user-ul-list li');
+
+        items.forEach(function(item) {
+            var text = item.textContent.toLowerCase();
+            if (text.includes(filter)) {
+            item.style.display = '';
+            } else {
+            item.style.display = 'none';
+            }
+        });
+    });
 </script>
 <script>
-    function sendNotification(url, form_data, csrftoken) {
+function sendNotification(url, form_data, csrftoken) {
     let data = form_data;
     let isValid = false;
     let message = "";
@@ -174,27 +252,26 @@
 }
 </script>
 <script>
-    document.getElementById('notificatsion-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const form_data = new FormData(e.target)
-        alert(JSON.stringify(form_data))
-        alert(JSON.stringify(e.target))
-        const sendResult = sendNotification(url="{% url 'send_notification' %}", form_data, csrftoken="{{ csrftoken }}");
+    document.getElementById('notification-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = $(this).serialize();
+        const sendResult = sendNotification(url="{% url 'send_notification' %}", form_data=formData, csrftoken="{{ csrf_token }}");
         if (!sendResult.isValid) {
             $('#create-notification-box').prepend(`
-                <div class="alert alert-msg alert-danger" role="alert">${sendResult.message}</div>`
+                <div class="alert alert-msg alert-danger" role="alert">${sendResult?.message}</div>`
             );
             $('.alert-msg').fadeOut(10000);
             return;
         }
         else {
             $('#create-notification-box').prepend(`
-                <div class="alert alert-msg alert-success" role="alert">${verifyResult.message}</div>`
+                <div class="alert alert-msg alert-success" role="alert">${sendResult?.message}</div>`
             );
             $('.alert-msg').fadeOut(10000);
             return;
         }
-        window.location.href="{% url 'home' %}";
+        // window.location.href="{% url 'home' %}";
     });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 {% endblock %}
