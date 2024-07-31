@@ -17,15 +17,15 @@ class SendNotification(APIView) :
         if notif_form.is_valid():
             notification = notif_form.save()
             users = User.objects.all()
-            if abilities:=data.get("specialist_filter", []):
+            if abilities:=data.getlist("specialist_filter", []):
                 users = users.filter(
                     id__in=list(
                         Volunteer.objects.filter(abilities__in=abilities).values_list("user", flat=True)
                     )
                 )
-            if user_ids_filter:=data.get("user_ids_filter", []):
+            if user_ids_filter:=data.getlist("user_ids_filter", []):
                 users = users.filter(id__in=user_ids_filter)
             notification.users.add(*users)
             notification.save()
-            return Response(data={"message": "notification created successfully"}, status=200)
-        return Response(data={"message":notif_form.errors}, status=400)
+            return Response(data={"message": "پیام با موفقیت ارسال شد"}, status=200)
+        return Response(data={"message":str(notif_form.errors)}, status=400)
