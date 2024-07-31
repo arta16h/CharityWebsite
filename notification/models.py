@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from .manager import NotificationQuerySet
 from users.models import User
 
 # Create your models here.
@@ -35,6 +36,8 @@ class Notification(models.Model):
     
     date_added = models.DateTimeField(_("تاریخ افزودن"), auto_now_add=True)
     date_modify = models.DateTimeField(_("تاریخ آخرین تغییر"), auto_now=True)
+
+    objects = NotificationQuerySet.as_manager()
 
     def __str__(self):
         return f"{self.short_description}"
