@@ -1,5 +1,17 @@
 {
   "devDependencies": {
     "tailwindcss": "^3.4.4"
-  }
+  },
+  "dependencies": {
+    "dropzone": "^6.0.0-beta.2"
+  },
+  "name": "charitywebsite",
+  "version": "1.0.0",
+  "description": "```bash\r source venv/bin/activate\r ```",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }

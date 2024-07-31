@@ -164,3 +164,8 @@ node_modules
 static/cache
 static/admin
 static/rest_framework
+media/*
+db*
+package*
+settings*
+tailwind*

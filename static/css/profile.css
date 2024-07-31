@@ -5,7 +5,7 @@
     position: relative !important;
     left: 52% !important;
 }
-.form-control {
+.form-control-prof {
     border: none;
     text-align: end;
     display: inline;
@@ -13,7 +13,7 @@
 form .profile_update {
     display: none;
 }
-.form-control:hover{
+.form-control-prof:hover{
     background-color: rgba(126, 126, 126, 0.5);
     width: fit-content !important;
 }
