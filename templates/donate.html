@@ -11,6 +11,7 @@
 <!--================ Donate page =================-->
 {% block link %}
     <link rel="stylesheet" href="{% static 'css/donate_page.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
 {% endblock %}
 {% block custom_style %}
     <style>
@@ -57,6 +58,49 @@
         <img src="{% static 'src/images/WAYS-TO-GIVE-BACK-stock.jpeg' %}" class="relative card-img object-contain rounded-full z-s0 h-20 w-50 ws-100 hs-100" style="object-fit: cover;">
     <!-- </div> -->
 </div>
+{% if payment_categories.count > 0 %}
+<div class="row justify-center">
+
+    <div id="default-carousel" class="relative w-50 m-5" data-carousel="slide">
+        <!-- Carousel wrapper -->
+        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+            <!-- Item 1 -->
+            {% for payment_category in payment_categories %}
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    {% if payment_category.image %}
+                        <img src="{{payment_category.image.url}}" class="object-fill absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                    {% else %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Slider indicators -->
+        <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+            {% for payment_category in payment_categories %}
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide {{forloop.counter}}" data-carousel-slide-to="{{forloop.counter0}}"></button>
+            {% endfor %}
+        </div>
+        <!-- Slider controls -->
+        <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                </svg>
+                <span class="sr-only">Previous</span>
+            </span>
+        </button>
+        <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                </svg>
+                <span class="sr-only">Next</span>
+            </span>
+        </button>
+    </div>
+{% endif %}
+</div>
+
 <div class="row justify-content-center mt-10">
     <div class="bg-white/50 donate-form backdrop-blur-md col-6 absolutse tosp-32 mt-10  shadow-md rounded p-6 z-10">
         <div class="row justify-content-between">
@@ -87,6 +131,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 
 <script>
     function copyText() {

@@ -276,16 +276,11 @@ class VerifyOtpView(APIView):
             data={"data":None, "message":_("invalid otp")},
             status=status.HTTP_400_BAD_REQUEST
         )
-    
-def donate(request):
-    if request.method == 'POST':
-        messages.success(request, 'Thank you for your donation!')
-        return redirect('donate')
-    return render(request, 'donate.html')
+
 
 @login_required(login_url='login')
 def upload(request) :
-    form = DocumentForm
+    form = DocumentForm()
 
     if request.method == 'POST' :
         form = DocumentForm(request.POST, request.FILES)
@@ -296,6 +291,5 @@ def upload(request) :
             messages.success(request, 'مدارک شما با موفقیت ارسال شد')
             return redirect('dashboard')
         messages.error(request, 'عملیات با خطا مواجه شد')
-    else:
-        form = DocumentForm()
-        return render(request, "users/upload.html")
+    context = {"form": form}
+    return render(request, "users/upload.html", context)

@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     "compressor",
     'django_jalali',
     'jalali_date',
-    'notification'
+    'notification',
+    'payment'
 ]
 
 MIDDLEWARE = [
