@@ -7,6 +7,8 @@ from .models import Notification, NotificationCategory
 from .forms import CreateNotificationForm
 from users.models import User, Volunteer
 # Create your views here.
+
+
 class SendNotification(APIView) :
     permission_classes = [IsAdminUser]
 
@@ -29,3 +31,13 @@ class SendNotification(APIView) :
             notification.save()
             return Response(data={"message": "پیام با موفقیت ارسال شد"}, status=200)
         return Response(data={"message":str(notif_form.errors)}, status=400)
+    
+class MarkNotificatoinAsRead(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        notification_id = request.POST.get("notification_id")
+        if notification_id and Notification.objects.filter(id=notification_id).exists():
+            Notification.objects.filter(id=notification_id).update(is_seen=True)
+            return Response(data={"message": "پیام  در لیست مشاهده شده ها قرار گرفت"}, status=200)
+        return Response(data={"message": "پیام  یافت نشد"}, status=400)

@@ -209,7 +209,7 @@
                         <ul class="my-4 space-y-3 overflow-y-scroll max-h-60 overflow-x-clip">
                             {% for notif in request.user.notification_set.unread_notifications %}
                             <li class="unread-notif notif ">
-                                <a data-modal-target="unread-small-modal-notif-{{notif.id}}" data-modal-toggle="unread-small-modal-notif-{{notif.id}}" class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                                <a onclick="markNotificationAsRead('{{notif.id}}')" data-modal-target="unread-small-modal-notif-{{notif.id}}" data-modal-toggle="unread-small-modal-notif-{{notif.id}}" class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
                                     <span class="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">مشاهده</span>
                                     <span class="flex-1 ms-3 text-end whitespace-nowrap text-sm">{{notif.short_description|default_if_none:"پیام"}}</span>
                                 </a>
@@ -411,6 +411,33 @@ function showUnreadNotifs() {
     document.querySelectorAll('li.unread-notif').forEach((item) => {
         item.classList.remove("d-none");
     });
+}
+</script>
+<script>
+    function markNotificationAsRead(notification_id) {
+    let data = {"notification_id": notification_id};
+    let isValid = false;
+    let message = "";
+    let fullUrl = "{% url 'mark_notification_as_read' %}";
+    $.ajax({
+        type: "POST",
+        url: fullUrl,
+        data: data,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");
+        },
+        dataType: "json",
+        async: false,
+        success: function(response) {
+            isValid = true;
+            message = response['message'];
+        },
+        error: function(response) {
+            isValid = false;
+            message = response.responseJSON['message'];
+        }
+    });
+    return { isValid, message};
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
