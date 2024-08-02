@@ -52,7 +52,7 @@
 <div class="row m-5 justify-content-center align-items-center">
     <!-- <div class="col-8 d-flex justify-content-center"> -->
         <span class="absolute z-10 justify-center text-center text-2xl">
-            <span> :شماره کارت موکب </span>
+            <h4> :شماره کارت موکب </h4>
             <span id="cardNumber" onclick="copyText()" class="md:text-3xl sm:text-xl text-rose-800  font-bold tracking-wider">
                 123456789987654321
             </span>
@@ -104,40 +104,85 @@
 </div>
 
 <div class="row justify-content-center mt-10">
-    <div class="bg-white/50 donate-form backdrop-blur-md col-10 col-md-8 absolutse tosp-32 mt-10  shadow-md rounded p-6 z-10">
+    <div class="bg-white/50 donate-form backdrop-blur-md col-10 col-md-8 col-lg-6 absolutse tosp-32 mt-10  shadow-md rounded p-6 z-10">
         <div class="row justify-content-between">
             <img src="{% static 'src/images/caring-hands@0.5x.png' %}" class="col-sm-5 col-md-3">
             <span class="md:text-2xl font-bold float-end mb-4 text-end col-sm-5 col-md-3">کمک آنلاین</span>
         </div>
-        <form method="post" action="{% url 'donate' %}" class="space-y-4">
+        <div class="flex flex-row-reverse">
+            <div class="flex items-center me-4">
+                <input onclick="changForm()" id="cart_to_cart" checked type="radio" value="cart_to_cart" name="payment_method_selection" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="cart_to_cart" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">کارت به کارت</label>
+            </div>
+            <div class="flex items-center me-4">
+                <input onclick="changForm()" id="payment_gateway" type="radio" value="payment_gateway" name="payment_method_selection" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="payment_gateway" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">درگاه پرداخت</label>
+            </div>
+        </div>
+        <form id="payment_gateway_form" method="post" action="{% url 'donate' %}" class="space-y-4">
             {% csrf_token %}
-            <div class="flex flex-row-reverse">
-                <div class="flex items-center me-4">
-                    <input id="inline-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="inline-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">کارت به کارت</label>
-                </div>
-                <div class="flex items-center me-4">
-                    <input id="inline-2-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">درگاه پرداخت</label>
-                </div>
+            <input checked type="hidden" value="payment_gateway" name="payment_method" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <div class="form-group">
+                <label for="countries" class="block mb-2 text-md px-1 text-end font-medium text-gray-900 dark:text-white ">کمک برای</label>
+                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option class="text-end text-md" selected>خیریه</option>
+                    {% for payment_category in payment_categories %}
+                        <option value="{{payment_category.id}}" class="text-end text-md">{{ payment_category.name }}</option>
+                    {% endfor %}
+                </select>   
             </div>
             <div class="form-group">
                 <label for="name" class="block text-gray-700 text-end">(اختیاری)نام</label>
-                <input type="text" id="name" name="name" class="form-control rounded-md text-end" placeholder="" disabled {% if request.user.is_authenticated %} value="{{request.user.get_full_name}}" {% endif %}>
+                <input type="text" id="name" name="name" class="form-control rounded-md text-end" placeholder="" {% if request.user.is_authenticated %} value="{{request.user.get_full_name}}" {% endif %}>
             </div>
             <div class="form-group">
                 <label for="email" class="block text-gray-700 text-end">ایمیل(اختیاری)</label>
-                <input type="email" id="email" name="email" class="form-control rounded-md" placeholder="example@example.com" disabled {% if request.user.is_authenticated %}  value="{{request.user.email}}" {% endif %}>
+                <input type="email" id="email" name="email" class="form-control rounded-md" placeholder="example@example.com" {% if request.user.is_authenticated %}  value="{{request.user.email}}" {% endif %}>
             </div>
             <div class="form-group">
                 <label for="amount" class="block text-gray-700 text-end">میزان کمک</label>
-                <input type="number" id="amount" name="amount" class="form-control rounded-md text-center" placeholder="100" required disabled>
+                <input type="number" id="amount" name="amount" class="form-control rounded-md text-center" placeholder="100" required>
             </div>
             <div class="form-group">
                 <label for="message" class="block text-end text-gray-700">پیام(اختیاری)</label>
-                <textarea id="message" name="message" class="form-control rounded-md text-end" rows="4" placeholder="..." disabled></textarea>
+                <textarea id="message" name="message" class="form-control rounded-md text-end" rows="4" placeholder="..."></textarea>
             </div>
-            <button type="submit" class="btn btn-success bg-success bg-gradient w-full" >انتقال به صفحه پرداخت</button>
+            <button type="submit" class="btn btn-success bg-success bg-gradient w-full" disabled>انتقال به صفحه پرداخت</button>
+        </form>
+
+        <form id="cart_to_cart_form" method="post" action="{% url 'donate' %}" class="space-y-4">
+            {% csrf_token %}
+            <input checked type="hidden" value="cart_to_cart" name="payment_method" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <div class="form-group">
+                <label for="countries" class="block mb-2 text-md px-1 text-end font-medium text-gray-900 dark:text-white ">کمک برای</label>
+                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option class="text-end text-md" selected>خیریه</option>
+                    {% for payment_category in payment_categories %}
+                        <option value="{{payment_category.id}}" class="text-end text-md">{{ payment_category.name }}</option>
+                    {% endfor %}
+                </select>   
+            </div>
+            <div class="form-group">
+                <label for="name" class="block text-gray-700 text-end">(اختیاری)نام</label>
+                <input type="text" id="name" name="name" class="form-control rounded-md text-end" placeholder="" {% if request.user.is_authenticated %} value="{{request.user.get_full_name}}" {% endif %}>
+            </div>
+            <div class="form-group">
+                <label for="trace_id" class="block text-gray-700 text-end">شناسه پیگیری (اختیاری)</label>
+                <input type="number" id="trace_id" name="trace_id" class="form-control rounded-md text-center" placeholder="" required>
+            </div>
+            <div class="form-group">
+                <label for="phone" class="block text-gray-700 text-end">شماره موبایل</label>
+                <input type="phone" id="phone" name="phone" class="form-control rounded-md" placeholder="" {% if request.user.is_authenticated %}  value="{{request.user.phone}}" {% endif %}>
+            </div>
+            <div class="form-group">
+                <label for="amount" class="block text-gray-700 text-end">میزان کمک</label>
+                <input type="number" id="amount" name="amount" class="form-control rounded-md text-center" placeholder="100" required>
+            </div>
+            <div class="form-group">
+                <label for="message" class="block text-end text-gray-700">پیام(اختیاری)</label>
+                <textarea id="message" name="message" class="form-control rounded-md text-end" rows="4" placeholder="..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-success bg-success bg-gradient w-full">ثبت اطلاعات پرداخت</button>
         </form>
     </div>
 </div>
@@ -152,5 +197,25 @@
         copyText.setSelectionRange(0, 99999);
         navigator.clipboard.writeText(copyText.innerText);
     }
+</script>
+<script>
+    function changForm() {
+        let cartToCartPeymentMethod = document.getElementById("cart_to_cart");
+        let paymentGatewayPeymentMethod = document.getElementById("payment_gateway");
+        if (cartToCartPeymentMethod.checked === true) {
+            document.getElementById("cart_to_cart_form").classList.remove("d-none");
+            document.getElementById("payment_gateway_form").classList.add("d-none");
+        }
+        if (paymentGatewayPeymentMethod.checked === true) {
+            document.getElementById("payment_gateway_form").classList.remove("d-none");
+            document.getElementById("cart_to_cart_form").classList.add("d-none");
+        }
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        changForm();
+    });
 </script>
 {% endblock %}
