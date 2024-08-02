@@ -18,14 +18,27 @@
         body{
             /* background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%)!important; */
             background-image: url("{% static 'src/images/image4-28.png' %}") !important;
-            background-repeat: no-repeat;
-            background-size: cover;
+            background-size: cover; /* Cover the entire area */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+            
+            /* Optional: Set a background color as fallback */
+            background-color: #f0f0f0; /* Light gray as fallback */
+            
+            /* Ensure the background image covers the entire viewport */
+            width: 100vw;
+            height: 100vh;
+            overflow: auto;
+            /* Remove default margin and padding from body */
+            margin: 0;
+            padding: 0;
+            
             
         }
-        .donate-form > * {
+        /* .donate-form > * {
             filter: blur(1.5px);
             -webkit-filter: blur(1.5px);
-        }
+        } */
         .card-img{
             border-radius: 30px;
             filter: blur(0.5px);
@@ -36,39 +49,28 @@
 
 {% block content %}
 {% include 'partials/_messages.html' %}
-
-{% if messages %}
-    <div class="mb-4">
-        {% for message in messages %}
-            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
 <div class="row m-5 justify-content-center align-items-center">
     <!-- <div class="col-8 d-flex justify-content-center"> -->
         <span class="absolute z-10 justify-center text-center text-2xl">
-            <span id="cardNumber" onclick="copyText()" class="text-3xl text-rose-800  font-bold tracking-wider">
+            <span> :شماره کارت موکب </span>
+            <span id="cardNumber" onclick="copyText()" class="md:text-3xl sm:text-xl text-rose-800  font-bold tracking-wider">
                 123456789987654321
             </span>
-            <span> :شماره کارت موکب </span>
         </span>
-        <img src="{% static 'src/images/WAYS-TO-GIVE-BACK-stock.jpeg' %}" class="relative card-img object-contain rounded-full z-s0 h-20 w-50 ws-100 hs-100" style="object-fit: cover;">
+        <img src="{% static 'src/images/WAYS-TO-GIVE-BACK-stock.jpeg' %}" class="relative  card-img object-contain rounded-full z-s0 h-20 lg:w-1/2" style="object-fit: cover;">
     <!-- </div> -->
 </div>
 {% if payment_categories.count > 0 %}
 <div class="row justify-center">
 
-    <div id="default-carousel" class="relative w-50 m-5" data-carousel="slide">
+    <div id="default-carousel" class="relative w-2/3 lg:w-1/2 m-5" data-carousel="slide">
         <!-- Carousel wrapper -->
         <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
             <!-- Item 1 -->
             {% for payment_category in payment_categories %}
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <div class="hidden duration-700 ease-in-out h-7s2" data-carousel-item>
                     {% if payment_category.image %}
-                        <img src="{{payment_category.image.url}}" class="object-fill absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                        <img src="{{payment_category.image.url}}" class="payment_category_image  object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                     {% else %}
                     {% endif %}
                 </div>
