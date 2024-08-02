@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--================ Header Area =================-->
+{% block title %}Donate confirm{% endblock %}
+{% block headername %}Donate confirm{% endblock %}
+{% block nestname %}Donate confirm{% endblock %}
+<!--================ End Header Area =================-->
+
+
+<!--================ Donate page =================-->
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/donate_page.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+{% endblock %}
+{% block custom_style %}
+    <style>
+    </style>
+{% endblock %}
+
+{% block content %}
+{% include 'partials/_messages.html' %}
+<div class="container flex justify-center">
+    <div class="alert alert-msg alert-success mx-28" role="alert">
+        <p>کمک شما با موفقیت ثبت شد شناسه پیگیری</p>
+        <h3>{{ payment_trace_id }}</h3>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+{% endblock %}
