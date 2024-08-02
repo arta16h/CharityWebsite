@@ -98,8 +98,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.email:
             send_mail(subject, message, from_email, [self.email], **kwargs)
 
-    def save(self) :
-        super().save()
+    def save(self, *args, **kwargs) :
+        super().save(*args, **kwargs)
         img = Image.open(self.image.path)
 
         if img.height > 300 or img.width > 300 :
