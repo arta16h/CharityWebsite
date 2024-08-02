@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from users.models import User
+import random
 
 # Create your models here.
 
@@ -84,7 +85,7 @@ class Payment(models.Model):
 
     @classmethod
     def generate_unique_payment_code(cls, user_id, amount):
-        return f"{str(int(user_id)*4)}{amount}"
+        return f"{str(int(user_id)*4)}-{random.randint(1000, 9999)}-{amount}"
 
     class Meta:
         db_table = 'payment'
