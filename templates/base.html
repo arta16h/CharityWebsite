@@ -28,7 +28,7 @@
         {% block custom_style %}{% endblock %}
     </head>
     <body data-path-to-root="/" data-include-products="false" class=" u-body u-xl-mode" data-lang="fa">
-        <nav id="navbar" class="bg-white/90 bg-opacity-80 bg-gradient-to-r  dark:bg-gray-900 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+        <nav id="navbar" class="bg-white/90 bg-opacity-80 bg-gradient-to-r  dark:bg-gray-900 sticky w-full z-40 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
             <div class="z-30 max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a href="{% url 'home' %}" class="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="{% static 'image/logo.png' %}" class="h-14 w-14" alt="Logo">
@@ -38,15 +38,9 @@
                     {% if request.user.is_anonymous %}
                         <a href="{% url 'register' %}">
                             <button type="button" class="mx-1 text-white bg-rose-500 hover:bg-rose-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                ثبت نام / ورود
+                                ورود
                             </button>
                         </a>
-                    {% elif request.user.is_authenticated %}
-                    <a href="{% url 'logout' %}">
-                        <button type="button" class="mx-1 text-white bg-rose-500 hover:bg-rose-700 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-lg px-4 py-2 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800">
-                        خروج
-                        </button>
-                    </a>
                     {% endif %}
                     <a href="{% url 'donate' %}">
                         <button type="button" class="mx-1 ring-1 text-rose-600 ring-rose-600 bg-white hover:bg-rose-700 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-lg px-4 py-2 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800">
@@ -54,11 +48,11 @@
                         </button>
                     </a>
                     {% if request.user.image %}
-                        <img src="{{request.user.image.url}}" class="user-pic" onclick="toggleMenu()">
+                        <img src="{{request.user.image.url}}" class="user-pic mx-3" onclick="toggleMenu()">
                     {% elif request.user.volunteer_info %}
-                        <img src="{{request.user.volunteer_info.profile_pic.url}}" class="user-pic" onclick="toggleMenu()">
+                        <img src="{{request.user.volunteer_info.profile_pic.url}}" class="user-pic mx-3" onclick="toggleMenu()">
                     {% else %}
-                        <img src="{% static 'image/avatar.webp' %}" class="user-pic" onclick="toggleMenu()">
+                        <img src="{% static 'image/avatar.webp' %}" class="user-pic mx-3" onclick="toggleMenu()">
                     {% endif %}
                     <!-- <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -71,45 +65,40 @@
 
             <div class="sub-menu-wrap" id="subMenu">
                 <div class="sub-menu">
-                    <div class="user-info">
+                    <div class="user-info text-end text-sm flex justify-between">
+                        <p class="text-end text-sm col-5">{{ request.user.get_full_name }}</p>
                         {% if request.user.image %}
-                        <img src="{{request.user.image.url}}">
+                        <img src="{{request.user.image.url}}" class="col-5">
                         {% elif request.user.volunteer_info %}
-                        <img src="{{request.user.volunteer_info.profile_pic.url}}">
+                        <img src="{{request.user.volunteer_info.profile_pic.url}}" class="col-5">
                         {% else %}
-                        <img src="{% static 'image/avatar.webp' %}">
+                        <img src="{% static 'image/avatar.webp' %}" class="col-5">
                         {% endif %}
-                        <p>{{ profile_update_form.first_name }} {{ profile_update_form.last_name }}</p>
-                        <hr>
                     </div>
+                    <hr>
 
-                    <a href="{% url 'dashboard' %}" class="sub-menu-link">
+                    <a href="{% url 'dashboard' %}" class="sub-menu-link ring-1 ring-slate-400 rounded-md text-end p-1">
                         <i class="fa-solid fa-user"></i>
                         <p>داشبرد کاربری</p>
-                        <span>></span>
                     </a>
-                    <a href="" class="sub-menu-link">
+                    <a href="{% url 'dashboard' %}" class="sub-menu-link ring-1 ring-slate-400 rounded-md text-end p-1">
                         <i class='bx bxs-edit'></i>
                         <p>ویرایش پروفایل</p>
-                        <span>></span>
                     </a>
                     {% if request.user.volunteer_info %}
-                    <a href="{% url 'volunteer' %}" class="sub-menu-link" style="display: none;">
+                    <a href="{% url 'volunteer' %}" class="sub-menu-link ring-1 ring-slate-400 rounded-md text-end p-1" style="display: none;">
                         <i class="fa-solid fa-plus"></i>
                         <p>ثبت نام به عنوان داوطلب</p>
-                        <span>></span>
                     </a>
                     {% else %}
-                    <a href="{% url 'volunteer' %}" class="sub-menu-link">
+                    <a href="{% url 'volunteer' %}" class="sub-menu-link ring-1 ring-slate-400 rounded-md text-end p-1">
                         <i class="fa-solid fa-plus"></i>
                         <p>ثبت نام به عنوان داوطلب</p>
-                        <span>></span>
                     </a>
                     {% endif %}
-                    <a href="" class="sub-menu-link">
+                    <a href="{% url 'logout' %}" class="sub-menu-link ring-1 ring-slate-400 rounded-md text-end p-1">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                         <p>خروج</p>
-                        <span>></span>
                     </a>
 
                 </div>
@@ -147,7 +136,15 @@
                 subMenu.classList.toggle("open-menu");
             }
         </script>
+
         {% block script %}
         {% endblock %}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Fade out messages after 5 seconds
+                $('.message').fadeOut(5000);
+            });
+        </script>
     </body>
 </html>
