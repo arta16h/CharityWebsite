@@ -27,14 +27,14 @@ class PaymentCategory(models.Model):
 
 
 class PaymentMethod(models.Model):
-    name = models.CharField(_("name"), max_length=50)
-    slug = models.SlugField(_("slug"), null=False, blank=False)
-    description = models.CharField(_("description"), max_length=250, null=True, blank=True)
-    is_active = models.BooleanField(_("is active"), default=True)
-    image = models.ImageField(_("image"), upload_to='payment_method_images/', null=True, blank=True)
+    name = models.CharField(_("نام"), max_length=50)
+    slug = models.SlugField(_("اسلاگ"), null=False, blank=False)
+    description = models.CharField(_("توضیحات"), max_length=250, null=True, blank=True)
+    is_active = models.BooleanField(_("فعال است"), default=True)
+    image = models.ImageField(_("تصویر"), upload_to='payment_method_images/', null=True, blank=True)
 
-    date_added = models.DateTimeField(_("date added"), auto_now_add=True)
-    date_modify = models.DateTimeField(_("date modify"), auto_now=True)
+    date_added = models.DateTimeField(_("تاریخ افزودن"), auto_now_add=True)
+    date_modify = models.DateTimeField(_("تاریخ تغییر"), auto_now=True)
 
     class Meta:
         db_table = 'payment_method'
@@ -62,23 +62,21 @@ class Payment(models.Model):
     PAYMENT_STATUS_CHOICES = (
         (STATUS_PEND, "در انتظار"),
         (STATUS_IN_PROGRESS, "در پروسه انجام"),
-        (STATUS_DOING, "در پروسه انجام"),
-        (STATUS_DONE, "در پروسه انجام"),
-        (STATUS_FAIL, "در پروسه انجام"),
+        (STATUS_DOING, "در حال انجام"),
+        (STATUS_DONE, "انجام یافته"),
+        (STATUS_FAIL, "ناموفق"),
     )
 
-    payment_trace_id = models.UUIDField(_("payment_id"), max_length=150, unique=True)
-    request_user = models.ForeignKey(User, verbose_name=_("request user"), on_delete=models.CASCADE)
-    payment_status = models.PositiveSmallIntegerField(_("payment_status"), choices=PAYMENT_STATUS_CHOICES)
-    payment_method = models.ForeignKey(PaymentMethod, verbose_name=_("payment method"), on_delete=models.CASCADE)
-    request_time = models.DateTimeField(_("request time"))
-    total_amount = models.PositiveBigIntegerField(_("total amount"))
-    pay_id = models.CharField(_("pay id"), max_length=30, unique=True)
-    image = models.ImageField(_("image"), upload_to='payment_images/', null=True, blank=True)
-    description = models.TextField(_("description"), null=True, blank=True)
+    request_user = models.ForeignKey(User, verbose_name=_("کاربر درخواست دهنده"), on_delete=models.SET_NULL, null=True, blank=True)
+    payment_status = models.PositiveSmallIntegerField(_("وضعیت پرداخت"), choices=PAYMENT_STATUS_CHOICES)
+    payment_method = models.ForeignKey(PaymentMethod, verbose_name=_("روش پرداخت"), on_delete=models.CASCADE)
+    request_time = models.DateTimeField(_("زمان پرداخت"))
+    total_amount = models.PositiveBigIntegerField(_("مبلغ"))
+    image = models.ImageField(_("تصویر"), upload_to='payment_images/', null=True, blank=True)
+    description = models.TextField(_("توضیحات"), null=True, blank=True)
 
-    date_added = models.DateTimeField(_("date added"), auto_now_add=True)
-    date_modify = models.DateTimeField(_("date modify"), auto_now=True)
+    date_added = models.DateTimeField(_("تاریخ افزودن"), auto_now_add=True)
+    date_modify = models.DateTimeField(_("تاریخ تغییر"), auto_now=True)
 
     def __str__(self):
         return f'{self.payment_method} {self.payment_trace_id} {self.PAYMENT_STATUS_CHOICES_VIEW[self.payment_status]}'
