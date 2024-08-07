@@ -74,6 +74,7 @@ class Payment(models.Model):
     total_amount = models.PositiveBigIntegerField(_("مبلغ"))
     image = models.ImageField(_("تصویر"), upload_to='payment_images/', null=True, blank=True)
     description = models.TextField(_("توضیحات"), null=True, blank=True)
+    is_valid = models.BooleanField(_("معتبر است"), default=False)
 
     date_added = models.DateTimeField(_("تاریخ افزودن"), auto_now_add=True)
     date_modify = models.DateTimeField(_("تاریخ تغییر"), auto_now=True)
