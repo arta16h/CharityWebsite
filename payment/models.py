@@ -67,6 +67,8 @@ class Payment(models.Model):
         (STATUS_FAIL, "ناموفق"),
     )
 
+    payment_service_trace_id = models.UUIDField(_("شناسه پیگیری سرویس  پرداخت"), max_length=150, unique=True)
+    payment_trace_id = models.PositiveIntegerField(_("شناسه پیگیری پرداخت"), unique=True, null=True, blank=True)
     request_user = models.ForeignKey(User, verbose_name=_("کاربر درخواست دهنده"), on_delete=models.SET_NULL, null=True, blank=True)
     payment_status = models.PositiveSmallIntegerField(_("وضعیت پرداخت"), choices=PAYMENT_STATUS_CHOICES)
     payment_method = models.ForeignKey(PaymentMethod, verbose_name=_("روش پرداخت"), on_delete=models.CASCADE)
