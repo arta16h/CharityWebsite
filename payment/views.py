@@ -44,7 +44,8 @@ class DonateView(View):
                 payment_method=PaymentMethod.objects.get(name="cart_to_cart"),
                 request_time=datetime.now(),
                 total_amount=form_data.get("amount"),
-                description=form_data.get("message")
+                description=form_data.get("message"),
+                image=request.FILES.get("image")
             )
             context = {"payment_trace_id": trace_id, "status": True}
             response = render(request, "payment/payment_confirm.html", context)
