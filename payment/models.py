@@ -67,6 +67,7 @@ class Payment(models.Model):
         (STATUS_FAIL, "ناموفق"),
     )
 
+    payment_category = models.ForeignKey(PaymentCategory, on_delete=models.SET_NULL, null=True, blank=True)
     payment_service_trace_id = models.UUIDField(_("شناسه پیگیری سرویس  پرداخت"), max_length=150, unique=True)
     payment_trace_id = models.PositiveIntegerField(_("شناسه پیگیری پرداخت"), unique=True, null=True, blank=True)
     request_user = models.ForeignKey(User, verbose_name=_("کاربر درخواست دهنده"), on_delete=models.SET_NULL, null=True, blank=True)
@@ -83,10 +84,6 @@ class Payment(models.Model):
 
     def __str__(self):
         return f'{self.payment_method} {self.payment_trace_id} {self.PAYMENT_STATUS_CHOICES_VIEW[self.payment_status]}'
-
-    @classmethod
-    def generate_unique_payment_code(cls, user_id, amount):
-        return f"{str(int(user_id)*4)}-{random.randint(1000, 9999)}-{amount}"
 
     class Meta:
         db_table = 'payment'
