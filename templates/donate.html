@@ -2,9 +2,9 @@
 {% load static %}
 
 <!--================ Header Area =================-->
-{% block title %}Donate{% endblock %}
-{% block headername %}Donate{% endblock %}
-{% block nestname %}Donate{% endblock %}
+{% block title %}کمک آنلاین{% endblock %}
+{% block headername %}کمک آنلاین{% endblock %}
+{% block nestname %}کمک آنلاین{% endblock %}
 <!--================ End Header Area =================-->
 
 
@@ -16,34 +16,26 @@
 {% block custom_style %}
     <style>
         body{
-            /* background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%)!important; */
-            background-image: url("{% static 'src/images/image4-28.png' %}") !important;
+            background-color: #fff;
             background-size: cover; /* Cover the entire area */
             background-position: center; /* Center the image */
             background-repeat: no-repeat; /* Prevent repeating the image */
             
             /* Optional: Set a background color as fallback */
-            background-color: #f0f0f0; /* Light gray as fallback */
+            background-color: #f0f0f0;
             
             /* Ensure the background image covers the entire viewport */
             width: 100vw;
             height: 100vh;
             overflow: auto;
-            /* Remove default margin and padding from body */
+
             margin: 0;
             padding: 0;
-            
-            
         }
         /* .donate-form > * {
             filter: blur(1.5px);
             -webkit-filter: blur(1.5px);
         } */
-        .card-img{
-            border-radius: 30px;
-            filter: blur(0.5px);
-            opacity: 80%;
-        }
     </style>
 {% endblock %}
 
@@ -54,10 +46,10 @@
         <span class="absolute z-10 justify-center text-center text-2xl">
             <h4> :شماره کارت موکب </h4>
             <span id="cardNumber" onclick="copyText()" class="md:text-3xl sm:text-xl text-rose-800  font-bold tracking-wider">
-                123456789987654321
+                {{payment_data.card}}
             </span>
         </span>
-        <img src="{% static 'src/images/WAYS-TO-GIVE-BACK-stock.jpeg' %}" class="relative  card-img object-contain rounded-full z-s0 h-20 lg:w-1/2" style="object-fit: cover;">
+        <img src="{% static 'src/images/WAYS-TO-GIVE-BACK-stock.jpeg' %}" class="relative card-img object-contain rounded-full z-s0 h-20 lg:w-1/2" style="object-fit: cover;">
     <!-- </div> -->
 </div>
 {% if payment_categories.count > 0 %}
@@ -105,9 +97,9 @@
 
 <div class="row justify-content-center mt-10">
     <div class="bg-white/50 donate-form backdrop-blur-md col-10 col-md-8 col-lg-6 absolutse tosp-32 mt-10  shadow-md rounded p-6 z-10">
-        <div class="row justify-content-between">
-            <img src="{% static 'src/images/caring-hands@0.5x.png' %}" class="col-sm-5 col-md-3">
+        <div class="row justify-content-between" style="direction: rtl;">
             <span class="md:text-2xl font-bold float-end mb-4 text-end col-sm-5 col-md-3">کمک آنلاین</span>
+            <!-- <img src="{% static 'src/images/caring-hands@0.5x.png' %}" class="col-sm-5 col-md-3"> -->
         </div>
         <div class="flex flex-row-reverse">
             <div class="flex items-center me-4">
@@ -167,7 +159,7 @@
                 <input type="text" id="name" name="name" class="form-control rounded-md text-end" placeholder="" {% if request.user.is_authenticated %} value="{{request.user.get_full_name}}" {% endif %}>
             </div>
             <div class="form-group">
-                <label for="trace_id" class="block text-gray-700 text-end">شناسه پیگیری (اختیاری)</label>
+                <label for="trace_id" class="block text-gray-700 text-end">شناسه پیگیری</label>
                 <input type="number" id="trace_id" name="trace_id" class="form-control rounded-md text-center" placeholder="" required>
             </div>
             <div class="form-group">
