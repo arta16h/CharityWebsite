@@ -33,21 +33,27 @@ class DonateView(View):
         form_data = request.POST
         if form_data.get("payment_method") == "cart_to_cart":
             trace_id = uuid.uuid4()
+            if Payment.objects.filter(payment_trace_id=form_data.get("trace_id")).exists():
+                messages.error(request, 'پرداخت با این شناسه پیگیری قبلا ثبت شده است')
+                return redirect('donate')
+            Payment.objects.create(
+                payment_trace_id=form_data.get("trace_id"),
+                payment_service_trace_id=trace_id,
+                request_user=request.user if request.user.is_authenticated else None,
+                payment_category_id=int(form_data.get("payment_category") )if form_data.get("payment_category", "").isdecimal() else None,
+                payment_status=Payment.STATUS_DONE,
+                payment_method=PaymentMethod.objects.get(name="cart_to_cart"),
+                request_time=datetime.now(),
+                total_amount=form_data.get("amount"),
+                description=form_data.get("message"),
+                image=request.FILES.get("image")
+            )
+            context = {"payment_trace_id": trace_id, "status": True}
+            response = render(request, "payment/payment_confirm.html", context)
             if request.user.is_anonymous:
-                donates = json.loads(request.COOKIES.get("donates", "[]")).append({"payment_data": form_data, "payment_trace_id": trace_id})
-                request.COOKIES['donates'] = json.dumps(donates)
-            else:
-                Payment.objects.create(
-                    payment_trace_id=trace_id,
-                    request_user=request.user,
-                    payment_status=Payment.STATUS_DONE,
-                    payment_method=PaymentMethod.objects.get(name="cart_to_cart"),
-                    request_time=datetime.now(),
-                    total_amount=form_data.get("amount"),
-                    pay_id=Payment.generate_unique_payment_code(request.user.id, form_data.get("amount")),
-                    description=form_data.get("message")
-                )
-            context = {"payment_trace_id": trace_id}
-            return render(request, "payment/payment_confirm.html", context)
+                donates = json.loads(request.COOKIES.get("donates", "[]"))
+                donates.append({"payment_data": form_data, "payment_trace_id": str(trace_id)})
+                response.set_cookie("donates", json.dumps(donates))
+            return response
         messages.success(request, 'Thank you for your donation!')
         return redirect('donate')

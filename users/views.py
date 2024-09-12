@@ -5,6 +5,7 @@ from django.contrib import messages, auth
 from django.views import View
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from django.db.models import Sum
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -193,6 +194,7 @@ def dashboard(request) :
         
     context = {
         "profile_update_form": user_update_form,
+        "total_donates": request.user.payment_set.aggregate(total_donate=Sum("total_amount")).get("total_donate"),
         'registered_days': (datetime.now(tz=pytz.timezone('Asia/Tehran')) - request.user.date_added).days
         }
     return render(request, 'users/dashboard.html', context=context)
