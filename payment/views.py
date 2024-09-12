@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from notification.models import Notification, NotificationCategory
 from users.models import User
-from .models import Payment, PaymentMethod, PaymentCategory
+from .models import Payment, PaymentMethod, PaymentCategory, PaymentData
 
 import json
 import uuid
@@ -23,6 +23,7 @@ class DonateView(View):
     
     def get(self, request):
         context = {
+            "payment_data" : PaymentData.objects.first(),
             "payment_categories": PaymentCategory.objects.all(),
             "payment_methods": PaymentMethod.objects.all(),
         }
