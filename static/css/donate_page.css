@@ -2,3 +2,9 @@
 .form-group {
     margin-bottom: 1rem;
 }
+
+.card-img{
+    border-radius: 30px;
+    filter: blur(0.5px);
+    opacity: 80%;
+}
