@@ -66,22 +66,28 @@
         <li style="background: #ffdb66; padding: 24px; border-radius: 20px; display: flex; align-items: center; grid-gap: 24px;">
             <i class='bx bx-calendar-heart' style="background: #d63363; color: #fff; width: 80px; height: 80px; border-radius: 10px; font-size: 36px; display: flex; justify-content: center; align-items: center;"></i>
             <span class="text">
-                <h3>{{registered_days}} روز</h3>
                 <p>سابقه عضویت شما</p>
+                {% if registered_days %}
+                    <h3>{{registered_days}} روز</h3>
+                {% endif %}
             </span>
         </li>
         <li style="background: #ffdb66; padding: 24px; border-radius: 20px; display: flex; align-items: center; grid-gap: 24px;">
             <i class='bx bx-trophy' style="background: #d63363;color: #fff; width: 80px; height: 80px; border-radius: 10px; font-size: 36px; display: flex; justify-content: center; align-items: center;"></i>
             <span class="text">
-                <h3>{{request.user.events_set.count}}</h3>
                 <p>اردوهای شرکت کرده</p>
-            </span>
-        </li>
+                {% if request.user.events_set.count %}
+                    <h3>{{request.user.events_set.count}}</h3>
+                {% endif %}
+            </li>
+        </span>
         <li style="background: #ffdb66; padding: 24px; border-radius: 20px; display: flex; align-items: center; grid-gap: 24px;">
             <i class='bx bx-donate-heart' style="background: #d63363; color: #fff; width: 80px; height: 80px; border-radius: 10px; font-size: 36px; display: flex; justify-content: center; align-items: center;"></i>
-            <span class="text">
-                <h3>{{total_donates}} تومان</h3>
-                <p>میزان کمک مالی</p>
+            <span class="text text-right">
+                <p class="float-right text-right">میزان کمک مالی</p>
+                {% if total_donates %}
+                    <h3>{{total_donates}} تومان</h3>
+                {% endif %}
             </span>
         </li>
     </ul>
