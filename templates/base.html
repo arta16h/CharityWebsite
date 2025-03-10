@@ -63,10 +63,18 @@
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky"></div>
 
-            <div class="sub-menu-wrap" id="subMenu">
-                <div class="sub-menu">
+            <div class="sub-menu-wrap overflow-y-scroll" id="subMenu">
+                <div class="sub-menu overflow-y-scroll">
                     <div class="user-info text-end text-sm flex justify-between">
-                        <p class="text-end text-sm col-5">{{ request.user.get_full_name }}</p>
+                        {% if request.user.firstname %}
+                            <p class="text-end text-sm col-5">{{ request.user.get_full_name }}</p>
+                        {% elif request.user.phone %}
+                            <p class="text-end text-sm col-5">{{ request.user.phone }}</p>
+                        {% elif request.user.email %}
+                            <p class="text-end text-sm col-5">{{ request.user.email }}</p>
+                        {% else %}
+                            <p class="text-end text-sm col-5"></p>
+                        {% endif %}
                         {% if request.user.image %}
                         <img src="{{request.user.image.url}}" class="col-5">
                         {% elif request.user.volunteer_info %}
