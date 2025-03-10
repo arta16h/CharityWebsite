@@ -7,7 +7,7 @@ from .views import (
 from .staff_views import staff_dashboard
 
 urlpatterns = [
-    path("home/", home, name="home"),
+    path("", home, name="home"),
     path("upload/", upload, name="upload"),
     path("about/", about_us, name='about'),
     path("contact/", contact_us, name='contact'),
