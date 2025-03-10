@@ -76,6 +76,9 @@ body, html {
 .hide-modal{
     display: none;
 }
+.forbidden-area {
+    cursor:  not-allowed !important;
+}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
