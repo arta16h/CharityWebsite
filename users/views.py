@@ -5,7 +5,7 @@ from django.contrib import messages, auth
 from django.views import View
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-from django.db.models import Sum
+from django.db.models import Sum, Q
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -110,6 +110,7 @@ class RegistrationView(View) :
     
     def post(self, request) :
         phone = request.POST['phone']
+        email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
 
@@ -119,9 +120,14 @@ class RegistrationView(View) :
         if isinstance(request.user, User):
             messages.error(request, _('to create new account log out first'))
             return redirect("home")
-        elif User.objects.filter(phone=phone).exists() :
-            messages.error(request, 'این شماره تماس قبلا استفاده شده')
-            return render(request, 'users/register.html')
+        if not re.fullmatch(re.compile(r'^[^@]+@[^@]+\.[^@]+$'), email) :
+            messages.error(request, _('ایمیل وارد شده صحیح نمیباشد'))
+            return render(request, 'users/register.html', context)
+        elif User.objects.filter(
+                Q(phone=phone, phone__isnull=False) | Q(email=email, email__isnull=False)
+            ).exists() :
+            messages.error(request, 'این شماره تماس یا ایمیل قبلا ثبت شده است')
+            return render(request, 'users/register.html', context)
         
         elif password1 != password2 :
             messages.error(request, 'رمز عبور مطابقت ندارد')
@@ -132,7 +138,7 @@ class RegistrationView(View) :
             return render(request, 'users/register.html', context)
         
         else :
-            user = User.objects.create(phone=phone)
+            user = User.objects.create(phone=phone , email=email)
             if password1 is not None:
                 user.set_password(password1)
             else:
