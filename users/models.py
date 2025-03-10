@@ -100,12 +100,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs) :
         super().save(*args, **kwargs)
-        img = Image.open(self.image.path)
+        if self.image:
+            img = Image.open(self.image.path)
 
-        if img.height > 300 or img.width > 300 :
-            output = (300, 300)
-            img.thumbnail(output)
-            img.save(self.image.path)
+            if img.height > 300 or img.width > 300 :
+                output = (300, 300)
+                img.thumbnail(output)
+                img.save(self.image.path)
 
     class Meta :
         verbose_name = _("عضو")
