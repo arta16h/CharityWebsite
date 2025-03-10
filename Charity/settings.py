@@ -30,9 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$+zjqjdpglw&t1r0jgcolra^*nkm62$xz4%wi_zw0toh-ja89&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["87.248.156.6", "sayyidahzaynab.com"]
 
 
 # Application definition
@@ -221,4 +221,5 @@ JALALI_DATE_DEFAULTS = {
 LANGUAGE_CODE = 'fa'
 
 import locale
-locale.setlocale(locale.LC_ALL, "Persian_Iran.UTF-8")
+#locale.setlocale(locale.LC_ALL, "Persian_Iran.UTF-8")
+locale.setlocale(locale.LC_ALL, "fa_IR.utf8")
