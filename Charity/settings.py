@@ -33,7 +33,12 @@ SECRET_KEY = 'django-insecure-$+zjqjdpglw&t1r0jgcolra^*nkm62$xz4%wi_zw0toh-ja89&
 DEBUG = False
 
 ALLOWED_HOSTS = ["87.248.156.6", "sayyidahzaynab.com"]
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://sayyidahzaynab.com',
+    "87.248.156.6",
+    "sayyidahzaynab.com"
+    # Add other trusted origins as needed
+]
 
 # Application definition
 
