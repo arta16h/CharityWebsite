@@ -163,6 +163,8 @@ cython_debug/
 node_modules
 static/cache
 static/admin
+static/jazzmin
+static/vendor
 static/rest_framework
 media/*
 db*

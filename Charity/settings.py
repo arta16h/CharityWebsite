@@ -32,17 +32,23 @@ SECRET_KEY = 'django-insecure-$+zjqjdpglw&t1r0jgcolra^*nkm62$xz4%wi_zw0toh-ja89&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["87.248.156.6", "sayyidahzaynab.com"]
+ALLOWED_HOSTS = ["87.248.156.6", "sayyidahzaynab.com", "127.0.0.1"]
 CSRF_TRUSTED_ORIGINS = [
     'https://sayyidahzaynab.com',
-    "87.248.156.6",
-    "sayyidahzaynab.com"
+    "http://sayyidahzaynab.com"
     # Add other trusted origins as needed
 ]
 
 # Application definition
-
+JAZZMIN_SETTINGS = {
+    "site_title": "sayyidazaynab",
+    "site_header": "sayyidahzaynab",
+    "site_brand": "sayyidahzaynab",
+    "theme": "cosmo",
+    "changeform_format": "horizental_tabs"
+}
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -190,7 +196,7 @@ COMPRESS_ROOT = BASE_DIR / 'static'
 COMPRESS_ENABLED = True
 STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder', 
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
 OTP_SENDER_EMAIL = os.environ.get("OTP_SENDER_EMAIL")
@@ -223,7 +229,7 @@ JALALI_DATE_DEFAULTS = {
     },
 }
 
-LANGUAGE_CODE = 'fa'
+LANGUAGE_CODE = 'en'
 
 import locale
 #locale.setlocale(locale.LC_ALL, "Persian_Iran.UTF-8")

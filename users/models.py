@@ -117,8 +117,8 @@ class DocumentCategory(models.Model):
     slug = models.SlugField(_('اسلاگ'), max_length=255, unique=True)
     is_active = models.BooleanField(_("فعال"), default=True)
 
-    date_added = models.DateTimeField(_("تاریخ افزودن"), auto_now_add=True)
-    date_modify = models.DateTimeField(_("تاریخ آخرین تغییر"), auto_now=True)
+    date_added = models.DateTimeField(_("تاریخ افزودن"), auto_now=True)
+    date_modify = models.DateTimeField(_("تاریخ آخرین تغییر"), auto_now_add=True)
 
     class Meta:
         db_table = 'document_category'
