@@ -44,8 +44,9 @@ JAZZMIN_SETTINGS = {
     "site_title": "sayyidazaynab",
     "site_header": "sayyidahzaynab",
     "site_brand": "sayyidahzaynab",
-    "theme": "cosmo",
-    "changeform_format": "horizental_tabs"
+    "theme": "litera",
+    "changeform_format": "horizental_tabs",
+    "show_ui_builder": True
 }
 INSTALLED_APPS = [
     'jazzmin',
