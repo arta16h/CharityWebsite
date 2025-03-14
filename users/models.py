@@ -79,7 +79,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     def __str__(self) -> str:
-        return str(self.phone) or str(self.username)
+        return f"{self.get_full_name()}--{str(self.phone or '')}--{str(self.username or '')}"
     
     
     def get_full_name(self):
