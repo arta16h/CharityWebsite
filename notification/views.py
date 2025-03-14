@@ -38,6 +38,9 @@ class MarkNotificatoinAsRead(APIView):
     def post(self, request):
         notification_id = request.POST.get("notification_id")
         if notification_id and Notification.objects.filter(id=notification_id).exists():
-            Notification.objects.filter(id=notification_id).update(is_seen=True)
+            notification = Notification.objects.get(id=notification_id)
+            if request.user in notification.users.all():
+                Notification.objects.filter(id=notification_id).update(is_seen=True)
+                notification.is_seen_by.add(request.user)
             return Response(data={"message": "پیام  در لیست مشاهده شده ها قرار گرفت"}, status=200)
         return Response(data={"message": "پیام  یافت نشد"}, status=400)
