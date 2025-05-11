@@ -29,7 +29,7 @@ class CustomUserAdmin(UserAdmin):
     
     
 # admin.site.register(Job)
-admin.site.register(Volunteer, VolunteerAdmin)
+admin.site.register(Volunteer)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Slider)
 admin.site.register(Document)
