@@ -7,7 +7,6 @@ from django.utils.translation import gettext_lazy as _
 from .enums import *
 from .manager import UserManager
 from PIL import Image
-from django_jalali.db.models import jDateField
 from django_jalali.db import models as jmodels
 
 # Create your models here.
