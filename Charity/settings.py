@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_jalali',
-    'jalali_date',
+    'jalali_date', 
     'users',
     'blog',
     'rest_framework',
