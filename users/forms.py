@@ -24,7 +24,8 @@ messages ={
 class VolunteerRegisterForm(forms.ModelForm):
     error_css_class = "error"
     required_css_class = "required"
-    birth = jDateField()
+    # birth = jDateField()
+    birth = jforms.jDateField(label='تاریخ تولد')
     class Meta:
         model = Volunteer
         fields = '__all__'
