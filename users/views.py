@@ -32,7 +32,7 @@ def home(request) :
 
 def volunteer_register(request):
     if request.user.is_authenticated and request.user.volunteer_info:
-        messages.info(request, _("you has already registered as volunteer"))
+        messages.info(request, _("شما قبلا بعنوان داوطلب ثبت نام کرده اید"))
         return redirect('dashboard')
     if request.method == "POST":
         form = VolunteerRegisterForm(request.POST or None, request.FILES)
