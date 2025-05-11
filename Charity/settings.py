@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_jalali',
+    'jalali_date',
     'users',
     'blog',
     'rest_framework',
@@ -63,8 +65,6 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'django.contrib.humanize',
     "compressor",
-    'django_jalali',
-    'jalali_date',
     'notification',
     'payment'
 ]
