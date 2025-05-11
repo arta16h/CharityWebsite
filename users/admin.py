@@ -26,20 +26,8 @@ class CustomUserAdmin(UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login",)}),
     )
-class VolunteerAdminForm(forms.ModelForm):
-    class Meta:
-        model = Volunteer
-        fields = '__all__'
-        widgets = {
-            'birth': jadmin.widgets.AdminjDateWidget,
-        }
-
-
-class VolunteerAdmin(jadmin.ModelAdmin):
-    form = VolunteerAdminForm
-    list_display = ('name', 'birth')
-    search_fields = ('name',)
-    list_filter = ('birth',)
+    
+    
 # admin.site.register(Job)
 admin.site.register(Volunteer, VolunteerAdmin)
 admin.site.register(User, CustomUserAdmin)
