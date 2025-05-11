@@ -4,10 +4,12 @@ from django.core.validators import RegexValidator
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from jalali_date.fields import JalaliDateField
+from django_jalali.forms import jDateField
 from jalali_date.widgets import AdminJalaliDateWidget
 import django_jalali.forms as jforms
-from datetime import datetime
 from .models import User, Volunteer, Document
+from persiantools.jdatetime import JalaliDate
+import datetime
 
 from typing import Any
 
@@ -22,13 +24,22 @@ messages ={
 class VolunteerRegisterForm(forms.ModelForm):
     error_css_class = "error"
     required_css_class = "required"
+    birth = jDateField()
     class Meta:
         model = Volunteer
         fields = '__all__'
+
+        def clean_birth(self):
+            jalali_date = self.cleaned_data['birth']
+            try:
+                gregorian_date = JalaliDate.strptime(jalali_date, "%Y/%m/%d").to_gregorian()
+                return gregorian_date
+            except:
+                raise forms.ValidationError("تاریخ وارد شده معتبر نیست")
+
         widgets = {
             'gender': forms.Select(),
             # 'birth': AdminJalaliDateWidget(attrs={'class' : 'form-control'}),
-            'birth': jforms.jDateField(widget=jforms.AdminJDateWidget, attrs={'class' : 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'profile_pic': forms.FileInput(attrs={'class': 'form-control'}),
             'education': forms.Select(attrs={'class': 'text-end p-1 m-1'}),
