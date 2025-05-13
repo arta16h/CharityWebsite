@@ -12,7 +12,7 @@
 
     <script>
         $(document).ready(function () {
-            $("#birth").persianDatepicker({
+            $(".jalali_date-date").persianDatepicker({
                 format: 'YYYY/MM/DD',
                 initialValue: false
             });
@@ -55,8 +55,8 @@
                         <span class="error">
                             {{ form.birth.errors.as_text }} 
                         </span>
-                        <!-- {{ form.birth }} -->
-                        <input type="text" id="birth" name="birth" class="form-control">
+                        {{ form.birth }}
+                        <!-- <input type="text" id="birth" name="birth" class="form-control"> -->
                     </div>
                     <div class="col-sm-5 my-1">
                         <p class="text-amber-200 text-end m-0 font-weight-normal">
