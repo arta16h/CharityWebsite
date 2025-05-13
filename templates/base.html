@@ -23,6 +23,7 @@
         <meta property="og:type" content="website">
         <meta data-intl-tel-input-cdn-path="intlTelInput/">
         <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+        <link rel="stylesheet" href="{% static 'jalali_date/css/persian-datepicker.min.css' %}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         {% block link %}{% endblock %}
         {% compress css %}
@@ -137,6 +138,8 @@
 
         {% block script %}
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="{% static 'jalali_date/js/persian-date.min.js' %}"></script>
+        <script src="{% static 'jalali_date/js/persian-datepicker.min.js' %}"></script>
         <script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
@@ -174,6 +177,20 @@
                 subMenu.classList.toggle("open-menu");
             }
         </script>
+
+        <script>
+        $(".jalali_date-date").persianDatepicker({
+            initialValueType: 'gregorian',
+            format: 'YYYY/MM/DD',
+            autoClose: true,
+            calendar: {
+                persian: {
+                    locale: 'fa'
+                }
+            },
+        });
+        </script>
+
         {% endblock %}
     </body>
 </html>
