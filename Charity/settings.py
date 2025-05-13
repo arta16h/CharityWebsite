@@ -209,13 +209,11 @@ KAVENEGAR_API_KEY = os.environ.get("KAVENEGAR_API_KEY")
 #--------------Jalali---------------
 JALALI_DATE_DEFAULTS = {
    'LIST_DISPLAY_AUTO_CONVERT': False,
-   'Strftime': {
-        'date': '%y/%m/%d',
-        'datetime': '%H:%M:%S _ %y/%m/%d',
-    },
+    'Strftime': '%Y/%m/%d',
     'Static': {
         'js': [
-            'admin/js/django_jalali.min.js',
+            'admin/js/django_jquery.js',
+            'jalali_date/js/persian-datepicker.min.js',
             # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.core.js',
             # 'admin/jquery.ui.datepicker.jalali/scripts/calendar.js',
             # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.datepicker-cc.js',
@@ -224,7 +222,8 @@ JALALI_DATE_DEFAULTS = {
         ],
         'css': {
             'all': [
-                'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css',
+                'jalali_date/css/persian-datepicker.min.css'
+                # 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css',
             ]
         }
     },
