@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="{% static 'css/navbar.css' %}" media="screen">
         <link rel="stylesheet" href="{% static 'css/base.css' %}" media="screen">
         <link rel="stylesheet" href="{% static 'css/Home.css' %}" media="screen">
-        <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script>
+        <!-- <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script> -->
         <script src="https://kit.fontawesome.com/30a5ac9f3a.js" crossorigin="anonymous"></script>
         <meta name="theme-color" content="#478ac9">
         <meta property="og:type" content="website">
@@ -133,42 +133,47 @@
             {% include 'partials/_messages.html' %}
             {% block content %}{% endblock %}
         </div>
+
+
+        {% block script %}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-            crossorigin="anonymous">
+                integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+                crossorigin="anonymous">
         </script>
         <script>
+            $(document).ready(function() {
+            // Fade out messages after 5 seconds
+                $('.message').fadeOut(5000);
+            });
+
             window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            const scrollPosition = window.scrollY;
-            // const navbarOpacity = scrollPosition <= 35 ? 100 : 35;
-            // navbar.style.opacity = navbarOpacity / 100;
-            const scrolledDown = scrollPosition <= 35 ? false : true;
-            if (scrolledDown == true) {
-                navbar.classList.replace('bg-white/90', 'bg-white/20');
-                navbar.classList.add('backdrop-blur-sm');
+                const navbar = document.getElementById('navbar');
+                const scrollPosition = window.scrollY;
+                const scrolledDown = scrollPosition > 35;
+
+                if (scrolledDown) {
+                    navbar.classList.replace('bg-white/90', 'bg-white/20');
+                    navbar.classList.add('backdrop-blur-sm');
+                } else {
+                    navbar.classList.replace('bg-white/20', 'bg-white/90');
+                    navbar.classList.remove('backdrop-blur-sm');
+                }
+            });
+
+            function toggleMenu() {
+                document.getElementById("subMenu").classList.toggle("open-menu");
             }
-            else {
-                navbar.classList.replace('bg-white/20', 'bg-white/90');
-                navbar.classList.remove('backdrop-blur-sm');
-            }
-        });
         </script>
+
+
         <script>
             let subMenu = document.getElementById("subMenu");
             function toggleMenu(){
                 subMenu.classList.toggle("open-menu");
             }
         </script>
-
-        {% block script %}
         {% endblock %}
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                // Fade out messages after 5 seconds
-                $('.message').fadeOut(5000);
-            });
-        </script>
     </body>
 </html>
