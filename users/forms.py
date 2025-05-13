@@ -4,9 +4,8 @@ from django.core.validators import RegexValidator
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from jalali_date.fields import JalaliDateField
-from django_jalali.forms import jDateField
 from jalali_date.widgets import AdminJalaliDateWidget
-import django_jalali.forms as jforms
+# import django_jalali.forms as jforms
 from .models import User, Volunteer, Document
 from persiantools.jdatetime import JalaliDate
 import datetime
@@ -25,20 +24,11 @@ class VolunteerRegisterForm(forms.ModelForm):
     error_css_class = "error"
     required_css_class = "required"
     # birth = jDateField()
-    birth = jforms.jDateField(label='تاریخ تولد', widget=AdminJalaliDateWidget)
+    birth = JalaliDateField(label='تاریخ تولد', widget=AdminJalaliDateWidget)
 
     class Meta:
         model = Volunteer
         fields = '__all__'
-
-        def clean_birth(self):
-            jalali_date = self.cleaned_data['birth']
-            try:
-                gregorian_date = JalaliDate.strptime(jalali_date, "%Y/%m/%d").to_gregorian()
-                return gregorian_date
-            except:
-                raise forms.ValidationError("تاریخ وارد شده معتبر نیست")
-
         widgets = {
             'gender': forms.Select(),
             'birth': AdminJalaliDateWidget,
@@ -47,8 +37,8 @@ class VolunteerRegisterForm(forms.ModelForm):
             'profile_pic': forms.FileInput(attrs={'class': 'form-control'}),
             'education': forms.Select(attrs={'class': 'text-end p-1 m-1'}),
             'experience_info': forms.Textarea(attrs={
-                'class': 'text-end p-1 m-1', 
-                "placeholder": "در صورتی که سابقه کار جهادی دارید، توضیح دهید"
+            'class': 'text-end p-1 m-1', 
+            "placeholder": "در صورتی که سابقه کار جهادی دارید، توضیح دهید"
             }),
             'specialist_info': forms.Textarea(attrs={
                 'class': 'text-end p-1 m-1', 
@@ -74,6 +64,15 @@ class VolunteerRegisterForm(forms.ModelForm):
             'city' : 'شهر محل سکونت'
         }
         error_messages = messages
+
+    def clean_birth(self):
+        jalali_date = self.cleaned_data['birth']
+        try:
+            gregorian_date = JalaliDate.strptime(jalali_date, "%Y/%m/%d").to_gregorian()
+            return gregorian_date
+        except:
+            raise forms.ValidationError("تاریخ وارد شده معتبر نیست")
+
 
     def __init__(self, *args, **kwargs):
         super(VolunteerRegisterForm, self).__init__(*args, **kwargs)
