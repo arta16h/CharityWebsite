@@ -40,6 +40,7 @@ class VolunteerRegisterForm(forms.ModelForm):
 
         widgets = {
             'gender': forms.Select(),
+            'birth': AdminJalaliDateWidget,
             # 'birth': AdminJalaliDateWidget(attrs={'class' : 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'profile_pic': forms.FileInput(attrs={'class': 'form-control'}),
