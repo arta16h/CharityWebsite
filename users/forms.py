@@ -25,7 +25,8 @@ class VolunteerRegisterForm(forms.ModelForm):
     error_css_class = "error"
     required_css_class = "required"
     # birth = jDateField()
-    birth = jforms.jDateField(label='تاریخ تولد')
+    birth = jforms.jDateField(label='تاریخ تولد', widget=AdminJalaliDateWidget)
+
     class Meta:
         model = Volunteer
         fields = '__all__'
@@ -79,8 +80,10 @@ class VolunteerRegisterForm(forms.ModelForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
 
-        self.fields['birth'] = JalaliDateField()
         self.fields['birth'].widget.attrs.update({'class': 'jalali_date-date form-control text-end'})
+
+        # self.fields['birth'] = JalaliDateField()
+        # self.fields['birth'].widget.attrs.update({'class': 'jalali_date-date form-control text-end'})
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + " text-end form-control"
         # self.fields['birth'].widget.attrs.update({'class': 'jalali_date-date'})
