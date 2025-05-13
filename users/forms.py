@@ -80,7 +80,10 @@ class VolunteerRegisterForm(forms.ModelForm):
             visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
 
         self.fields['birth'] = JalaliDateField()
-        self.fields['birth'].widget.attrs.update({'class': 'jalali_date-date'})
+        self.fields['birth'].widget.attrs.update({'class': 'jalali_date-date form-control text-end'})
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + " text-end form-control"
+        # self.fields['birth'].widget.attrs.update({'class': 'jalali_date-date'})
 
 
 class LoginForm(forms.Form):
