@@ -23,16 +23,16 @@ messages ={
 class VolunteerRegisterForm(forms.ModelForm):
     error_css_class = "error"
     required_css_class = "required"
-    # birth = jDateField()
-    birth = JalaliDateField(label='تاریخ تولد', widget=AdminJalaliDateWidget)
+    birth = forms.DateField(
+        label='تاریخ تولد',
+        widget=AdminJalaliDateWidget(attrs={'class': 'jalali_date-date form-control'})
+    )
 
     class Meta:
         model = Volunteer
         fields = '__all__'
         widgets = {
             'gender': forms.Select(),
-            'birth': AdminJalaliDateWidget,
-            # 'birth': AdminJalaliDateWidget(attrs={'class' : 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'profile_pic': forms.FileInput(attrs={'class': 'form-control'}),
             'education': forms.Select(attrs={'class': 'text-end p-1 m-1'}),
