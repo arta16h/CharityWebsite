@@ -106,7 +106,7 @@
                 <div class="profile-image-wrapper row d-flex justify-content-center justify-content-lg-sstart  align-items-center">
                         {% if request.user.image %}
                         <img class="profile-image rounded-full w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 max-w-[20rem] max-h-[20rem] my-5 px-0"  src="{{request.user.image.url}}" alt="profile photo">
-                        {% elif request.user.volunteer_info %}
+                        {% elif request.user.volunteer_info and request.user.volunteer_info.profile_pic %}
                         <img class="profile-image rounded-full w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 max-w-[20rem] max-h-[20rem] my-5 px-0"  src="{{request.user.volunteer_info.profile_pic.url}}" alt="profile photo">
                         {% else %}
                         <img class="profile-image rounded-full w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 max-w-[20rem] max-h-[20rem] my-5 px-0"  src="{% static 'image/avatar.webp' %}" alt="profile photo">

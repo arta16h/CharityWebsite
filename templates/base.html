@@ -31,19 +31,6 @@
         {% block custom_style %}{% endblock %}
     </head>
     <body data-path-to-root="/" data-include-products="false" class=" u-body u-xl-mode" data-lang="fa">
-        <section class="hero bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-20">
-            <div class="container text-center">
-                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
-                    Join Us in Making a Difference
-                </h1>
-                <p class="text-lg mb-6">
-                    Your time, your effort, and your compassion can help us create lasting change. Sign up to volunteer today.
-                </p>
-                <a href="{% url 'volunteer_signup' %}" class="btn btn-light py-2 px-4 rounded-full font-semibold">
-                    Become a Volunteer
-                </a>
-            </div>
-        </section>
         <nav id="navbar" class="bg-white/90 bg-opacity-80 bg-gradient-to-r  dark:bg-gray-900 sticky w-full z-40 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
             <div class="z-30 max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a href="{% url 'home' %}" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -65,7 +52,7 @@
                     </a>
                     {% if request.user.image %}
                         <img src="{{request.user.image.url}}" class="user-pic mx-3" onclick="toggleMenu()">
-                    {% elif request.user.volunteer_info %}
+                    {% elif request.user.volunteer_info and request.user.volunteer_info.profile_pic %}
                         <img src="{{request.user.volunteer_info.profile_pic.url}}" class="user-pic mx-3" onclick="toggleMenu()">
                     {% else %}
                         <img src="{% static 'image/avatar.webp' %}" class="user-pic mx-3" onclick="toggleMenu()">
@@ -88,7 +75,7 @@
                         {% endif %}
                         {% if request.user.image %}
                         <img src="{{request.user.image.url}}" class="col-5">
-                        {% elif request.user.volunteer_info %}
+                        {% elif request.user.volunteer_info and request.user.volunteer_info.profile_pic %}
                         <img src="{{request.user.volunteer_info.profile_pic.url}}" class="col-5">
                         {% else %}
                         <img src="{% static 'image/avatar.webp' %}" class="col-5">
@@ -129,7 +116,7 @@
             {% block content %}{% endblock %}
         </div>
 
-        <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+        <script src="{% static 'js/jquery.js' %}"></script>
         {% block script %}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

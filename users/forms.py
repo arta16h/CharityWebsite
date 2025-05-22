@@ -5,6 +5,10 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import User, Volunteer, Document
 from persiantools.jdatetime import JalaliDate
 from typing import Any
+from django.utils.translation import gettext_lazy as _
+
+from jalali_date.widgets import AdminJalaliDateWidget
+from jalali_date.fields import JalaliDateField
 
 messages ={
     'required' : 'این فیلد نمیتواند خالی باشد',
@@ -17,7 +21,6 @@ messages ={
 class VolunteerRegisterForm(forms.ModelForm):
     error_css_class = "error"
     required_css_class = "required"
-    birth = jDateField(label=("تاریخ تولد"), widget=forms.TextInput(attrs={'class': 'jalali-datepicker form-control'}))
 
     class Meta:
         model = Volunteer
@@ -69,16 +72,12 @@ class VolunteerRegisterForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(VolunteerRegisterForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + "text-end form-control"
-
-        self.fields['birth'].widget.attrs.update({'class': 'jalali_date-date form-control text-end'})
-
-        # self.fields['birth'] = JalaliDateField()
-        # self.fields['birth'].widget.attrs.update({'class': 'jalali_date-date form-control text-end'})
+        self.fields['birth'] = JalaliDateField(label=_('تاریخ تولد'), # date format is  "yyyy-mm-dd"
+            widget=AdminJalaliDateWidget # optional, to use default datepicker
+        )
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = visible.field.widget.attrs.get('class', '') + " text-end form-control"
-        # self.fields['birth'].widget.attrs.update({'class': 'jalali_date-date'})
+
 
 
 class LoginForm(forms.Form):

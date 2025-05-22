@@ -36,7 +36,7 @@
                         <span class="error">
                             {{ form.birth.errors.as_text }} 
                         </span>
-                        {{ form.birth|add_class:"jalali_date-date" }}
+                        {{ form.birth }}
                     </div>
                     <div class="col-sm-5 my-1">
                         <p class="text-amber-200 text-end m-0 font-weight-normal">
@@ -186,29 +186,6 @@
 
 {% endblock %}
 {% block script %}
-    <script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
-    <script src="{% static 'admin/jquery.ui.datepicker.jalali/core.js' %}"></script>
-    <script src="{% static 'admin/jquery.ui.datepicker.jalali/jquery.ui.core.min.js' %}"></script>
-    <script src="{% static 'admin/jquery.ui.datepicker.jalali/jquery.ui.widget.min.js' %}"></script>
-    <script src="{% static 'admin/jquery.ui.datepicker.jalali/jquery.ui.datepicker.min.js' %}"></script>
-    <script src="{% static 'admin/jquery.ui.datepicker.jalali/jquery.ui.datepicker-cc.min.js' %}"></script>
-    <script src="{% static 'admin/jquery.ui.datepicker.jalali/jquery.ui.datepicker-cc-fa.min.js' %}"></script>
-    <script src="{% static 'js/persian-date.min.js' %}"></script>
-    <script src="{% static 'js/persian-datepicker.min.js' %}"></script>
-
-    <script>
-        $(document).ready(function () {
-            $(".jalali-datepicker").persianDatepicker({
-                format: 'YYYY/MM/DD',
-                autoClose: true,
-                initialValueType: 'gregorian',
-                calendarType: 'persian',
-                navigator: {
-                    scroll: false,
-                    enabled: true
-                }
-            });
-        });
-    </script>
+    {{ form.media }}
     <script src="{% url 'js-catalog' %}"></script>
 {% endblock %}
