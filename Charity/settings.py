@@ -212,18 +212,11 @@ JALALI_DATE_DEFAULTS = {
     'Strftime': '%Y/%m/%d',
     'Static': {
         'js': [
-            'admin/js/django_jquery.js',
-            'jalali_date/js/persian-datepicker.min.js',
-            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.core.js',
-            # 'admin/jquery.ui.datepicker.jalali/scripts/calendar.js',
-            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.datepicker-cc.js',
-            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.datepicker-cc-fa.js',
-            # 'admin/js/main.js',
+            'js/django_jalali.js',
         ],
         'css': {
             'all': [
-                'jalali_date/css/persian-datepicker.min.css'
-                # 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css',
+                'css/django_jalali.min.css',
             ]
         }
     },
@@ -232,5 +225,9 @@ JALALI_DATE_DEFAULTS = {
 LANGUAGE_CODE = 'en'
 
 import locale
-#locale.setlocale(locale.LC_ALL, "Persian_Iran.UTF-8")
-locale.setlocale(locale.LC_ALL, "fa_IR.utf8")
+import sys
+
+if sys.platform.startswith('win32'):
+    locale.setlocale(locale.LC_ALL, "Persian_Iran.UTF-8")
+else:
+    locale.setlocale(locale.LC_ALL, "fa_IR.UTF-8")

@@ -15,7 +15,7 @@ class Volunteer(models.Model) :
     first_name = models.CharField(verbose_name=_("نام"), max_length=100)
     last_name = models.CharField(verbose_name=_("نام خانوادگی"), max_length=100)
     email = models.EmailField(verbose_name=_("ایمیل"), unique=True)    
-    birth = jmodels.jDateField(verbose_name=_("تاریخ تولد"))
+    birth = models.DateField(verbose_name=_("تاریخ تولد"))
     nc = models.CharField(verbose_name=_("کدملی"), max_length=10, unique=True)
     major = models.CharField(verbose_name=_("رشته تحصیلی"), max_length=100, null=True, blank=True)
     city = models.CharField(verbose_name=_("شهر محل سکونت"), max_length=100, null=True, blank=True)
